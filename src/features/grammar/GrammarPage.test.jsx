@@ -38,4 +38,29 @@ describe('Grammar learning', () => {
 
     expect(screen.getAllByRole('link', { name: /^Study / })).toHaveLength(12)
   })
+
+  it('shows Grammar details, examples, and related links', () => {
+    renderRoute('/learn/grammar/n5-grammar-012')
+
+    expect(screen.getByRole('heading', { name: '～たいです', level: 1 })).toBeVisible()
+    expect(screen.getByText('Verb stem')).toBeVisible()
+    expect(screen.getByText('ingin melakukan sesuatu')).toBeVisible()
+    expect(screen.getByText('寿司を食べたいです。')).toBeVisible()
+    expect(screen.getByText('すしをたべたいです。')).toBeVisible()
+    expect(screen.getByText('Saya ingin makan sushi.')).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Open grammar ～を' })).toHaveAttribute(
+      'href',
+      '/learn/grammar/n5-grammar-006',
+    )
+  })
+
+  it('shows safe recovery for an invalid Grammar ID', () => {
+    renderRoute('/learn/grammar/not-real')
+
+    expect(screen.getByRole('heading', { name: 'Pola grammar tidak ditemukan' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Kembali ke Grammar' })).toHaveAttribute(
+      'href',
+      '/learn/grammar',
+    )
+  })
 })
