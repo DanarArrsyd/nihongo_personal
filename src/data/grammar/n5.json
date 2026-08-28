@@ -1,0 +1,158 @@
+[
+  {
+    "id": "n5-grammar-001",
+    "pattern": "～です",
+    "meaning": "adalah; menyatakan identitas atau keadaan dengan sopan",
+    "jlpt": "N5",
+    "structure": "Noun + です",
+    "explanation": "Tambahkan です setelah nomina untuk menyatakan identitas atau keadaan dengan sopan.",
+    "examples": [
+      { "japanese": "私は学生です。", "reading": "わたしはがくせいです。", "meaning": "Saya seorang pelajar." },
+      { "japanese": "今日は月曜日です。", "reading": "きょうはげつようびです。", "meaning": "Hari ini hari Senin." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-002", "n5-grammar-003"]
+  },
+  {
+    "id": "n5-grammar-002",
+    "pattern": "～ではありません",
+    "meaning": "bukan; bentuk negatif sopan",
+    "jlpt": "N5",
+    "structure": "Noun + ではありません",
+    "explanation": "Tambahkan ではありません setelah nomina untuk menyangkal identitas atau keadaan dengan sopan.",
+    "examples": [
+      { "japanese": "私は先生ではありません。", "reading": "わたしはせんせいではありません。", "meaning": "Saya bukan guru." },
+      { "japanese": "これは本ではありません。", "reading": "これはほんではありません。", "meaning": "Ini bukan buku." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-001", "n5-grammar-003"]
+  },
+  {
+    "id": "n5-grammar-003",
+    "pattern": "～は",
+    "meaning": "menandai topik kalimat",
+    "jlpt": "N5",
+    "structure": "Topic + は + Comment",
+    "explanation": "は menandai hal yang sedang dibicarakan dan dibaca わ ketika berfungsi sebagai partikel.",
+    "examples": [
+      { "japanese": "私はインドネシア人です。", "reading": "わたしはインドネシアじんです。", "meaning": "Saya orang Indonesia." },
+      { "japanese": "この本は面白いです。", "reading": "このほんはおもしろいです。", "meaning": "Buku ini menarik." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-001", "n5-grammar-004"]
+  },
+  {
+    "id": "n5-grammar-004",
+    "pattern": "～も",
+    "meaning": "juga; pun",
+    "jlpt": "N5",
+    "structure": "Noun + も",
+    "explanation": "も menggantikan は untuk menunjukkan bahwa informasi yang sama berlaku pada nomina lain.",
+    "examples": [
+      { "japanese": "私も学生です。", "reading": "わたしもがくせいです。", "meaning": "Saya juga seorang pelajar." },
+      { "japanese": "田中さんも日本人です。", "reading": "たなかさんもにほんじんです。", "meaning": "Tanaka juga orang Jepang." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-003"]
+  },
+  {
+    "id": "n5-grammar-005",
+    "pattern": "～の",
+    "meaning": "menyatakan kepemilikan atau hubungan antar nomina",
+    "jlpt": "N5",
+    "structure": "Noun + の + Noun",
+    "explanation": "の menghubungkan dua nomina; nomina pertama menerangkan kepemilikan atau jenis nomina kedua.",
+    "examples": [
+      { "japanese": "これは私の本です。", "reading": "これはわたしのほんです。", "meaning": "Ini buku saya." },
+      { "japanese": "田中さんは日本語の先生です。", "reading": "たなかさんはにほんごのせんせいです。", "meaning": "Tanaka adalah guru bahasa Jepang." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-001", "n5-grammar-003"]
+  },
+  {
+    "id": "n5-grammar-006",
+    "pattern": "～を",
+    "meaning": "menandai objek langsung",
+    "jlpt": "N5",
+    "structure": "Noun + を + Verb",
+    "explanation": "を menandai benda yang langsung dikenai tindakan dan dibaca お sebagai partikel.",
+    "examples": [
+      { "japanese": "毎朝パンを食べます。", "reading": "まいあさぱんをたべます。", "meaning": "Saya makan roti setiap pagi." },
+      { "japanese": "日本語を勉強します。", "reading": "にほんごをべんきょうします。", "meaning": "Saya belajar bahasa Jepang." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-008", "n5-grammar-012"]
+  },
+  {
+    "id": "n5-grammar-007",
+    "pattern": "～に",
+    "meaning": "menandai waktu terjadinya kegiatan",
+    "jlpt": "N5",
+    "structure": "Time + に + Verb",
+    "explanation": "に ditempatkan setelah waktu tertentu untuk menunjukkan kapan kegiatan berlangsung.",
+    "examples": [
+      { "japanese": "七時に起きます。", "reading": "しちじにおきます。", "meaning": "Saya bangun pukul tujuh." },
+      { "japanese": "日曜日に勉強します。", "reading": "にちようびにべんきょうします。", "meaning": "Saya belajar pada hari Minggu." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-008", "n5-grammar-009"]
+  },
+  {
+    "id": "n5-grammar-008",
+    "pattern": "～で",
+    "meaning": "menandai tempat berlangsungnya kegiatan",
+    "jlpt": "N5",
+    "structure": "Place + で + Action",
+    "explanation": "で menandai tempat suatu tindakan atau kegiatan dilakukan.",
+    "examples": [
+      { "japanese": "図書館で勉強します。", "reading": "としょかんでべんきょうします。", "meaning": "Saya belajar di perpustakaan." },
+      { "japanese": "家でご飯を食べます。", "reading": "いえでごはんをたべます。", "meaning": "Saya makan di rumah." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-006", "n5-grammar-007"]
+  },
+  {
+    "id": "n5-grammar-009",
+    "pattern": "～へ",
+    "meaning": "menandai arah tujuan",
+    "jlpt": "N5",
+    "structure": "Place + へ + Movement verb",
+    "explanation": "へ menandai arah gerakan dan dibaca え ketika berfungsi sebagai partikel.",
+    "examples": [
+      { "japanese": "日本へ行きます。", "reading": "にほんへいきます。", "meaning": "Saya pergi ke Jepang." },
+      { "japanese": "学校へ来ます。", "reading": "がっこうへきます。", "meaning": "Saya datang ke sekolah." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-007", "n5-grammar-012"]
+  },
+  {
+    "id": "n5-grammar-010",
+    "pattern": "～と",
+    "meaning": "bersama; dengan seseorang",
+    "jlpt": "N5",
+    "structure": "Person + と + Action",
+    "explanation": "と menandai orang yang melakukan suatu tindakan bersama subjek.",
+    "examples": [
+      { "japanese": "友達と話します。", "reading": "ともだちとはなします。", "meaning": "Saya berbicara dengan teman." },
+      { "japanese": "家族と日本へ行きます。", "reading": "かぞくとにほんへいきます。", "meaning": "Saya pergi ke Jepang bersama keluarga." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-009"]
+  },
+  {
+    "id": "n5-grammar-011",
+    "pattern": "～があります／います",
+    "meaning": "menyatakan keberadaan benda atau makhluk hidup",
+    "jlpt": "N5",
+    "structure": "Place + に + Noun + が + あります／います",
+    "explanation": "Gunakan あります untuk benda mati dan います untuk manusia atau hewan.",
+    "examples": [
+      { "japanese": "机の上に本があります。", "reading": "つくえのうえにほんがあります。", "meaning": "Ada buku di atas meja." },
+      { "japanese": "教室に先生がいます。", "reading": "きょうしつにせんせいがいます。", "meaning": "Ada guru di ruang kelas." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-005", "n5-grammar-007"]
+  },
+  {
+    "id": "n5-grammar-012",
+    "pattern": "～たいです",
+    "meaning": "ingin melakukan sesuatu",
+    "jlpt": "N5",
+    "structure": "Verb stem + たいです",
+    "explanation": "Ganti ます pada bentuk sopan dengan たいです untuk menyatakan keinginan pembicara.",
+    "examples": [
+      { "japanese": "寿司を食べたいです。", "reading": "すしをたべたいです。", "meaning": "Saya ingin makan sushi." },
+      { "japanese": "日本へ行きたいです。", "reading": "にほんへいきたいです。", "meaning": "Saya ingin pergi ke Jepang." }
+    ],
+    "relatedGrammarIds": ["n5-grammar-006", "n5-grammar-009"]
+  }
+]
