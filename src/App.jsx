@@ -1,0 +1,59 @@
+import { Route, Routes } from 'react-router-dom'
+import AppShell from './components/layout/AppShell'
+import DashboardPage from './features/dashboard/DashboardPage'
+import KanaLearningPage, { KanaEntryRedirect } from './features/kana/KanaLearningPage'
+import KanaPracticePage from './features/kana/KanaPracticePage'
+import LearnPage from './features/learn/LearnPage'
+import PracticePage from './features/practice/PracticePage'
+import VocabularyDetailPage from './features/vocabulary/VocabularyDetailPage'
+import VocabularyLayout from './features/vocabulary/VocabularyLayout'
+import VocabularyPage from './features/vocabulary/VocabularyPage'
+import NotFoundPage from './pages/NotFoundPage'
+import PagePlaceholder from './pages/PagePlaceholder'
+
+const pages = [
+  {
+    path: '/review',
+    title: 'Review',
+    japanese: '復習',
+    index: '04',
+    description: 'Previously learned material will return here at the right time.',
+  },
+  {
+    path: '/progress',
+    title: 'Progress',
+    japanese: '進捗',
+    index: '05',
+    description: 'A measured view of consistency, mastery, and study history.',
+  },
+  {
+    path: '/library',
+    title: 'Library',
+    japanese: '資料',
+    index: '06',
+    description: 'Reference material stays organized and easy to revisit.',
+  },
+]
+
+export default function App() {
+  return (
+    <Routes>
+      <Route element={<AppShell />}>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/learn" element={<LearnPage />} />
+        <Route path="/learn/kana/:script" element={<KanaEntryRedirect />} />
+        <Route path="/learn/kana/:script/:groupId" element={<KanaLearningPage />} />
+        <Route path="/learn/vocabulary" element={<VocabularyLayout />}>
+          <Route index element={<VocabularyPage />} />
+          <Route path=":vocabularyId" element={<VocabularyDetailPage />} />
+        </Route>
+        <Route path="/practice" element={<PracticePage />} />
+        <Route path="/practice/kana/:script/:mode" element={<KanaPracticePage />} />
+        {pages.map((page) => (
+          <Route key={page.path} path={page.path} element={<PagePlaceholder {...page} />} />
+        ))}
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
+  )
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "id": "n5-vocab-001",
+    "word": "食べる",
+    "reading": "たべる",
+    "romaji": "taberu",
+    "meaning": "makan",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "私はパンを食べます。", "reading": "わたしはパンをたべます。", "meaning": "Saya makan roti." }]
+  },
+  {
+    "id": "n5-vocab-002",
+    "word": "飲む",
+    "reading": "のむ",
+    "romaji": "nomu",
+    "meaning": "minum",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "水を飲みます。", "reading": "みずをのみます。", "meaning": "Saya minum air." }]
+  },
+  {
+    "id": "n5-vocab-003",
+    "word": "見る",
+    "reading": "みる",
+    "romaji": "miru",
+    "meaning": "melihat",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "テレビを見ます。", "reading": "テレビをみます。", "meaning": "Saya menonton televisi." }]
+  },
+  {
+    "id": "n5-vocab-004",
+    "word": "聞く",
+    "reading": "きく",
+    "romaji": "kiku",
+    "meaning": "mendengar; bertanya",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "音楽を聞きます。", "reading": "おんがくをききます。", "meaning": "Saya mendengarkan musik." }]
+  },
+  {
+    "id": "n5-vocab-005",
+    "word": "読む",
+    "reading": "よむ",
+    "romaji": "yomu",
+    "meaning": "membaca",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "本を読みます。", "reading": "ほんをよみます。", "meaning": "Saya membaca buku." }]
+  },
+  {
+    "id": "n5-vocab-006",
+    "word": "書く",
+    "reading": "かく",
+    "romaji": "kaku",
+    "meaning": "menulis",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "名前を書きます。", "reading": "なまえをかきます。", "meaning": "Saya menulis nama." }]
+  },
+  {
+    "id": "n5-vocab-007",
+    "word": "話す",
+    "reading": "はなす",
+    "romaji": "hanasu",
+    "meaning": "berbicara",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "日本語を話します。", "reading": "にほんごをはなします。", "meaning": "Saya berbicara bahasa Jepang." }]
+  },
+  {
+    "id": "n5-vocab-008",
+    "word": "行く",
+    "reading": "いく",
+    "romaji": "iku",
+    "meaning": "pergi",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "学校へ行きます。", "reading": "がっこうへいきます。", "meaning": "Saya pergi ke sekolah." }]
+  },
+  {
+    "id": "n5-vocab-009",
+    "word": "来る",
+    "reading": "くる",
+    "romaji": "kuru",
+    "meaning": "datang",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "友達が来ます。", "reading": "ともだちがきます。", "meaning": "Teman saya datang." }]
+  },
+  {
+    "id": "n5-vocab-010",
+    "word": "帰る",
+    "reading": "かえる",
+    "romaji": "kaeru",
+    "meaning": "pulang",
+    "type": "verb",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "家へ帰ります。", "reading": "いえへかえります。", "meaning": "Saya pulang ke rumah." }]
+  },
+  {
+    "id": "n5-vocab-011",
+    "word": "学校",
+    "reading": "がっこう",
+    "romaji": "gakkou",
+    "meaning": "sekolah",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "学校で勉強します。", "reading": "がっこうでべんきょうします。", "meaning": "Saya belajar di sekolah." }]
+  },
+  {
+    "id": "n5-vocab-012",
+    "word": "先生",
+    "reading": "せんせい",
+    "romaji": "sensei",
+    "meaning": "guru",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "田中先生です。", "reading": "たなかせんせいです。", "meaning": "Beliau adalah Guru Tanaka." }]
+  },
+  {
+    "id": "n5-vocab-013",
+    "word": "学生",
+    "reading": "がくせい",
+    "romaji": "gakusei",
+    "meaning": "pelajar; mahasiswa",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "私は学生です。", "reading": "わたしはがくせいです。", "meaning": "Saya seorang pelajar." }]
+  },
+  {
+    "id": "n5-vocab-014",
+    "word": "友達",
+    "reading": "ともだち",
+    "romaji": "tomodachi",
+    "meaning": "teman",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "友達と話します。", "reading": "ともだちとはなします。", "meaning": "Saya berbicara dengan teman." }]
+  },
+  {
+    "id": "n5-vocab-015",
+    "word": "家",
+    "reading": "いえ",
+    "romaji": "ie",
+    "meaning": "rumah",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "私の家です。", "reading": "わたしのいえです。", "meaning": "Ini rumah saya." }]
+  },
+  {
+    "id": "n5-vocab-016",
+    "word": "本",
+    "reading": "ほん",
+    "romaji": "hon",
+    "meaning": "buku",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "この本を読みます。", "reading": "このほんをよみます。", "meaning": "Saya membaca buku ini." }]
+  },
+  {
+    "id": "n5-vocab-017",
+    "word": "水",
+    "reading": "みず",
+    "romaji": "mizu",
+    "meaning": "air",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "水をください。", "reading": "みずをください。", "meaning": "Tolong beri saya air." }]
+  },
+  {
+    "id": "n5-vocab-018",
+    "word": "ご飯",
+    "reading": "ごはん",
+    "romaji": "gohan",
+    "meaning": "nasi; makanan",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "ご飯を食べます。", "reading": "ごはんをたべます。", "meaning": "Saya makan nasi." }]
+  },
+  {
+    "id": "n5-vocab-019",
+    "word": "今日",
+    "reading": "きょう",
+    "romaji": "kyou",
+    "meaning": "hari ini",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "今日は月曜日です。", "reading": "きょうはげつようびです。", "meaning": "Hari ini hari Senin." }]
+  },
+  {
+    "id": "n5-vocab-020",
+    "word": "明日",
+    "reading": "あした",
+    "romaji": "ashita",
+    "meaning": "besok",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "明日、学校へ行きます。", "reading": "あした、がっこうへいきます。", "meaning": "Besok saya pergi ke sekolah." }]
+  },
+  {
+    "id": "n5-vocab-021",
+    "word": "昨日",
+    "reading": "きのう",
+    "romaji": "kinou",
+    "meaning": "kemarin",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "昨日、本を読みました。", "reading": "きのう、ほんをよみました。", "meaning": "Kemarin saya membaca buku." }]
+  },
+  {
+    "id": "n5-vocab-022",
+    "word": "朝",
+    "reading": "あさ",
+    "romaji": "asa",
+    "meaning": "pagi",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "朝、水を飲みます。", "reading": "あさ、みずをのみます。", "meaning": "Pagi hari saya minum air." }]
+  },
+  {
+    "id": "n5-vocab-023",
+    "word": "昼",
+    "reading": "ひる",
+    "romaji": "hiru",
+    "meaning": "siang",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "昼にご飯を食べます。", "reading": "ひるにごはんをたべます。", "meaning": "Saya makan pada siang hari." }]
+  },
+  {
+    "id": "n5-vocab-024",
+    "word": "夜",
+    "reading": "よる",
+    "romaji": "yoru",
+    "meaning": "malam",
+    "type": "noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "夜に本を読みます。", "reading": "よるにほんをよみます。", "meaning": "Saya membaca buku pada malam hari." }]
+  },
+  {
+    "id": "n5-vocab-025",
+    "word": "大きい",
+    "reading": "おおきい",
+    "romaji": "ookii",
+    "meaning": "besar",
+    "type": "adjective",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "大きい犬です。", "reading": "おおきいいぬです。", "meaning": "Itu anjing besar." }]
+  },
+  {
+    "id": "n5-vocab-026",
+    "word": "小さい",
+    "reading": "ちいさい",
+    "romaji": "chiisai",
+    "meaning": "kecil",
+    "type": "adjective",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "小さい猫です。", "reading": "ちいさいねこです。", "meaning": "Itu kucing kecil." }]
+  },
+  {
+    "id": "n5-vocab-027",
+    "word": "新しい",
+    "reading": "あたらしい",
+    "romaji": "atarashii",
+    "meaning": "baru",
+    "type": "adjective",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "新しい本です。", "reading": "あたらしいほんです。", "meaning": "Ini buku baru." }]
+  },
+  {
+    "id": "n5-vocab-028",
+    "word": "古い",
+    "reading": "ふるい",
+    "romaji": "furui",
+    "meaning": "lama; tua",
+    "type": "adjective",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "古い家です。", "reading": "ふるいいえです。", "meaning": "Itu rumah lama." }]
+  },
+  {
+    "id": "n5-vocab-029",
+    "word": "好き",
+    "reading": "すき",
+    "romaji": "suki",
+    "meaning": "suka",
+    "type": "adjectival noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "日本語が好きです。", "reading": "にほんごがすきです。", "meaning": "Saya suka bahasa Jepang." }]
+  },
+  {
+    "id": "n5-vocab-030",
+    "word": "元気",
+    "reading": "げんき",
+    "romaji": "genki",
+    "meaning": "sehat; bersemangat",
+    "type": "adjectival noun",
+    "jlpt": "N5",
+    "examples": [{ "japanese": "私は元気です。", "reading": "わたしはげんきです。", "meaning": "Saya baik-baik saja." }]
+  }
+]
