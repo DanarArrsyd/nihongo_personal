@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import AppShell from './components/layout/AppShell'
 import DashboardPage from './features/dashboard/DashboardPage'
+import GrammarPage from './features/grammar/GrammarPage'
 import KanaLearningPage, { KanaEntryRedirect } from './features/kana/KanaLearningPage'
 import KanaPracticePage from './features/kana/KanaPracticePage'
 import KanjiDetailPage from './features/kanji/KanjiDetailPage'
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/learn/kana/:script/:groupId" element={<KanaLearningPage />} />
         <Route path="/learn/kanji" element={<KanjiPage />} />
         <Route path="/learn/kanji/:kanjiId" element={<KanjiDetailPage />} />
+        <Route path="/learn/grammar" element={<GrammarPage />} />
         <Route path="/learn/vocabulary" element={<VocabularyLayout />}>
           <Route index element={<VocabularyPage />} />
           <Route path=":vocabularyId" element={<VocabularyDetailPage />} />

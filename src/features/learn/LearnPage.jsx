@@ -39,6 +39,15 @@ const learningModules = [
     icon: Grid3X3,
     tone: 'bg-accent-soft text-accent',
   },
+  {
+    id: 'grammar',
+    name: 'Grammar',
+    japanese: '文法',
+    description: 'Study 12 beginner sentence patterns through clear structures and examples.',
+    to: '/learn/grammar',
+    icon: BookOpenText,
+    tone: 'bg-matcha-soft text-matcha',
+  },
 ]
 
 export default function LearnPage() {
