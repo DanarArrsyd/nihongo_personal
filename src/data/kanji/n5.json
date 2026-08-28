@@ -1,0 +1,202 @@
+[
+  {
+    "id": "n5-kanji-001",
+    "kanji": "食",
+    "meaning": ["makan", "makanan"],
+    "onyomi": ["ショク"],
+    "kunyomi": ["た.べる"],
+    "jlpt": "N5",
+    "strokes": 9,
+    "relatedVocabularyIds": ["n5-vocab-001", "n5-vocab-018"]
+  },
+  {
+    "id": "n5-kanji-002",
+    "kanji": "飲",
+    "meaning": ["minum"],
+    "onyomi": ["イン"],
+    "kunyomi": ["の.む"],
+    "jlpt": "N5",
+    "strokes": 12,
+    "relatedVocabularyIds": ["n5-vocab-002"]
+  },
+  {
+    "id": "n5-kanji-003",
+    "kanji": "見",
+    "meaning": ["melihat", "terlihat"],
+    "onyomi": ["ケン"],
+    "kunyomi": ["み.る", "み.える", "み.せる"],
+    "jlpt": "N5",
+    "strokes": 7,
+    "relatedVocabularyIds": ["n5-vocab-003"]
+  },
+  {
+    "id": "n5-kanji-004",
+    "kanji": "聞",
+    "meaning": ["mendengar", "bertanya"],
+    "onyomi": ["ブン", "モン"],
+    "kunyomi": ["き.く", "き.こえる"],
+    "jlpt": "N5",
+    "strokes": 14,
+    "relatedVocabularyIds": ["n5-vocab-004"]
+  },
+  {
+    "id": "n5-kanji-005",
+    "kanji": "読",
+    "meaning": ["membaca"],
+    "onyomi": ["ドク", "トク", "トウ"],
+    "kunyomi": ["よ.む"],
+    "jlpt": "N5",
+    "strokes": 14,
+    "relatedVocabularyIds": ["n5-vocab-005"]
+  },
+  {
+    "id": "n5-kanji-006",
+    "kanji": "書",
+    "meaning": ["menulis", "tulisan"],
+    "onyomi": ["ショ"],
+    "kunyomi": ["か.く"],
+    "jlpt": "N5",
+    "strokes": 10,
+    "relatedVocabularyIds": ["n5-vocab-006"]
+  },
+  {
+    "id": "n5-kanji-007",
+    "kanji": "話",
+    "meaning": ["berbicara", "cerita"],
+    "onyomi": ["ワ"],
+    "kunyomi": ["はな.す", "はなし"],
+    "jlpt": "N5",
+    "strokes": 13,
+    "relatedVocabularyIds": ["n5-vocab-007", "n5-vocab-014"]
+  },
+  {
+    "id": "n5-kanji-008",
+    "kanji": "行",
+    "meaning": ["pergi", "melakukan"],
+    "onyomi": ["コウ", "ギョウ", "アン"],
+    "kunyomi": ["い.く", "ゆ.く", "おこな.う"],
+    "jlpt": "N5",
+    "strokes": 6,
+    "relatedVocabularyIds": ["n5-vocab-008"]
+  },
+  {
+    "id": "n5-kanji-009",
+    "kanji": "来",
+    "meaning": ["datang"],
+    "onyomi": ["ライ"],
+    "kunyomi": ["く.る", "きた.る", "きた.す"],
+    "jlpt": "N5",
+    "strokes": 7,
+    "relatedVocabularyIds": ["n5-vocab-009"]
+  },
+  {
+    "id": "n5-kanji-010",
+    "kanji": "帰",
+    "meaning": ["pulang", "mengembalikan"],
+    "onyomi": ["キ"],
+    "kunyomi": ["かえ.る", "かえ.す"],
+    "jlpt": "N5",
+    "strokes": 10,
+    "relatedVocabularyIds": ["n5-vocab-010"]
+  },
+  {
+    "id": "n5-kanji-011",
+    "kanji": "学",
+    "meaning": ["belajar", "ilmu"],
+    "onyomi": ["ガク"],
+    "kunyomi": ["まな.ぶ"],
+    "jlpt": "N5",
+    "strokes": 8,
+    "relatedVocabularyIds": ["n5-vocab-011", "n5-vocab-013"]
+  },
+  {
+    "id": "n5-kanji-012",
+    "kanji": "校",
+    "meaning": ["sekolah"],
+    "onyomi": ["コウ"],
+    "kunyomi": [],
+    "jlpt": "N5",
+    "strokes": 10,
+    "relatedVocabularyIds": ["n5-vocab-011"]
+  },
+  {
+    "id": "n5-kanji-013",
+    "kanji": "先",
+    "meaning": ["sebelum", "terdahulu"],
+    "onyomi": ["セン"],
+    "kunyomi": ["さき"],
+    "jlpt": "N5",
+    "strokes": 6,
+    "relatedVocabularyIds": ["n5-vocab-012"]
+  },
+  {
+    "id": "n5-kanji-014",
+    "kanji": "生",
+    "meaning": ["hidup", "lahir"],
+    "onyomi": ["セイ", "ショウ"],
+    "kunyomi": ["い.きる", "う.まれる", "なま"],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": ["n5-vocab-012", "n5-vocab-013"]
+  },
+  {
+    "id": "n5-kanji-015",
+    "kanji": "友",
+    "meaning": ["teman"],
+    "onyomi": ["ユウ"],
+    "kunyomi": ["とも"],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": ["n5-vocab-014"]
+  },
+  {
+    "id": "n5-kanji-016",
+    "kanji": "家",
+    "meaning": ["rumah", "keluarga"],
+    "onyomi": ["カ", "ケ"],
+    "kunyomi": ["いえ", "や", "うち"],
+    "jlpt": "N5",
+    "strokes": 10,
+    "relatedVocabularyIds": ["n5-vocab-015"]
+  },
+  {
+    "id": "n5-kanji-017",
+    "kanji": "本",
+    "meaning": ["buku", "asal"],
+    "onyomi": ["ホン"],
+    "kunyomi": ["もと"],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": ["n5-vocab-016"]
+  },
+  {
+    "id": "n5-kanji-018",
+    "kanji": "水",
+    "meaning": ["air"],
+    "onyomi": ["スイ"],
+    "kunyomi": ["みず"],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": ["n5-vocab-017"]
+  },
+  {
+    "id": "n5-kanji-019",
+    "kanji": "今",
+    "meaning": ["sekarang"],
+    "onyomi": ["コン", "キン"],
+    "kunyomi": ["いま"],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": ["n5-vocab-019"]
+  },
+  {
+    "id": "n5-kanji-020",
+    "kanji": "日",
+    "meaning": ["hari", "matahari"],
+    "onyomi": ["ニチ", "ジツ"],
+    "kunyomi": ["ひ", "か"],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": ["n5-vocab-019", "n5-vocab-020", "n5-vocab-021"]
+  }
+]
