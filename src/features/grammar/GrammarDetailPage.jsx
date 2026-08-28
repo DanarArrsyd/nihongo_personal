@@ -42,7 +42,7 @@ export default function GrammarDetailPage() {
       </Link>
 
       <div className="mt-7 grid gap-6 lg:grid-cols-[minmax(0,1fr)_19rem]">
-        <main className="space-y-6">
+        <div className="space-y-6">
           <Card className="p-6 sm:p-8">
             <Badge variant="accent">{item.jlpt} curated seed</Badge>
             <h1 lang="ja" className="font-japanese mt-5 text-5xl font-semibold tracking-[-0.04em] text-ink sm:text-6xl">
@@ -81,7 +81,7 @@ export default function GrammarDetailPage() {
               ))}
             </ol>
           </Card>
-        </main>
+        </div>
 
         <aside>
           <Card className="lg:sticky lg:top-6">
