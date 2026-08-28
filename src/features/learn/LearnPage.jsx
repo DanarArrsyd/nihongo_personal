@@ -94,7 +94,7 @@ export default function LearnPage() {
         ))}
       </section>
 
-      <section className="mt-5 grid gap-5 xl:grid-cols-2" aria-label="Word and character study">
+      <section className="mt-5 grid gap-5 xl:grid-cols-2" aria-label="Vocabulary, Kanji, and Grammar study">
         {learningModules.map((module) => {
           const Icon = module.icon
 

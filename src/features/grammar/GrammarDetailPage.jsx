@@ -73,8 +73,12 @@ export default function GrammarDetailPage() {
                   <p lang="ja" className="font-japanese text-xl font-medium leading-relaxed text-ink">
                     {example.japanese}
                   </p>
-                  <p lang="ja" className="font-japanese mt-2 text-sm leading-7 text-ink-muted">
-                    {example.reading}
+                  <p
+                    lang={example.reading ? 'ja' : undefined}
+                    aria-label={example.reading ? undefined : 'Bacaan tidak tersedia'}
+                    className="font-japanese mt-2 text-sm leading-7 text-ink-muted"
+                  >
+                    {example.reading || '—'}
                   </p>
                   <p className="mt-2 text-sm font-medium leading-6 text-ink">{example.meaning}</p>
                 </li>

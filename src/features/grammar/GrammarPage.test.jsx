@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../../App'
+import RelatedGrammar from './components/RelatedGrammar'
 
 function renderRoute(path) {
   return render(
@@ -72,5 +73,16 @@ describe('Grammar learning', () => {
       'href',
       '/learn/grammar',
     )
+  })
+
+  it('explains when a pattern has no related Grammar entries', () => {
+    render(
+      <MemoryRouter>
+        <RelatedGrammar items={[]} />
+      </MemoryRouter>,
+    )
+
+    expect(screen.getByText('Belum ada pola terkait dalam kurikulum ini.')).toBeVisible()
+    expect(screen.queryByRole('link', { name: /^Open grammar / })).not.toBeInTheDocument()
   })
 })
