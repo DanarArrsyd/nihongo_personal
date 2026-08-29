@@ -57,7 +57,7 @@ export default function QuizResults({ onRestart, state }) {
         </h1>
         <div className="mt-6 flex flex-wrap items-end gap-x-8 gap-y-3">
           <p className="text-2xl font-semibold text-ink">{score} dari {state.questions.length}</p>
-          <p className="text-lg font-semibold text-matcha">{percentage}%</p>
+          <p className="text-lg font-semibold text-ink">{percentage}%</p>
         </div>
         <Button type="button" className="mt-7" onClick={onRestart}>
           <RotateCcw aria-hidden="true" size={17} />
@@ -81,11 +81,14 @@ export default function QuizResults({ onRestart, state }) {
                     <span className="text-accent">{moduleLabels[question.source.module]}</span>
                   </div>
                   <span
-                    className={`inline-flex items-center gap-1.5 text-sm font-semibold ${
-                      response.result ? 'text-matcha' : 'text-accent'
-                    }`}
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink"
                   >
-                    <ResultIcon aria-hidden="true" size={17} strokeWidth={2} />
+                    <ResultIcon
+                      aria-hidden="true"
+                      className={response.result ? 'text-matcha' : 'text-accent'}
+                      size={17}
+                      strokeWidth={2}
+                    />
                     {response.result ? 'Benar' : 'Belum tepat'}
                   </span>
                 </div>

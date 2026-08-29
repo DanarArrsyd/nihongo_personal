@@ -101,7 +101,10 @@ describe('QuizSession', () => {
 
     answerFirstQuestion()
 
-    expect(screen.getByRole('status')).toHaveTextContent('Benar')
+    const feedback = screen.getByRole('status')
+    expect(feedback).toHaveTextContent('Benar')
+    expect(feedback).toHaveClass('text-ink')
+    expect(feedback.querySelector('svg')).toHaveClass('text-matcha')
     expect(screen.getByRole('button', { name: 'makan' })).toBeDisabled()
     expect(screen.getByRole('button', { name: 'minum' })).toBeDisabled()
     expect(next).toBeEnabled()
@@ -145,7 +148,10 @@ describe('QuizSession', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Salah' }))
 
-    expect(screen.getByRole('status')).toHaveTextContent('Belum tepat. Jawaban benar: Benar')
+    const feedback = screen.getByRole('status')
+    expect(feedback).toHaveTextContent('Belum tepat. Jawaban benar: Benar')
+    expect(feedback).toHaveClass('text-ink')
+    expect(feedback.querySelector('svg')).toHaveClass('text-accent')
     expect(screen.getByRole('button', { name: 'Soal 2, saat ini' }))
       .toHaveAttribute('aria-current', 'step')
     fireEvent.click(screen.getByRole('button', { name: 'Soal berikutnya' }))
@@ -160,7 +166,7 @@ describe('QuizSession', () => {
 
     expect(screen.getByRole('heading', { name: 'Hasil quiz', level: 1 })).toBeVisible()
     expect(screen.getByText('1 dari 2')).toBeVisible()
-    expect(screen.getByText('50%')).toBeVisible()
+    expect(screen.getByText('50%')).toHaveClass('text-ink')
 
     const reviews = screen.getAllByRole('listitem')
     expect(reviews).toHaveLength(2)
@@ -168,11 +174,15 @@ describe('QuizSession', () => {
     expect(within(reviews[0]).getByText('食べる')).toHaveAttribute('lang', 'ja')
     expect(within(reviews[0]).getByText('Jawaban Anda: makan')).toBeVisible()
     expect(within(reviews[0]).getByText('Jawaban benar: makan')).toBeVisible()
-    expect(within(reviews[0]).getByText('Benar')).toBeVisible()
+    const correctStatus = within(reviews[0]).getByText('Benar')
+    expect(correctStatus).toHaveClass('text-ink')
+    expect(correctStatus.querySelector('svg')).toHaveClass('text-matcha')
     expect(within(reviews[1]).getByText('Kanji')).toBeVisible()
     expect(within(reviews[1]).getByText('Jawaban Anda: Salah')).toBeVisible()
     expect(within(reviews[1]).getByText('Jawaban benar: Benar')).toBeVisible()
-    expect(within(reviews[1]).getByText('Belum tepat')).toBeVisible()
+    const incorrectStatus = within(reviews[1]).getByText('Belum tepat')
+    expect(incorrectStatus).toHaveClass('text-ink')
+    expect(incorrectStatus.querySelector('svg')).toHaveClass('text-accent')
   })
 
   it('marks Japanese answers in feedback and results with Japanese language semantics', () => {

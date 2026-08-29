@@ -9,13 +9,18 @@ export default function AnswerFeedback({ question, response }) {
   return (
     <div
       role="status"
-      className={`mt-6 flex items-start gap-3 rounded-xl border px-4 py-3 text-sm font-semibold ${
+      className={`mt-6 flex items-start gap-3 rounded-xl border px-4 py-3 text-sm font-semibold text-ink ${
         response.result
-          ? 'border-matcha/30 bg-matcha-soft text-matcha'
-          : 'border-accent/25 bg-accent-soft text-accent'
+          ? 'border-matcha/30 bg-matcha-soft'
+          : 'border-accent/25 bg-accent-soft'
       }`}
     >
-      <Icon aria-hidden="true" className="mt-0.5 shrink-0" size={18} strokeWidth={2} />
+      <Icon
+        aria-hidden="true"
+        className={`mt-0.5 shrink-0 ${response.result ? 'text-matcha' : 'text-accent'}`}
+        size={18}
+        strokeWidth={2}
+      />
       <span>
         {response.result ? (
           'Benar'
