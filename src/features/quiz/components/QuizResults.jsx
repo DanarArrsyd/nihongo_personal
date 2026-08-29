@@ -1,17 +1,13 @@
 import { CheckCircle, RotateCcw, XCircle } from 'lucide-react'
 import Button from '../../../components/ui/Button'
 import { getQuizScore } from '../services/quizSession'
+import QuizAnswer from './QuizAnswer'
 
 const moduleLabels = {
   kana: 'Kana',
   vocabulary: 'Vocabulary',
   kanji: 'Kanji',
   grammar: 'Grammar',
-}
-
-function formatQuizAnswer(value) {
-  if (typeof value === 'boolean') return value ? 'Benar' : 'Salah'
-  return String(value)
 }
 
 function QuestionPrompt({ question }) {
@@ -97,10 +93,10 @@ export default function QuizResults({ onRestart, state }) {
                 <QuestionPrompt question={question} />
                 <div className="mt-5 grid gap-2 text-sm sm:grid-cols-2">
                   <p className="rounded-lg bg-paper-deep px-3 py-2 text-ink">
-                    Jawaban Anda: {formatQuizAnswer(response.userAnswer)}
+                    Jawaban Anda: <QuizAnswer question={question} value={response.userAnswer} />
                   </p>
                   <p className="rounded-lg bg-paper-deep px-3 py-2 text-ink">
-                    Jawaban benar: {formatQuizAnswer(response.correctAnswer)}
+                    Jawaban benar: <QuizAnswer question={question} value={response.correctAnswer} />
                   </p>
                 </div>
               </li>

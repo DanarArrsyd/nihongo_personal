@@ -66,7 +66,7 @@ export default function QuizSession({ questions, onRestart, now }) {
             disabled={Boolean(response)}
             onAnswer={answerQuestion}
           />
-          <AnswerFeedback response={response} />
+          <AnswerFeedback question={question} response={response} />
 
           <div className="mt-8 flex flex-col-reverse gap-3 border-t border-border pt-5 sm:flex-row sm:justify-between">
             <Button

@@ -42,6 +42,29 @@ const thirdQuestion = {
   ],
 }
 
+const japaneseAnswerQuestions = [
+  {
+    id: 'kana-reverse',
+    type: 'reverse_multiple_choice',
+    source: { module: 'kana', itemId: 'hiragana:a' },
+    instruction: 'Pilih kana yang tepat.',
+    content: { kind: 'text', text: 'a' },
+    answer: { value: 'あ', acceptedValues: ['あ'] },
+    options: [
+      { value: 'あ', label: 'あ', lang: 'ja' },
+      { value: 'い', label: 'い', lang: 'ja' },
+    ],
+  },
+  {
+    id: 'vocabulary-reading',
+    type: 'typing',
+    source: { module: 'vocabulary', itemId: 'n5-vocab-002' },
+    instruction: 'Ketik bacaan yang tepat.',
+    content: { kind: 'text', text: '飲む', lang: 'ja' },
+    answer: { value: 'のむ', acceptedValues: ['のむ', 'nomu'] },
+  },
+]
+
 function renderSession(props = {}) {
   return render(
     <MemoryRouter>
@@ -150,6 +173,29 @@ describe('QuizSession', () => {
     expect(within(reviews[1]).getByText('Jawaban Anda: Salah')).toBeVisible()
     expect(within(reviews[1]).getByText('Jawaban benar: Benar')).toBeVisible()
     expect(within(reviews[1]).getByText('Belum tepat')).toBeVisible()
+  })
+
+  it('marks Japanese answers in feedback and results with Japanese language semantics', () => {
+    renderSession({ questions: japaneseAnswerQuestions })
+
+    fireEvent.click(screen.getByRole('button', { name: 'い' }))
+
+    const feedback = screen.getByRole('status')
+    expect(within(feedback).getByText('あ')).toHaveAttribute('lang', 'ja')
+    expect(within(feedback).getByText('あ')).toHaveClass('font-japanese')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Soal berikutnya' }))
+    fireEvent.change(screen.getByRole('textbox', { name: 'Jawaban' }), {
+      target: { value: 'nomu' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Kirim jawaban' }))
+
+    const reviews = screen.getAllByRole('listitem')
+    expect(within(reviews[0]).getByText('い')).toHaveAttribute('lang', 'ja')
+    expect(within(reviews[0]).getByText('あ')).toHaveAttribute('lang', 'ja')
+    expect(within(reviews[1]).getByText('のむ')).toHaveAttribute('lang', 'ja')
+    expect(within(reviews[1]).getByText('のむ')).toHaveClass('font-japanese')
+    expect(within(reviews[1]).getByText('Jawaban Anda: nomu')).not.toHaveAttribute('lang')
   })
 
   it('calls the restart callback from results', () => {

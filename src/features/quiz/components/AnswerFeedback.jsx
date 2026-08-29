@@ -1,11 +1,7 @@
 import { CheckCircle, XCircle } from 'lucide-react'
+import QuizAnswer from './QuizAnswer'
 
-function formatQuizAnswer(value) {
-  if (typeof value === 'boolean') return value ? 'Benar' : 'Salah'
-  return String(value)
-}
-
-export default function AnswerFeedback({ response }) {
+export default function AnswerFeedback({ question, response }) {
   if (!response) return null
 
   const Icon = response.result ? CheckCircle : XCircle
@@ -21,9 +17,11 @@ export default function AnswerFeedback({ response }) {
     >
       <Icon aria-hidden="true" className="mt-0.5 shrink-0" size={18} strokeWidth={2} />
       <span>
-        {response.result
-          ? 'Benar'
-          : `Belum tepat. Jawaban benar: ${formatQuizAnswer(response.correctAnswer)}`}
+        {response.result ? (
+          'Benar'
+        ) : (
+          <>Belum tepat. Jawaban benar: <QuizAnswer question={question} value={response.correctAnswer} /></>
+        )}
       </span>
     </div>
   )
