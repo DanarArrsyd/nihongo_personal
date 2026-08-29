@@ -201,7 +201,7 @@
     border-radius: 0.75rem;
     background: var(--color-surface);
     padding-inline: 0.75rem;
-    color: var(--color-ink-muted);
+    color: var(--color-ink);
     font-size: 0.875rem;
     font-weight: 600;
     transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
@@ -220,26 +220,33 @@
   .quiz-answer-tab.is-current {
     border-color: var(--color-accent);
     background: var(--color-accent-soft);
-    color: var(--color-accent);
+    color: var(--color-ink);
   }
 
   .quiz-answer-tab.is-correct {
     border-color: var(--color-matcha);
     background: var(--color-matcha-soft);
+    color: var(--color-ink);
+  }
+
+  .quiz-answer-tab.is-correct svg {
     color: var(--color-matcha);
   }
 
   .quiz-answer-tab.is-incorrect {
     border-color: var(--color-accent);
     background: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  .quiz-answer-tab.is-incorrect svg {
     color: var(--color-accent);
   }
 
   .quiz-answer-tab.is-pending:disabled {
     cursor: not-allowed;
     background: var(--color-paper-deep);
-    color: var(--color-ink-muted);
-    opacity: 0.72;
+    color: var(--color-ink);
   }
 
   @media (min-width: 64rem) {
