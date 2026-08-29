@@ -32,6 +32,25 @@ describe('Grammar quiz adapter', () => {
     expect(validateQuestion(question)).toEqual({ valid: true, errors: [] })
   })
 
+  it('does not label a semantically identical displayed meaning false', () => {
+    const sameMeaningItem = {
+      ...otherItem,
+      id: 'same-meaning',
+      meaning: topicItem.meaning,
+    }
+    const question = createGrammarQuestion({
+      item: topicItem,
+      type: 'recognition',
+      truthItem: sameMeaningItem,
+      rng: zeroRng,
+    })
+
+    expect(question).toMatchObject({
+      content: { kind: 'pair', primary: topicItem.pattern, secondary: topicItem.meaning },
+      answer: { value: true, acceptedValues: [true] },
+    })
+  })
+
   it('splits the first real particle occurrence and builds real particle options', () => {
     const question = createGrammarQuestion({
       item: topicItem,

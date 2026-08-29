@@ -14,7 +14,7 @@ function getParticleToken(item) {
 }
 
 function createRecognitionQuestion({ item, truthItem, rng }) {
-  const isTrue = !truthItem || truthItem.id === item.id
+  const isTrue = !truthItem || truthItem.id === item.id || truthItem.meaning === item.meaning
   const secondary = (isTrue ? item : truthItem).meaning
 
   return {

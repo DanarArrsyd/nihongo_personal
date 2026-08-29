@@ -45,6 +45,12 @@ function selectDistractors(items, item, field, rng) {
   return sampleUnique(pool, 3, rng)
 }
 
+function selectFalseTruthItem(items, item, selectMeaning, rng) {
+  return sampleUnique(items.filter((candidate) => (
+    candidate.id !== item.id && selectMeaning(candidate) !== selectMeaning(item)
+  )), 1, rng)[0]
+}
+
 function createVocabularySlots(items, rng) {
   if (!Array.isArray(items)) return []
 
@@ -79,17 +85,33 @@ function createKanjiSlots(items, rng) {
     && item.onyomi[0]
     && Array.isArray(item.kunyomi)
   ))
-  const selectedItems = sampleUnique(validItems, 2, rng)
-  if (selectedItems.length !== 2) return []
+  const [typingItem] = sampleUnique(validItems, 1, rng)
+  const [recognitionItem] = sampleUnique(
+    validItems.filter((item) => item.id !== typingItem?.id),
+    1,
+    rng,
+  )
+  if (!typingItem || !recognitionItem) return []
+
+  const truthItem = selectFalseTruthItem(
+    validItems,
+    recognitionItem,
+    (item) => item.meaning[0],
+    rng,
+  )
+  if (!truthItem) return []
+
+  const recognitionQuestion = createKanjiQuestion({
+    item: recognitionItem,
+    type: 'recognition',
+    truthItem,
+    rng,
+  })
+  if (recognitionQuestion?.answer.value !== false) return []
 
   return [
-    createKanjiQuestion({ item: selectedItems[0], type: 'typing', rng }),
-    createKanjiQuestion({
-      item: selectedItems[1],
-      type: 'recognition',
-      truthItem: selectedItems[0],
-      rng,
-    }),
+    createKanjiQuestion({ item: typingItem, type: 'typing', rng }),
+    recognitionQuestion,
   ]
 }
 
@@ -118,8 +140,16 @@ function createGrammarSlots(items, rng) {
 
   const usedIds = new Set(selectedCompletions.map(({ item }) => item.id))
   const recognitionPool = recognitionItems.filter((item) => !usedIds.has(item.id))
-  const [recognitionItem, truthItem] = sampleUnique(recognitionPool, 2, rng)
-  if (!recognitionItem || !truthItem) return []
+  const [recognitionItem] = sampleUnique(recognitionPool, 1, rng)
+  if (!recognitionItem) return []
+
+  const truthItem = selectFalseTruthItem(
+    recognitionItems,
+    recognitionItem,
+    (item) => item.meaning,
+    rng,
+  )
+  if (!truthItem) return []
 
   const completionQuestions = selectedCompletions.map(({ item }) => {
     const distractors = sampleUnique(
@@ -134,15 +164,15 @@ function createGrammarSlots(items, rng) {
     return createGrammarQuestion({ item, type: 'sentence_completion', distractors, rng })
   })
 
-  return [
-    createGrammarQuestion({
-      item: recognitionItem,
-      type: 'recognition',
-      truthItem,
-      rng,
-    }),
-    ...completionQuestions,
-  ]
+  const recognitionQuestion = createGrammarQuestion({
+    item: recognitionItem,
+    type: 'recognition',
+    truthItem,
+    rng,
+  })
+  if (recognitionQuestion?.answer.value !== false) return []
+
+  return [recognitionQuestion, ...completionQuestions]
 }
 
 function createKanaSlots(kanaSources, rng) {
