@@ -5,6 +5,15 @@ import { createKanaQuiz } from './kanaQuizAdapter.js'
 
 const zeroRng = () => 0
 
+function seededRng(seed) {
+  let state = seed
+
+  return () => {
+    state = (state * 1664525 + 1013904223) >>> 0
+    return state / 4294967296
+  }
+}
+
 describe('Kana quiz adapter', () => {
   it.each(['hiragana', 'katakana'])('creates ten unique valid %s questions', (script) => {
     const questions = createKanaQuiz({ script, mode: 'recognition', rng: zeroRng })
@@ -54,5 +63,15 @@ describe('Kana quiz adapter', () => {
     expect(createKanaQuiz({ script: 'invalid', mode: 'typing', rng: zeroRng })).toEqual([])
     expect(createKanaQuiz({ script: 'hiragana', mode: 'invalid', rng: zeroRng })).toEqual([])
     expect(createKanaQuiz({ script: 'hiragana', mode: 'typing', count: 1000, rng: zeroRng })).toEqual([])
+  })
+
+  it('keeps ten recognition questions when a seeded run selects duplicate-romaji distractors', () => {
+    const questions = createKanaQuiz({ script: 'hiragana', mode: 'recognition', rng: seededRng(424) })
+
+    expect(questions).toHaveLength(10)
+    expect(questions.every((question) => question.options.length === 4)).toBe(true)
+    expect(questions.every((question) => (
+      new Set(question.options.map((option) => option.value)).size === 4
+    ))).toBe(true)
   })
 })

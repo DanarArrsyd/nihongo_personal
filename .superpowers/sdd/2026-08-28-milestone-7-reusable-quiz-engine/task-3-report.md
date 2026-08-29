@@ -29,3 +29,29 @@ Selection uses injected RNG throughout and does not mutate the Kana data. Each K
 ## Concerns
 
 No known concerns within Task 3 scope. Existing Kana practice UI remains untouched for the later migration task.
+
+## Fix Round 1
+
+### Files
+
+- `src/features/quiz/adapters/kanaQuizAdapter.js` — deduplicates selectable-mode distractor records by their displayed answer value before sampling, so the real `ji`/`zu` Kana duplicates cannot collapse an option set.
+- `src/features/quiz/adapters/kanaQuizAdapter.test.js` — adds a seeded regression case (`424`) that previously returned no recognition quiz and now asserts ten questions with four distinct values each.
+
+### Validation
+
+```text
+$ npm test -- src/features/quiz/services/quizGeneration.test.js src/features/quiz/adapters/kanaQuizAdapter.test.js
+
+Test Files  2 passed (2)
+Tests  9 passed (9)
+```
+
+Additional validation: `npm test` passed (21 files, 122 tests); `npm run lint`, `npm run build`, and `git diff --check` passed.
+
+### Self-review
+
+The deduplication occurs before RNG-backed sampling and uses the same value used in each option's display and answer contract. It retains one real catalog record for every available value, excludes the answer value, and leaves injected RNG behavior unchanged. The helper is applied to both selectable modes; typing continues to omit options.
+
+### Concerns
+
+No known concerns within this fix's scope.

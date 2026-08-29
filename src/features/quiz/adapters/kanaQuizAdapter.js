@@ -15,6 +15,19 @@ function createOption(item, mode) {
     : { value, label: value }
 }
 
+function createUniqueDistractorPool(items, answerValue, mode) {
+  const values = new Set([answerValue])
+
+  return items.filter((candidate) => {
+    const value = valueForMode(candidate, mode)
+
+    if (values.has(value)) return false
+
+    values.add(value)
+    return true
+  })
+}
+
 function createQuestion(item, script, mode, items, rng) {
   const answerValue = valueForMode(item, mode)
   const prompt = mode === 'reverse' ? item.romaji : item.character
@@ -36,7 +49,7 @@ function createQuestion(item, script, mode, items, rng) {
     return question
   }
 
-  const distractorPool = items.filter((candidate) => valueForMode(candidate, mode) !== answerValue)
+  const distractorPool = createUniqueDistractorPool(items, answerValue, mode)
   const distractors = sampleUnique(distractorPool, 3, rng).map((candidate) => createOption(candidate, mode))
 
   question.options = buildOptions(createOption(item, mode), distractors, rng)
