@@ -65,6 +65,34 @@ describe('Kana quiz adapter', () => {
     expect(createKanaQuiz({ script: 'hiragana', mode: 'typing', count: 1000, rng: zeroRng })).toEqual([])
   })
 
+  it('uses supplied source items while preserving the default data source', () => {
+    const items = [
+      { id: 'custom-a', character: '亜', romaji: 'custom-a' },
+      { id: 'custom-i', character: '伊', romaji: 'custom-i' },
+      { id: 'custom-u', character: '宇', romaji: 'custom-u' },
+      { id: 'custom-e', character: '江', romaji: 'custom-e' },
+    ]
+    const customQuestion = createKanaQuiz({
+      script: 'hiragana',
+      mode: 'recognition',
+      count: 1,
+      rng: zeroRng,
+      items,
+    })[0]
+    const defaultQuestion = createKanaQuiz({
+      script: 'hiragana',
+      mode: 'recognition',
+      count: 1,
+      rng: zeroRng,
+    })[0]
+
+    expect(customQuestion.source.itemId).toBe('hiragana:custom-i')
+    expect(customQuestion.options.every((option) => (
+      items.some((item) => item.romaji === option.value)
+    ))).toBe(true)
+    expect(defaultQuestion.source.itemId).toBe('hiragana:i')
+  })
+
   it('keeps ten recognition questions when a seeded run selects duplicate-romaji distractors', () => {
     const questions = createKanaQuiz({ script: 'hiragana', mode: 'recognition', rng: seededRng(424) })
 

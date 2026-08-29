@@ -56,16 +56,18 @@ function createQuestion(item, script, mode, items, rng) {
   return question
 }
 
-export function createKanaQuiz({ script, mode, count = 10, rng = Math.random }) {
+export function createKanaQuiz({ script, mode, count = 10, rng = Math.random, items } = {}) {
   if (!isSupportedScript(script) || !supportedModes.has(mode) || !Number.isInteger(count) || count < 1) {
     return []
   }
 
-  const items = getAllKana(script)
-  const selectedItems = sampleUnique(items, count, rng)
+  const sourceItems = items ?? getAllKana(script)
+  if (!Array.isArray(sourceItems)) return []
+
+  const selectedItems = sampleUnique(sourceItems, count, rng)
 
   if (selectedItems.length !== count) return []
 
-  const questions = selectedItems.map((item) => createQuestion(item, script, mode, items, rng))
+  const questions = selectedItems.map((item) => createQuestion(item, script, mode, sourceItems, rng))
   return mode === 'typing' || questions.every((question) => question.options.length === 4) ? questions : []
 }
