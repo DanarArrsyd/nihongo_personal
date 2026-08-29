@@ -44,7 +44,7 @@ export default function MixedQuizPage() {
     <div className="page-frame max-w-6xl">
       <Link
         to="/practice"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-ink-muted hover:text-accent"
+        className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink-muted hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <ArrowLeft size={16} aria-hidden="true" /> Practice overview
       </Link>

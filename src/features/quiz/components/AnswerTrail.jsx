@@ -6,15 +6,22 @@ function getTrailLabel({ current, number, response }) {
   return `Soal ${number}, ${state}`
 }
 
+function getTrailStateClass({ current, response }) {
+  if (current) return 'is-current'
+  if (!response) return 'is-pending'
+  return response.result ? 'is-correct' : 'is-incorrect'
+}
+
 export default function AnswerTrail({ currentIndex, onNavigate, questions, responses }) {
   return (
     <nav aria-label="Navigasi soal" className="min-w-0">
-      <ol className="flex max-w-full gap-2 overflow-x-auto pb-2 lg:grid lg:overflow-visible lg:pb-0">
+      <ol className="quiz-answer-trail">
         {questions.map((question, index) => {
           const current = index === currentIndex
           const response = responses[question.id]
           const disabled = !current && !response
           const label = getTrailLabel({ current, number: index + 1, response })
+          const stateClass = getTrailStateClass({ current, response })
 
           return (
             <li key={question.id} className="shrink-0 lg:w-full">
@@ -24,11 +31,7 @@ export default function AnswerTrail({ currentIndex, onNavigate, questions, respo
                 aria-label={label}
                 disabled={disabled}
                 onClick={() => onNavigate(index)}
-                className={`inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-xl border px-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:w-full lg:justify-start ${
-                  current
-                    ? 'border-accent bg-accent-soft text-accent'
-                    : 'border-border bg-surface text-ink hover:border-[#C9C0B2]'
-                } disabled:cursor-not-allowed disabled:bg-paper-deep disabled:text-ink-muted disabled:opacity-60`}
+                className={`quiz-answer-tab ${stateClass}`}
               >
                 <span aria-hidden="true" className="tabular-nums">{index + 1}</span>
                 {response ? (
