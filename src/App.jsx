@@ -9,6 +9,7 @@ import KanjiDetailPage from './features/kanji/KanjiDetailPage'
 import KanjiPage from './features/kanji/KanjiPage'
 import LearnPage from './features/learn/LearnPage'
 import PracticePage from './features/practice/PracticePage'
+import MixedQuizPage from './features/quiz/MixedQuizPage'
 import VocabularyDetailPage from './features/vocabulary/VocabularyDetailPage'
 import VocabularyLayout from './features/vocabulary/VocabularyLayout'
 import VocabularyPage from './features/vocabulary/VocabularyPage'
@@ -56,6 +57,7 @@ export default function App() {
           <Route path=":vocabularyId" element={<VocabularyDetailPage />} />
         </Route>
         <Route path="/practice" element={<PracticePage />} />
+        <Route path="/practice/mixed" element={<MixedQuizPage />} />
         <Route path="/practice/kana/:script/:mode" element={<KanaPracticePage />} />
         {pages.map((page) => (
           <Route key={page.path} path={page.path} element={<PagePlaceholder {...page} />} />
