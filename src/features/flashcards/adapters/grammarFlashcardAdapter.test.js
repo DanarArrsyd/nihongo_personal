@@ -32,7 +32,7 @@ describe('createGrammarFlashcard', () => {
       back: {
         title: { text: 'adalah; menyatakan identitas atau keadaan dengan sopan' },
         details: [
-          { label: 'Struktur', value: { text: 'Noun + です' } },
+          { label: 'Struktur', value: { text: 'Noun + です', lang: 'ja' } },
           {
             label: 'Penjelasan',
             value: { text: 'Tambahkan です setelah nomina untuk menyatakan identitas atau keadaan dengan sopan.' },

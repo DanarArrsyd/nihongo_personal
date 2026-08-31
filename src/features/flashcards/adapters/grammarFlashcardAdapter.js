@@ -16,7 +16,7 @@ export function createGrammarFlashcard(item) {
   if (!hasText(item?.id) || !hasText(item.pattern) || !hasText(item.meaning)) return null
 
   const details = [
-    hasText(item.structure) && { label: 'Struktur', value: { text: item.structure } },
+    hasText(item.structure) && { label: 'Struktur', value: { text: item.structure, lang: 'ja' } },
     hasText(item.explanation) && { label: 'Penjelasan', value: { text: item.explanation } },
   ].filter(Boolean)
   const example = getExample(item.examples)
