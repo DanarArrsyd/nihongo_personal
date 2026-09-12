@@ -33,6 +33,14 @@ function hasValidText(value) {
     && (value.lang === undefined || hasText(value.lang))
 }
 
+function isValidExample(example) {
+  return example === undefined || (
+    hasText(example?.japanese)
+    && hasText(example.reading)
+    && hasText(example.meaning)
+  )
+}
+
 function isValidCard(card) {
   return hasText(card?.id)
     && supportedModules.has(card.source?.module)
@@ -41,8 +49,10 @@ function isValidCard(card) {
     && hasValidText(card.front?.primary)
     && hasText(card.front?.hint)
     && hasValidText(card.back?.title)
+    && (card.back?.meaning === undefined || hasText(card.back.meaning))
     && Array.isArray(card.back?.details)
     && card.back.details.every((detail) => hasText(detail?.label) && hasValidText(detail.value))
+    && isValidExample(card.back.example)
 }
 
 function isValidCardSet(cards) {

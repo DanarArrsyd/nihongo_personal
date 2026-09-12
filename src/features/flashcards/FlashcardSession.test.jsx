@@ -187,10 +187,29 @@ describe('FlashcardSession', () => {
     expect(screen.getByRole('heading', { name: '～たい' })).toBeVisible()
     expect(screen.queryByText('ingin melakukan sesuatu')).not.toBeInTheDocument()
     expect(screen.getByText('Kartu 1 dari 1')).toBeVisible()
+
+    reveal()
+    expect(screen.getByRole('heading', { name: 'ingin melakukan sesuatu' })).toBeVisible()
   })
 
-  it('does not leave results when restart returns malformed cards', () => {
-    const onRestart = vi.fn(() => [{ id: 'broken-card' }])
+  it.each([
+    ['meaning', {
+      ...cards[0],
+      back: { ...cards[0].back, meaning: { text: 'makan' } },
+    }],
+    ['example', {
+      ...cards[0],
+      back: {
+        ...cards[0].back,
+        example: {
+          japanese: { text: '私はパンを食べます。' },
+          reading: 'わたしはパンをたべます。',
+          meaning: 'Saya makan roti.',
+        },
+      },
+    }],
+  ])('does not leave results when restart returns a malformed %s', (_label, malformedCard) => {
+    const onRestart = vi.fn(() => [malformedCard])
     renderSession({ onRestart })
     reveal()
     rate('Good')
@@ -201,6 +220,15 @@ describe('FlashcardSession', () => {
 
     expect(onRestart).toHaveBeenCalledOnce()
     expect(screen.getByRole('heading', { name: 'Hasil flashcard' })).toBeVisible()
+  })
+
+  it('reveals a card when optional back content is omitted', () => {
+    renderSession({ cards: [cards[1]] })
+
+    reveal()
+
+    expect(screen.getByRole('heading', { name: 'minum' })).toBeVisible()
+    expect(screen.queryByRole('region', { name: 'Contoh kalimat' })).not.toBeInTheDocument()
   })
 
   it('uses Space only to reveal a hidden active card', () => {
@@ -251,6 +279,28 @@ describe('FlashcardSession', () => {
     ['unsupported-module', [{
       ...cards[0],
       source: { module: 'kana', itemId: 'hiragana:a' },
+    }]],
+    ['object-valued-meaning', [{
+      ...cards[0],
+      back: { ...cards[0].back, meaning: { text: 'makan' } },
+    }]],
+    ['malformed-example', [{
+      ...cards[0],
+      back: {
+        ...cards[0].back,
+        example: {
+          japanese: '私はパンを食べます。',
+          reading: null,
+          meaning: 'Saya makan roti.',
+        },
+      },
+    }]],
+    ['malformed-details', [{
+      ...cards[0],
+      back: {
+        ...cards[0].back,
+        details: [{ label: 'Romaji', value: 'taberu' }],
+      },
     }]],
   ])('renders recovery for an %s card set', (_label, invalidCards) => {
     renderSession({ cards: invalidCards })
