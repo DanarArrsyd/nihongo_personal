@@ -64,15 +64,15 @@ export default function KanaLearningPage() {
         <ScriptSwitcher groupId={groupId} />
       </header>
 
-      <div className="mt-7 grid gap-6 lg:grid-cols-[13rem_minmax(0,1fr)]">
-        <aside>
+      <div className="mt-7 grid min-w-0 gap-6 xl:grid-cols-[13rem_minmax(0,1fr)]">
+        <aside className="min-w-0">
           <p className="mb-3 text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">Sound groups</p>
           <GroupNavigation groups={groups} script={script} />
         </aside>
 
         <div className="min-w-0">
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_19rem]">
-            <section>
+          <div className="grid min-w-0 gap-6 2xl:grid-cols-[minmax(0,1fr)_19rem]">
+            <section className="min-w-0">
               <div className="mb-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                 <div>
                   <p lang="ja" className="font-japanese text-sm text-accent">{group.japaneseLabel}</p>

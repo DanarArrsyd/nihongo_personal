@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom'
 
 export default function GroupNavigation({ groups, script }) {
   return (
-    <nav aria-label="Kana groups" className="overflow-x-auto pb-2 lg:overflow-visible lg:pb-0">
-      <div className="flex min-w-max gap-2 lg:min-w-0 lg:flex-col">
+    <nav aria-label="Kana groups" className="max-w-full min-w-0 overflow-x-auto pb-2 xl:overflow-visible xl:pb-0">
+      <div className="flex w-max min-w-full gap-2 xl:w-auto xl:min-w-0 xl:flex-col">
         {groups.map((group) => (
           <NavLink
             key={group.id}

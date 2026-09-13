@@ -176,7 +176,7 @@ export default function FlashcardSession({ cards, onRestart, now }) {
 
   return (
     <section aria-label="Sesi flashcard" className="flashcard-session mx-auto w-full max-w-5xl">
-      <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_13rem] lg:items-start">
+      <div className="grid min-w-0 gap-5 xl:grid-cols-[minmax(0,1fr)_13rem] xl:items-start">
         <div className="min-w-0">
           <StudyCard
             answerHeadingRef={answerHeadingRef}
@@ -187,7 +187,9 @@ export default function FlashcardSession({ cards, onRestart, now }) {
           />
           <RatingControls disabled={!state.revealed} onRate={rateCurrentCard} />
         </div>
-        <FlashcardProgress {...progress} />
+        <div className="order-first min-w-0 xl:order-none">
+          <FlashcardProgress {...progress} />
+        </div>
       </div>
     </section>
   )

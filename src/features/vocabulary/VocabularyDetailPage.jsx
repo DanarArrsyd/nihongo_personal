@@ -41,28 +41,28 @@ export default function VocabularyDetailPage() {
         <ArrowLeft size={16} aria-hidden="true" /> Back to Vocabulary
       </Link>
 
-      <div className="mt-7 grid gap-6 lg:grid-cols-[minmax(0,1fr)_19rem]">
-        <main>
+      <div className="mt-7 grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_19rem]">
+        <main className="min-w-0">
           <Card className="overflow-hidden p-0 sm:p-0">
             <div className="genko-grid relative min-h-72 border-b border-border p-6 sm:p-10">
               <div className="absolute right-6 top-6"><Badge variant="accent">{item.jlpt}</Badge></div>
               <div className="flex min-h-56 flex-col justify-center">
                 <p className="text-xs font-bold tracking-[0.16em] text-accent uppercase">{item.type}</p>
-                <h1 lang="ja" className="font-japanese mt-4 text-6xl font-semibold tracking-[-0.04em] text-ink sm:text-8xl">{item.word}</h1>
-                <p lang="ja" className="font-japanese mt-4 text-xl text-ink-muted">{item.reading}</p>
-                <p className="mt-1 text-sm font-semibold tracking-[0.12em] text-ink-muted uppercase">{item.romaji}</p>
+                <h1 lang="ja" className="font-japanese mt-4 break-words text-5xl font-semibold tracking-[-0.04em] text-ink [overflow-wrap:anywhere] sm:text-8xl">{item.word}</h1>
+                <p lang="ja" className="font-japanese mt-4 break-words text-xl text-ink-muted [overflow-wrap:anywhere]">{item.reading}</p>
+                <p className="mt-1 break-words text-sm font-semibold tracking-[0.12em] text-ink-muted uppercase [overflow-wrap:anywhere]">{item.romaji}</p>
               </div>
             </div>
 
             <div className="p-6 sm:p-8">
               <p className="text-xs font-bold tracking-[0.16em] text-ink-muted uppercase">Meaning</p>
-              <p className="mt-2 text-3xl font-semibold tracking-[-0.025em] text-ink">{item.meaning}</p>
+              <p className="mt-2 break-words text-3xl font-semibold tracking-[-0.025em] text-ink [overflow-wrap:anywhere]">{item.meaning}</p>
 
               <section className="mt-9 border-t border-border pt-7" aria-labelledby="example-title">
                 <p id="example-title" className="text-xs font-bold tracking-[0.16em] text-ink-muted uppercase">In context</p>
                 <div className="mt-4 rounded-2xl border border-border bg-paper p-5 sm:p-6">
-                  <p lang="ja" className="font-japanese text-2xl font-medium leading-relaxed text-ink">{example.japanese}</p>
-                  <p lang="ja" className="font-japanese mt-3 text-sm leading-7 text-ink-muted">{example.reading}</p>
+                  <p lang="ja" className="font-japanese break-words text-2xl font-medium leading-relaxed text-ink [overflow-wrap:anywhere]">{example.japanese}</p>
+                  <p lang="ja" className="font-japanese mt-3 break-words text-sm leading-7 text-ink-muted [overflow-wrap:anywhere]">{example.reading}</p>
                   <p className="mt-2 text-sm font-medium leading-6 text-ink">{example.meaning}</p>
                 </div>
               </section>
@@ -71,7 +71,7 @@ export default function VocabularyDetailPage() {
         </main>
 
         <aside className="space-y-4">
-          <Card className="lg:sticky lg:top-6">
+          <Card className="xl:sticky xl:top-6">
             <p className="text-xs font-bold tracking-[0.16em] text-ink-muted uppercase">Session controls</p>
             <div className="mt-5 space-y-3">
               <button

@@ -18,9 +18,9 @@ export default function DashboardPage() {
   return (
     <div className="page-frame dashboard-page">
       <Card className="relative overflow-hidden p-0 sm:p-0">
-        <div className="absolute inset-y-0 right-0 hidden w-[34%] bg-paper-deep/70 md:block" aria-hidden="true" />
-        <div className="relative grid gap-8 p-6 sm:p-8 md:grid-cols-[1fr_auto] md:items-center lg:p-10">
-          <div className="max-w-2xl">
+        <div className="absolute inset-y-0 right-0 hidden w-[34%] bg-paper-deep/70 xl:block" aria-hidden="true" />
+        <div className="relative grid min-w-0 gap-8 p-5 sm:p-8 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center xl:p-10">
+          <div className="min-w-0 max-w-2xl">
             <div className="flex flex-wrap items-center gap-3">
               <Badge variant="accent">{profile.level}</Badge>
               <span className="flex items-center gap-1.5 text-xs font-semibold text-ink-muted">
@@ -28,7 +28,7 @@ export default function DashboardPage() {
                 Today’s study
               </span>
             </div>
-            <h1 aria-label="Dashboard" className="mt-6 whitespace-nowrap font-japanese text-[clamp(1.45rem,7vw,2.75rem)] font-semibold tracking-[-0.04em] text-ink">
+            <h1 aria-label="Dashboard" className="mt-6 break-words font-japanese text-[clamp(1.45rem,7vw,2.75rem)] font-semibold tracking-[-0.04em] text-ink">
               {profile.greeting}
             </h1>
             <p className="mt-3 text-base text-ink-muted">{profile.welcome}</p>
@@ -44,7 +44,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="relative z-10 flex items-center gap-5 md:min-w-64 md:justify-center">
+          <div className="relative z-10 flex min-w-0 flex-col items-start gap-5 min-[360px]:flex-row min-[360px]:items-center sm:max-w-md xl:min-w-64 xl:justify-center">
             <div
               className="goal-enso"
               style={{ '--goal-progress': `${goalPercentage * 3.6}deg` }}
@@ -53,7 +53,7 @@ export default function DashboardPage() {
               <span className="text-2xl font-semibold tracking-[-0.04em] text-ink">{dailyGoal.current}</span>
               <span className="text-[0.62rem] font-bold tracking-[0.12em] text-ink-muted uppercase">minutes</span>
             </div>
-            <div className="min-w-32 flex-1 md:max-w-36">
+            <div className="w-full min-w-0 flex-1 min-[360px]:min-w-32 xl:max-w-36">
               <ProgressBar label="Daily goal" value={goalPercentage} />
               <p className="mt-2 text-xs text-ink-muted">{dailyGoal.current} / {dailyGoal.target} {dailyGoal.unit}</p>
             </div>

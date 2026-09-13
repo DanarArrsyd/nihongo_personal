@@ -9,7 +9,7 @@ function ReadingList({ items }) {
   if (items.length === 0) return <span aria-label="No reading">—</span>
 
   return (
-    <span lang="ja" className="font-japanese">
+    <span lang="ja" className="font-japanese break-words [overflow-wrap:anywhere]">
       {items.join(' ・ ')}
     </span>
   )
@@ -50,7 +50,7 @@ export default function KanjiDetailPage() {
         <ArrowLeft size={16} aria-hidden="true" /> Back to Kanji
       </Link>
 
-      <div className="mt-7 grid gap-6 lg:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.18fr)]">
+      <div className="mt-7 grid min-w-0 gap-6 xl:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.18fr)]">
         <Card className="overflow-hidden p-0 sm:p-0">
           <div className="kanji-specimen-grid relative grid min-h-80 place-items-center sm:min-h-[30rem]">
             <div className="absolute top-5 left-5">
@@ -68,7 +68,7 @@ export default function KanjiDetailPage() {
           </div>
         </Card>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <Card className="p-6 sm:p-8">
             <p className="text-xs font-bold tracking-[0.16em] text-accent uppercase">
               Character record
@@ -80,19 +80,19 @@ export default function KanjiDetailPage() {
             <dl className="mt-7 divide-y divide-border border-y border-border">
               <div className="grid gap-2 py-5 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-baseline">
                 <dt className="text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">Meaning</dt>
-                <dd className="text-2xl font-semibold tracking-[-0.02em] text-ink">
+                <dd className="min-w-0 break-words text-2xl font-semibold tracking-[-0.02em] text-ink [overflow-wrap:anywhere]">
                   {item.meaning.join(', ')}
                 </dd>
               </div>
               <div className="grid gap-2 py-5 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-baseline">
                 <dt className="text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">On'yomi</dt>
-                <dd className="text-lg font-medium text-ink">
+                <dd className="min-w-0 text-lg font-medium text-ink">
                   <ReadingList items={item.onyomi} />
                 </dd>
               </div>
               <div className="grid gap-2 py-5 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-baseline">
                 <dt className="text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">Kun'yomi</dt>
-                <dd className="text-lg font-medium text-ink">
+                <dd className="min-w-0 text-lg font-medium text-ink">
                   <ReadingList items={item.kunyomi} />
                 </dd>
               </div>

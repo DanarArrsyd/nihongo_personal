@@ -4,7 +4,7 @@ export default function RatingControls({ disabled, onRate }) {
   return (
     <section aria-labelledby="flashcard-rating-heading" className="flashcard-rating-controls mt-5">
       <h2 id="flashcard-rating-heading" className="sr-only">Nilai ingatan Anda</h2>
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="flashcard-rating-grid">
         {RATING_OPTIONS.map((option) => {
           const Icon = option.icon
 

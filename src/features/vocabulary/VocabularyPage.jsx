@@ -31,7 +31,7 @@ export default function VocabularyPage() {
 
       <header className="mt-6 flex flex-col justify-between gap-5 border-b border-border pb-8 sm:flex-row sm:items-end">
         <div>
-          <div className="mb-4 flex items-center gap-3">
+          <div className="mb-4 flex flex-wrap items-center gap-3">
             <span className="study-seal" aria-hidden="true">言葉</span>
             <Badge variant="accent">JLPT N5 seed set</Badge>
           </div>
@@ -44,9 +44,9 @@ export default function VocabularyPage() {
         </div>
       </header>
 
-      <div className="mt-7 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] xl:grid-cols-[20rem_minmax(0,1fr)]">
+      <div className="mt-7 grid min-w-0 gap-6 xl:grid-cols-[20rem_minmax(0,1fr)]">
         <aside>
-          <Card quiet className="lg:sticky lg:top-6">
+          <Card quiet className="xl:sticky xl:top-6">
             <p className="mb-5 text-xs font-bold tracking-[0.16em] text-ink-muted uppercase">Find your word</p>
             <VocabularyFilters filters={filters} onChange={changeFilter} types={types} />
             <Button aria-label="Reset filters" variant="ghost" className="mt-4 w-full" onClick={() => setFilters(initialFilters)}>

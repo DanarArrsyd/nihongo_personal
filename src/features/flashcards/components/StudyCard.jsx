@@ -26,7 +26,7 @@ export default function StudyCard({
   const answerHeadingId = `${card.id}-answer-heading`
 
   return (
-    <article className="flashcard-study-card min-w-0 rounded-2xl border border-border bg-surface shadow-[0_12px_40px_rgba(64,54,41,0.05)]">
+    <article className="flashcard-study-card min-w-0">
       <div className="grid min-w-0 sm:grid-cols-[3.5rem_minmax(0,1fr)]">
         <p className="flashcard-module-label flex items-center justify-center border-b border-border bg-paper-deep px-3 py-4 text-xs font-semibold tracking-[0.12em] text-accent uppercase sm:border-r sm:border-b-0 sm:[writing-mode:vertical-rl]">
           {card.front.eyebrow}
@@ -39,7 +39,7 @@ export default function StudyCard({
               ref={cardHeadingRef}
               value={card.front.primary}
               tabIndex={-1}
-              className="text-5xl font-semibold tracking-[-0.04em] text-ink outline-none sm:text-6xl focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+              className="max-w-full break-words text-4xl font-semibold tracking-[-0.04em] text-ink outline-none [overflow-wrap:anywhere] sm:text-6xl focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
             />
             <p className="mt-5 max-w-md text-sm leading-6 text-ink-muted">{card.front.hint}</p>
           </header>
@@ -57,7 +57,7 @@ export default function StudyCard({
                 id={answerHeadingId}
                 tabIndex={-1}
                 value={card.back.title}
-                className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-ink outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
+                className="mt-2 break-words text-2xl font-semibold tracking-[-0.03em] text-ink outline-none [overflow-wrap:anywhere] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4"
               />
 
               {card.back.meaning ? (
@@ -75,7 +75,7 @@ export default function StudyCard({
                       <dt className="text-xs font-semibold tracking-[0.08em] text-ink-muted uppercase">
                         {detail.label}
                       </dt>
-                      <dd className="mt-1 text-sm font-medium text-ink">
+                      <dd className="mt-1 break-words text-sm font-medium text-ink [overflow-wrap:anywhere]">
                         <CardText value={detail.value} />
                       </dd>
                     </div>
@@ -91,12 +91,12 @@ export default function StudyCard({
                   <CardText
                     as="p"
                     value={{ text: card.back.example.japanese, lang: 'ja' }}
-                    className="mt-2 text-base font-medium text-ink"
+                    className="mt-2 break-words text-base font-medium text-ink [overflow-wrap:anywhere]"
                   />
                   <CardText
                     as="p"
                     value={{ text: card.back.example.reading, lang: 'ja' }}
-                    className="mt-1 text-sm text-ink-muted"
+                    className="mt-1 break-words text-sm text-ink-muted [overflow-wrap:anywhere]"
                   />
                   <CardText
                     as="p"

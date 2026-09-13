@@ -13,7 +13,7 @@ export default function LearningStatistics({ statistics }) {
   return (
     <Card aria-label="Learning statistics" className="h-full">
       <SectionHeading eyebrow="Study record" title="Learning statistics" />
-      <ul className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border">
+      <ul className="mt-6 grid gap-px overflow-hidden rounded-xl border border-border bg-border min-[360px]:grid-cols-2">
         {statistics.map((statistic) => {
           const { background, color, icon: Icon } = statisticMeta[statistic.id]
 

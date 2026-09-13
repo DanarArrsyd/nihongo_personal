@@ -18,7 +18,7 @@ export default function KanjiPage() {
 
       <header className="mt-6 flex flex-col justify-between gap-5 border-b border-border pb-8 sm:flex-row sm:items-end">
         <div>
-          <div className="mb-4 flex items-center gap-3">
+          <div className="mb-4 flex flex-wrap items-center gap-3">
             <span className="study-seal" aria-hidden="true">漢字</span>
             <Badge variant="accent">Curated JLPT N5 seed</Badge>
           </div>

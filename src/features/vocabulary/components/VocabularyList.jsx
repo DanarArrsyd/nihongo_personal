@@ -27,7 +27,7 @@ export default function VocabularyList({ getStatus, isFavorite, items }) {
                   <p lang="ja" className="font-japanese truncate text-2xl font-semibold text-ink">{item.word}</p>
                   {isFavorite(item.id) && <Heart size={14} className="shrink-0 fill-accent text-accent" aria-label="Favorite" />}
                 </div>
-                <p lang="ja" className="font-japanese mt-1 text-sm text-ink-muted">{item.reading} <span aria-hidden="true">·</span> {item.romaji}</p>
+                <p lang="ja" className="font-japanese mt-1 break-words text-sm text-ink-muted [overflow-wrap:anywhere]">{item.reading} <span aria-hidden="true">·</span> {item.romaji}</p>
                 <p className="mt-1 truncate text-sm font-medium text-ink">{item.meaning}</p>
               </div>
               <div className="flex items-center gap-3">

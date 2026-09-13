@@ -69,8 +69,8 @@ export default function LearnPage() {
         {scripts.map((script) => (
           <Card key={script.id} className="group relative overflow-hidden p-0 sm:p-0">
             <div className="genko-grid absolute inset-y-0 right-0 w-2/5 opacity-65" aria-hidden="true" />
-            <div className="relative grid min-h-72 grid-cols-[1fr_auto] gap-6 p-6 sm:p-8">
-              <div className="flex flex-col items-start">
+            <div className="relative grid min-h-72 min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-4 p-5 sm:gap-6 sm:p-8">
+              <div className="flex min-w-0 flex-col items-start">
                 <p lang="ja" className="font-japanese text-sm font-medium text-accent">{script.japanese}</p>
                 <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">{script.name}</h2>
                 <p className="mt-3 max-w-sm leading-7 text-ink-muted">{script.description}</p>
@@ -84,7 +84,7 @@ export default function LearnPage() {
               </div>
               <span
                 lang="ja"
-                className="font-japanese self-center text-7xl font-medium text-ink/90 sm:text-8xl"
+                className="hidden font-japanese self-center text-7xl font-medium text-ink/90 min-[360px]:block sm:text-8xl"
                 aria-hidden="true"
               >
                 {script.sample}

@@ -3,7 +3,7 @@ import NavigationLinks from './NavigationLinks'
 
 export default function Sidebar() {
   return (
-    <aside className="fixed inset-y-0 left-0 z-20 hidden w-72 flex-col border-r border-border bg-surface px-5 py-6 lg:flex">
+    <aside className="fixed inset-y-0 left-0 z-20 hidden w-72 flex-col overflow-y-auto overscroll-contain border-r border-border bg-surface px-5 py-6 lg:flex">
       <Brand />
       <div className="mt-10 flex items-center gap-3 px-3.5">
         <span className="h-px flex-1 bg-border" />

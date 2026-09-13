@@ -42,7 +42,7 @@ export default function FlashcardsPage() {
         </p>
       </header>
 
-      <section aria-label="Deck Flashcards" className="flashcard-selector mt-8 grid gap-5 lg:grid-cols-3">
+      <section aria-label="Deck Flashcards" className="flashcard-selector mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {decks.map((deck) => (
           <Card key={deck.module} className="flex min-h-64 flex-col items-start">
             <p lang="ja" className="font-japanese text-lg font-semibold text-accent">
@@ -52,7 +52,7 @@ export default function FlashcardsPage() {
             <p className="mt-3 max-w-sm text-sm leading-6 text-ink-muted">{deck.description}</p>
             <Link
               to={`/practice/flashcards/${deck.module}`}
-              className="mt-auto inline-flex min-h-11 items-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="mt-auto inline-flex min-h-11 w-full items-center justify-between gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:w-auto sm:justify-start"
             >
               Mulai {deck.name} <ArrowRight size={17} aria-hidden="true" />
             </Link>

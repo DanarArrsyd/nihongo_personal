@@ -32,7 +32,7 @@ export default function MobileHeader({ isOpen, onClose, onOpen }) {
           aria-label="Open navigation"
           aria-expanded={isOpen}
           onClick={onOpen}
-          className="grid size-11 place-items-center rounded-xl border border-border bg-surface text-ink transition-colors hover:bg-paper-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="grid size-11 shrink-0 place-items-center rounded-xl border border-border bg-surface text-ink transition-colors hover:bg-paper-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           <Menu aria-hidden="true" size={21} />
         </button>
@@ -50,7 +50,7 @@ export default function MobileHeader({ isOpen, onClose, onOpen }) {
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
-            className="absolute inset-y-0 right-0 flex w-[min(88vw,22rem)] flex-col border-l border-border bg-surface p-5 shadow-[-20px_0_60px_rgba(38,37,34,0.12)]"
+            className="absolute inset-y-0 right-0 flex w-[min(100vw,22rem)] flex-col overflow-y-auto overscroll-contain border-l border-border bg-surface p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-5 shadow-[-20px_0_60px_rgba(38,37,34,0.12)]"
           >
             <div className="flex items-center justify-between">
               <Brand />
@@ -59,7 +59,7 @@ export default function MobileHeader({ isOpen, onClose, onOpen }) {
                 aria-label="Close navigation"
                 autoFocus
                 onClick={closeAndRestoreFocus}
-                className="grid size-11 place-items-center rounded-xl text-ink-muted hover:bg-paper-deep hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="grid size-11 shrink-0 place-items-center rounded-xl text-ink-muted hover:bg-paper-deep hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <X aria-hidden="true" size={21} />
               </button>

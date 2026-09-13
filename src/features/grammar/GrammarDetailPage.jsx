@@ -41,14 +41,14 @@ export default function GrammarDetailPage() {
         <ArrowLeft size={16} aria-hidden="true" /> Kembali ke Grammar
       </Link>
 
-      <div className="mt-7 grid gap-6 lg:grid-cols-[minmax(0,1fr)_19rem]">
+      <div className="mt-7 grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_19rem]">
         <div className="min-w-0 space-y-6">
           <Card className="p-6 sm:p-8">
             <Badge variant="accent">{item.jlpt} curated seed</Badge>
-            <h1 lang="ja" className="font-japanese mt-5 text-5xl font-semibold tracking-[-0.04em] text-ink sm:text-6xl">
+            <h1 lang="ja" className="font-japanese mt-5 break-words text-4xl font-semibold tracking-[-0.04em] text-ink [overflow-wrap:anywhere] sm:text-6xl">
               {item.pattern}
             </h1>
-            <p className="mt-3 text-xl font-semibold leading-8 text-ink">{item.meaning}</p>
+            <p className="mt-3 break-words text-xl font-semibold leading-8 text-ink [overflow-wrap:anywhere]">{item.meaning}</p>
 
             <section className="mt-8 border-t border-border pt-7" aria-labelledby="formula-title">
               <p id="formula-title" className="text-xs font-bold tracking-[0.16em] text-ink-muted uppercase">
@@ -69,14 +69,14 @@ export default function GrammarDetailPage() {
             <h2 className="text-xl font-semibold tracking-[-0.025em] text-ink">Contoh kalimat</h2>
             <ol className="mt-5 space-y-4">
               {item.examples.map((example) => (
-                <li key={example.japanese} className="rounded-2xl border border-border bg-paper p-5">
-                  <p lang="ja" className="font-japanese text-xl font-medium leading-relaxed text-ink">
+                <li key={example.japanese} className="min-w-0 rounded-2xl border border-border bg-paper p-4 sm:p-5">
+                  <p lang="ja" className="font-japanese break-words text-xl font-medium leading-relaxed text-ink [overflow-wrap:anywhere]">
                     {example.japanese}
                   </p>
                   <p
                     lang={example.reading ? 'ja' : undefined}
                     aria-label={example.reading ? undefined : 'Bacaan tidak tersedia'}
-                    className="font-japanese mt-2 text-sm leading-7 text-ink-muted"
+                    className="font-japanese mt-2 break-words text-sm leading-7 text-ink-muted [overflow-wrap:anywhere]"
                   >
                     {example.reading || '—'}
                   </p>
@@ -88,7 +88,7 @@ export default function GrammarDetailPage() {
         </div>
 
         <aside>
-          <Card className="lg:sticky lg:top-6">
+          <Card className="xl:sticky xl:top-6">
             <div className="flex items-center gap-3">
               <span className="grid size-10 place-items-center rounded-xl bg-matcha-soft text-matcha">
                 <BookOpenText size={19} aria-hidden="true" />

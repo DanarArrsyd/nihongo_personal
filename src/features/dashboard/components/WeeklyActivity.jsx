@@ -18,7 +18,7 @@ export default function WeeklyActivity({ activity }) {
             </p>
           }
         />
-        <div className="mt-8 grid h-52 grid-cols-7 items-end gap-2 sm:gap-4">
+        <div className="mt-8 grid h-52 grid-cols-7 items-end gap-1.5 sm:gap-4">
           {activity.map((entry) => (
             <div key={entry.day} className="flex h-full flex-col justify-end gap-3 text-center">
               <div className="group relative flex flex-1 items-end justify-center rounded-t-lg bg-paper-deep/70">

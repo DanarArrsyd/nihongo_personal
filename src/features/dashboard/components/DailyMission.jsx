@@ -17,18 +17,18 @@ export default function DailyMission({ mission }) {
           const Icon = missionIcons[step.id]
 
           return (
-            <li key={step.id} className="grid gap-4 py-5 first:pt-0 last:pb-0 sm:grid-cols-[2.5rem_1fr_auto] sm:items-center">
+            <li key={step.id} className="grid min-w-0 gap-4 py-5 first:pt-0 last:pb-0 md:grid-cols-[2.5rem_minmax(0,1fr)_auto] md:items-center">
               <span className="text-xs font-bold tabular-nums text-ink-muted">{String(index + 1).padStart(2, '0')}</span>
-              <div className="flex items-start gap-3">
+              <div className="flex min-w-0 items-start gap-3">
                 <span className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-xl bg-paper-deep text-ink-muted">
                   <Icon aria-hidden="true" size={17} strokeWidth={1.8} />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <h3 className="font-semibold text-ink">{step.label}</h3>
                   <p className="mt-1 text-xs leading-5 text-ink-muted">{step.description}</p>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2 pl-[3.25rem] sm:max-w-52 sm:justify-end sm:pl-0">
+              <div className="flex flex-wrap gap-2 pl-[3.25rem] md:max-w-52 md:justify-end md:pl-0">
                 {step.items.map((item) => (
                   <span key={item} className="rounded-full border border-border bg-paper px-2.5 py-1 text-xs font-semibold text-ink">
                     {item}
