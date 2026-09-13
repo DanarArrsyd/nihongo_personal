@@ -1,4 +1,4 @@
-import { ArrowRight, Blend, Keyboard, Repeat2, ScanText } from 'lucide-react'
+import { ArrowRight, Blend, Keyboard, Layers3, Repeat2, ScanText } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Badge from '../../components/ui/Badge'
 import Card from '../../components/ui/Card'
@@ -48,6 +48,28 @@ export default function PracticePage() {
               Mulai Mixed Quiz <ArrowRight size={17} aria-hidden="true" />
             </Link>
           </div>
+        </Card>
+      </section>
+
+      <section className="mt-8" aria-labelledby="flashcards-title">
+        <Card className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex max-w-2xl items-start gap-4">
+            <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-paper-deep text-accent" aria-hidden="true">
+              <Layers3 size={20} />
+            </span>
+            <div>
+              <h2 id="flashcards-title" className="text-xl font-semibold tracking-[-0.02em]">Flashcards</h2>
+              <p className="mt-2 text-sm leading-6 text-ink-muted">
+                Latih ingatan aktif dengan deck Vocabulary, Kanji, atau Grammar.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/practice/flashcards"
+            className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            Pilih deck Flashcards <ArrowRight size={17} aria-hidden="true" />
+          </Link>
         </Card>
       </section>
 

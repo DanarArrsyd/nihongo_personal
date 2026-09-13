@@ -42,6 +42,16 @@ describe('application routes', () => {
     expect(screen.queryByRole('dialog', { name: 'Mobile navigation' })).not.toBeInTheDocument()
   })
 
+  it('adds Flashcards to Practice while preserving Mixed Quiz and Kana', () => {
+    renderRoute('/practice')
+
+    expect(screen.getByRole('link', { name: 'Pilih deck Flashcards' }))
+      .toHaveAttribute('href', '/practice/flashcards')
+    expect(screen.getByRole('link', { name: 'Mulai Mixed Quiz' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Practice Hiragana' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Practice Katakana' })).toBeVisible()
+  })
+
   it('returns from an unknown route to the dashboard', () => {
     renderRoute('/missing-page')
 

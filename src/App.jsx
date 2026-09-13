@@ -1,6 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import AppShell from './components/layout/AppShell'
 import DashboardPage from './features/dashboard/DashboardPage'
+import FlashcardsPage from './features/flashcards/FlashcardsPage'
+import FlashcardSessionPage from './features/flashcards/FlashcardSessionPage'
 import GrammarDetailPage from './features/grammar/GrammarDetailPage'
 import GrammarPage from './features/grammar/GrammarPage'
 import KanaLearningPage, { KanaEntryRedirect } from './features/kana/KanaLearningPage'
@@ -58,6 +60,8 @@ export default function App() {
         </Route>
         <Route path="/practice" element={<PracticePage />} />
         <Route path="/practice/mixed" element={<MixedQuizPage />} />
+        <Route path="/practice/flashcards" element={<FlashcardsPage />} />
+        <Route path="/practice/flashcards/:module" element={<FlashcardSessionPage />} />
         <Route path="/practice/kana/:script/:mode" element={<KanaPracticePage />} />
         {pages.map((page) => (
           <Route key={page.path} path={page.path} element={<PagePlaceholder {...page} />} />
