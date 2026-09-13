@@ -119,7 +119,7 @@ describe('FlashcardSessionPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Mulai lagi' }))
 
     expect(createFlashcardDeck).toHaveBeenCalledTimes(2)
-    expect(screen.getByRole('heading', { name: '飲む' })).toBeVisible()
+    expect(screen.getByRole('heading', { name: '飲む' })).toHaveFocus()
     expect(screen.queryByText('minum')).not.toBeInTheDocument()
   })
 

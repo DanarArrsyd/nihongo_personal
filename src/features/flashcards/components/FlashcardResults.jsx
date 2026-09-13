@@ -7,7 +7,7 @@ function frontTextClass(card) {
   return card.front.primary.lang === 'ja' ? 'font-japanese' : ''
 }
 
-export default function FlashcardResults({ onRestart, state, ratingCounts }) {
+export default function FlashcardResults({ headingRef, onRestart, state, ratingCounts }) {
   const cardsById = new Map(state.cards.map((card) => [card.id, card]))
 
   return (
@@ -18,7 +18,9 @@ export default function FlashcardResults({ onRestart, state, ratingCounts }) {
       <header className="rounded-2xl border border-border bg-surface p-6 shadow-[0_12px_40px_rgba(64,54,41,0.05)] sm:p-8">
         <p className="text-sm font-semibold tracking-[0.12em] text-accent uppercase">Sesi selesai</p>
         <h2
+          ref={headingRef}
           id="flashcard-results-heading"
+          tabIndex={-1}
           className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl"
         >
           Hasil flashcard

@@ -59,6 +59,7 @@ function SessionHost({ module }) {
   return (
     <FlashcardSession
       key={session.sessionVersion}
+      autoFocus={session.sessionVersion > 0}
       cards={session.cards}
       onRestart={restart}
     />

@@ -65,18 +65,21 @@ function createValidatedState(cards) {
   return createFlashcardState(isValidCardSet(cards) ? cards : [])
 }
 
-function isEditableTarget(target) {
-  return Boolean(target?.closest?.('input, textarea, select, [contenteditable]:not([contenteditable="false"])'))
+function isShortcutBlockedTarget(target) {
+  return Boolean(target?.closest?.(
+    'button, a[href], input, textarea, select, summary, [contenteditable]:not([contenteditable="false"]), [role="button"], [role="link"]',
+  ))
 }
 
-export default function FlashcardSession({ cards, onRestart, now }) {
+export default function FlashcardSession({ autoFocus = false, cards, onRestart, now }) {
   const [state, dispatch] = useReducer(flashcardSessionReducer, cards, createValidatedState)
   const answerHeadingRef = useRef(null)
   const cardHeadingRef = useRef(null)
-  const focusIntentRef = useRef(null)
+  const focusIntentRef = useRef(autoFocus ? 'card' : null)
   const nowRef = useRef(now)
   const onRestartRef = useRef(onRestart)
   const ratingLockedRef = useRef(false)
+  const resultsHeadingRef = useRef(null)
   const stateRef = useRef(state)
 
   useEffect(() => {
@@ -94,6 +97,11 @@ export default function FlashcardSession({ cards, onRestart, now }) {
     if (focusIntentRef.current === 'card' && state.status === 'active' && !state.revealed) {
       focusIntentRef.current = null
       cardHeadingRef.current?.focus()
+    }
+
+    if (focusIntentRef.current === 'results' && state.status === 'completed') {
+      focusIntentRef.current = null
+      resultsHeadingRef.current?.focus()
     }
   }, [state.currentIndex, state.revealed, state.status])
 
@@ -115,7 +123,9 @@ export default function FlashcardSession({ cards, onRestart, now }) {
     if (!currentState.revealed || !card || ratingLockedRef.current) return false
 
     ratingLockedRef.current = true
-    focusIntentRef.current = 'card'
+    focusIntentRef.current = currentState.currentIndex === currentState.cards.length - 1
+      ? 'results'
+      : 'card'
     dispatch({
       type: 'RATE',
       response: createFlashcardResponse({ card, rating, now: nowRef.current }),
@@ -136,7 +146,7 @@ export default function FlashcardSession({ cards, onRestart, now }) {
 
   useEffect(() => {
     function handleKeyDown(event) {
-      if (isEditableTarget(event.target)) return
+      if (isShortcutBlockedTarget(event.target)) return
 
       if (event.code === 'Space' || event.key === ' ') {
         if (revealCurrentCard()) event.preventDefault()
@@ -164,6 +174,7 @@ export default function FlashcardSession({ cards, onRestart, now }) {
   if (state.status === 'completed') {
     return (
       <FlashcardResults
+        headingRef={resultsHeadingRef}
         state={state}
         ratingCounts={getRatingCounts(state)}
         onRestart={restart}

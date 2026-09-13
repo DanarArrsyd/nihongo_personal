@@ -122,7 +122,7 @@ describe('FlashcardSession', () => {
     reveal()
     rate('Easy')
 
-    expect(screen.getByRole('heading', { name: 'Hasil flashcard' })).toBeVisible()
+    expect(screen.getByRole('heading', { name: 'Hasil flashcard' })).toHaveFocus()
     const distribution = screen.getByRole('region', { name: 'Distribusi penilaian' })
     expect(within(distribution).getByLabelText('Again: 1')).toBeVisible()
     expect(within(distribution).getByLabelText('Hard: 0')).toBeVisible()
@@ -238,6 +238,19 @@ describe('FlashcardSession', () => {
     expect(screen.getByRole('heading', { name: 'たべる' })).toHaveFocus()
     expect(fireEvent.keyDown(document, { key: ' ', code: 'Space' })).toBe(true)
     expect(screen.getByRole('heading', { name: '食べる' })).toBeVisible()
+  })
+
+  it('does not intercept Space from another native control', () => {
+    renderSession()
+    const unrelatedButton = document.createElement('button')
+    unrelatedButton.textContent = 'Menu'
+    document.body.append(unrelatedButton)
+    unrelatedButton.focus()
+
+    expect(fireEvent.keyDown(unrelatedButton, { key: ' ', code: 'Space' })).toBe(true)
+    expect(screen.queryByRole('heading', { name: 'たべる' })).not.toBeInTheDocument()
+
+    unrelatedButton.remove()
   })
 
   it.each([
