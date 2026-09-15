@@ -36,4 +36,8 @@ describe('settings repository', () => {
     await expect(getSetting('theme', database)).resolves.toBe('dark')
     await expect(getSetting('showRomaji', database)).resolves.toBe(true)
   })
+
+  it.each(['', ' ', 1, null])('rejects blank or non-string setting keys', async (key) => {
+    await expect(setSetting(key, 'dark', database)).rejects.toThrow('key must be a non-blank string')
+  })
 })

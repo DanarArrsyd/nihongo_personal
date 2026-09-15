@@ -113,6 +113,39 @@ describe('progress repository', () => {
     })
   })
 
+  it('stores Date timestamps as canonical ISO strings', async () => {
+    await expect(setProgressStatus({
+      itemType: 'vocabulary',
+      itemId: 'n5-vocab-002',
+      status: 'learning',
+      timestamp: new Date('2026-09-15T08:00:00+07:00'),
+    }, database)).resolves.toMatchObject({
+      lastStudiedAt: '2026-09-15T01:00:00.000Z',
+    })
+  })
+
+  it('stores omitted answer timestamps as null', async () => {
+    await expect(applyAnswerResult({
+      itemType: 'vocabulary',
+      itemId: 'n5-vocab-003',
+      correct: true,
+    }, database)).resolves.toMatchObject({
+      lastStudiedAt: null,
+    })
+  })
+
+  it.each([
+    'not-a-date',
+    new Date('invalid'),
+  ])('rejects invalid timestamps', async (timestamp) => {
+    await expect(setProgressStatus({
+      itemType: 'vocabulary',
+      itemId: 'n5-vocab-004',
+      status: 'learning',
+      timestamp,
+    }, database)).rejects.toThrow('Invalid timestamp')
+  })
+
   it.each([
     { itemType: '', itemId: 'n5-vocab-001' },
     { itemType: 'vocabulary', itemId: ' ' },
@@ -132,5 +165,14 @@ describe('progress repository', () => {
       status: 'paused',
       timestamp: '2026-09-15T01:00:00.000Z',
     }, database)).rejects.toThrow('Unsupported progress status')
+  })
+
+  it('rejects non-boolean answer results', async () => {
+    await expect(applyAnswerResult({
+      itemType: 'vocabulary',
+      itemId: 'n5-vocab-001',
+      correct: 'yes',
+      timestamp: null,
+    }, database)).rejects.toThrow('correct must be a boolean')
   })
 })

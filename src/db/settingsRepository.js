@@ -6,6 +6,10 @@ export async function getSetting(key, db = defaultDatabase) {
 }
 
 export async function setSetting(key, value, db = defaultDatabase) {
+  if (typeof key !== 'string' || !key.trim()) {
+    throw new Error('key must be a non-blank string')
+  }
+
   await db.settings.put({ key, value })
   return value
 }

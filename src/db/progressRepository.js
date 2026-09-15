@@ -1,12 +1,7 @@
 import { database as defaultDatabase } from './database.js'
+import { normalizeTimestamp, validateBoolean, validateItemIdentifiers } from './validation.js'
 
 const SUPPORTED_STATUSES = new Set(['new', 'learning', 'familiar', 'mastered'])
-
-function validateItemIdentifiers(itemType, itemId) {
-  if (!itemType?.trim() || !itemId?.trim()) {
-    throw new Error('itemType and itemId are required')
-  }
-}
 
 function createProgressRecord(itemType, itemId) {
   return {
@@ -38,7 +33,7 @@ export async function setProgressStatus({ itemType, itemId, status, timestamp },
   const record = {
     ...(existingRecord ?? createProgressRecord(itemType, itemId)),
     status,
-    lastStudiedAt: timestamp,
+    lastStudiedAt: normalizeTimestamp(timestamp),
   }
 
   await db.progress.put(record)
@@ -47,13 +42,14 @@ export async function setProgressStatus({ itemType, itemId, status, timestamp },
 
 export async function applyAnswerResult({ itemType, itemId, correct, timestamp }, db = defaultDatabase) {
   validateItemIdentifiers(itemType, itemId)
+  validateBoolean(correct, 'correct')
 
   const existingRecord = await getProgress(itemType, itemId, db)
   const record = {
     ...(existingRecord ?? createProgressRecord(itemType, itemId)),
     correctCount: (existingRecord?.correctCount ?? 0) + (correct ? 1 : 0),
     incorrectCount: (existingRecord?.incorrectCount ?? 0) + (correct ? 0 : 1),
-    lastStudiedAt: timestamp,
+    lastStudiedAt: normalizeTimestamp(timestamp),
   }
 
   await db.progress.put(record)
