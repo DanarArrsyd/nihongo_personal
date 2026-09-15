@@ -1,11 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App'
+import PersistenceProvider from './features/persistence/PersistenceProvider'
 
 function renderRoute(path) {
   return render(
     <MemoryRouter initialEntries={[path]}>
-      <App />
+      <PersistenceProvider>
+        <App />
+      </PersistenceProvider>
     </MemoryRouter>,
   )
 }

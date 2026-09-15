@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import PersistenceNotice from '../../features/persistence/PersistenceNotice'
 import MobileHeader from './MobileHeader'
 import Sidebar from './Sidebar'
 
@@ -17,6 +18,7 @@ export default function AppShell() {
         onOpen={() => setIsNavigationOpen(true)}
       />
       <main id="main-content" className="min-h-screen lg:ml-72">
+        <PersistenceNotice />
         <Outlet />
       </main>
     </div>
