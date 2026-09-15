@@ -99,7 +99,7 @@ export default function VocabularyDetailPage() {
               <VocabularyStatusControl value={getStatus(item.id)} onChange={(status) => setStatus(item.id, status)} />
             </div>
             {speechMessage && <p role="status" className="mt-4 text-sm leading-6 text-ink-muted">{speechMessage}</p>}
-            <p className="mt-5 text-xs leading-5 text-ink-muted">Favorite and status reset when this page is refreshed.</p>
+            <p className="mt-5 text-xs leading-5 text-ink-muted">Favorite dan status tersimpan otomatis di perangkat ini.</p>
           </Card>
         </aside>
       </div>
