@@ -1,21 +1,24 @@
 import { database as defaultDatabase } from './database.js'
 import { applyAnswerResult } from './progressRepository.js'
-import { normalizeTimestamp, validateBoolean, validateItemIdentifiers } from './validation.js'
-
-function validateRequiredString(value, name) {
-  if (typeof value !== 'string' || !value.trim()) {
-    throw new Error(`${name} must be a non-blank string`)
-  }
-}
+import {
+  normalizeRequiredTimestamp,
+  validateBoolean,
+  validateItemIdentifiers,
+  validateNonBlankString,
+  validateScalarValue,
+} from './validation.js'
 
 export async function recordQuizResponse({ sessionId, response }, db = defaultDatabase) {
-  validateRequiredString(sessionId, 'sessionId')
-  validateRequiredString(response?.questionId, 'questionId')
+  validateNonBlankString(sessionId, 'sessionId')
+  validateNonBlankString(response?.questionId, 'questionId')
+  validateNonBlankString(response?.questionType, 'questionType')
 
   const itemType = response?.associatedItem?.module
   const itemId = response?.associatedItem?.itemId
   validateItemIdentifiers(itemType, itemId)
   validateBoolean(response.result, 'result')
+  validateScalarValue(response.userAnswer, 'userAnswer')
+  validateScalarValue(response.correctAnswer, 'correctAnswer')
 
   const operationId = `${sessionId}:${response.questionId}`
   const historyRecord = {
@@ -26,7 +29,7 @@ export async function recordQuizResponse({ sessionId, response }, db = defaultDa
     userAnswer: response.userAnswer,
     correctAnswer: response.correctAnswer,
     result: response.result,
-    timestamp: normalizeTimestamp(response.timestamp),
+    timestamp: normalizeRequiredTimestamp(response.timestamp),
     itemType,
     itemId,
   }

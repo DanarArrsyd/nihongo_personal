@@ -1,11 +1,11 @@
 import { database as defaultDatabase } from './database.js'
-import { normalizeTimestamp, validateItemIdentifiers } from './validation.js'
+import {
+  normalizeRequiredTimestamp,
+  validateItemIdentifiers,
+  validateNonBlankString,
+} from './validation.js'
 
-function validateRequiredString(value, name) {
-  if (typeof value !== 'string' || !value.trim()) {
-    throw new Error(`${name} must be a non-blank string`)
-  }
-}
+const SUPPORTED_RATINGS = new Set(['again', 'hard', 'good', 'easy'])
 
 function createProgressRecord(itemType, itemId) {
   return {
@@ -23,15 +23,18 @@ export async function getReview(itemType, itemId, db = defaultDatabase) {
 }
 
 export async function recordFlashcardRating({ sessionId, response }, db = defaultDatabase) {
-  validateRequiredString(sessionId, 'sessionId')
-  validateRequiredString(response?.cardId, 'cardId')
-  validateRequiredString(response?.rating, 'rating')
+  validateNonBlankString(sessionId, 'sessionId')
+  validateNonBlankString(response?.cardId, 'cardId')
+
+  if (!SUPPORTED_RATINGS.has(response?.rating)) {
+    throw new Error('Unsupported flashcard rating')
+  }
 
   const itemType = response?.associatedItem?.module
   const itemId = response?.associatedItem?.itemId
   validateItemIdentifiers(itemType, itemId)
 
-  const lastReviewedAt = normalizeTimestamp(response.timestamp)
+  const lastReviewedAt = normalizeRequiredTimestamp(response.timestamp)
   const reviewRecord = {
     itemType,
     itemId,

@@ -118,4 +118,35 @@ describe('review repository', () => {
       lastStudiedAt: '2026-09-14T01:00:00.000Z',
     })
   })
+
+  it.each([
+    ['blank session id', { sessionId: ' ' }, 'sessionId must be a non-blank string'],
+    ['blank card id', { cardId: '' }, 'cardId must be a non-blank string'],
+    ['unknown rating', { rating: 'unknown' }, 'Unsupported flashcard rating'],
+    [
+      'blank item type',
+      { associatedItem: { module: '', itemId: 'n5-vocab-001' } },
+      'itemType and itemId are required',
+    ],
+    [
+      'blank item id',
+      { associatedItem: { module: 'vocabulary', itemId: '' } },
+      'itemType and itemId are required',
+    ],
+    ['missing timestamp', { timestamp: undefined }, 'timestamp is required'],
+    ['invalid timestamp', { timestamp: 'not-a-date' }, 'Invalid timestamp'],
+  ])('rejects a %s without writing a review', async (_label, changes, errorMessage) => {
+    const sessionId = changes.sessionId ?? 'session-1'
+    const changedResponse = { ...response, ...changes }
+
+    await expect(recordFlashcardRating({
+      sessionId,
+      response: changedResponse,
+    }, database)).rejects.toThrow(errorMessage)
+
+    await expect(database.reviews.count()).resolves.toBe(0)
+    await expect(database.progress.get(['vocabulary', 'n5-vocab-001'])).resolves.toMatchObject({
+      lastStudiedAt: '2026-09-14T01:00:00.000Z',
+    })
+  })
 })

@@ -1,4 +1,10 @@
-import { normalizeTimestamp } from '../db/validation.js'
+import {
+  normalizeRequiredTimestamp,
+  validateNonBlankString,
+  validateNonNegativeInteger,
+  validateScore,
+  validateStudySessionKind,
+} from '../db/validation.js'
 
 export function createStudySession({
   kind,
@@ -6,11 +12,17 @@ export function createStudySession({
   now = () => new Date(),
   createId = () => crypto.randomUUID(),
 }) {
+  validateStudySessionKind(kind)
+  validateNonBlankString(module, 'module')
+
+  const sessionId = createId()
+  validateNonBlankString(sessionId, 'sessionId')
+
   return {
-    sessionId: createId(),
+    sessionId,
     kind,
     module,
-    startedAt: normalizeTimestamp(now()),
+    startedAt: normalizeRequiredTimestamp(now(), 'startedAt'),
   }
 }
 
@@ -21,21 +33,42 @@ export function completeStudySession({
   score,
   now = () => new Date(),
 }) {
-  const endedAt = normalizeTimestamp(now())
-  const duration = Math.max(0, new Date(endedAt).getTime() - new Date(session.startedAt).getTime())
+  validateNonBlankString(session?.sessionId, 'sessionId')
+  validateStudySessionKind(session.kind)
+  validateNonBlankString(session.module, 'module')
+  validateNonNegativeInteger(itemCount, 'itemCount')
+
+  const startedAt = normalizeRequiredTimestamp(session.startedAt, 'startedAt')
+  const endedAt = normalizeRequiredTimestamp(now(), 'endedAt')
+  const duration = Math.max(0, new Date(endedAt).getTime() - new Date(startedAt).getTime())
   const summary = {
     sessionId: session.sessionId,
     kind: session.kind,
     module: session.module,
-    startedAt: session.startedAt,
+    startedAt,
     endedAt,
     duration,
     itemCount,
   }
 
   if (session.kind === 'quiz') {
-    summary.correctCount = correctCount
-    summary.score = score
+    if (correctCount !== undefined) {
+      validateNonNegativeInteger(correctCount, 'correctCount')
+      summary.correctCount = correctCount
+    }
+
+    if (score !== undefined) {
+      validateScore(score)
+      summary.score = score
+    }
+  } else {
+    if (correctCount !== undefined) {
+      throw new Error('correctCount is only supported for quiz sessions')
+    }
+
+    if (score !== undefined) {
+      throw new Error('score is only supported for quiz sessions')
+    }
   }
 
   return summary

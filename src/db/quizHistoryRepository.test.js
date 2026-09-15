@@ -108,4 +108,45 @@ describe('quiz history repository', () => {
     await expect(database.quizHistory.count()).resolves.toBe(0)
     await expect(database.progress.count()).resolves.toBe(0)
   })
+
+  it.each([
+    ['blank session id', { sessionId: ' ' }, 'sessionId must be a non-blank string'],
+    [
+      'blank question id',
+      { response: { ...response, questionId: '' } },
+      'questionId must be a non-blank string',
+    ],
+    ['blank question type', { questionType: ' ' }, 'questionType must be a non-blank string'],
+    [
+      'blank item type',
+      { associatedItem: { module: '', itemId: 'n5-vocab-001' } },
+      'itemType and itemId are required',
+    ],
+    [
+      'blank item id',
+      { associatedItem: { module: 'vocabulary', itemId: '' } },
+      'itemType and itemId are required',
+    ],
+    ['non-boolean result', { result: 'true' }, 'result must be a boolean'],
+    [
+      'nested curriculum answer',
+      { userAnswer: { id: 'n5-vocab-001', word: '食べる' } },
+      'userAnswer must be a scalar value',
+    ],
+    ['array correct answer', { correctAnswer: ['makan'] }, 'correctAnswer must be a scalar value'],
+    ['undefined answer', { userAnswer: undefined }, 'userAnswer must be a scalar value'],
+    ['missing timestamp', { timestamp: undefined }, 'timestamp is required'],
+    ['invalid timestamp', { timestamp: 'not-a-date' }, 'Invalid timestamp'],
+  ])('rejects a %s without writing activity', async (_label, changes, errorMessage) => {
+    const sessionId = changes.sessionId ?? 'session-1'
+    const changedResponse = changes.response ?? { ...response, ...changes }
+
+    await expect(recordQuizResponse({
+      sessionId,
+      response: changedResponse,
+    }, database)).rejects.toThrow(errorMessage)
+
+    await expect(database.quizHistory.count()).resolves.toBe(0)
+    await expect(database.progress.count()).resolves.toBe(0)
+  })
 })
