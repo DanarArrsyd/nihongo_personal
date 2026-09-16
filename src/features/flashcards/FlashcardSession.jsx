@@ -71,14 +71,23 @@ function isShortcutBlockedTarget(target) {
   ))
 }
 
-export default function FlashcardSession({ autoFocus = false, cards, onRestart, now }) {
+export default function FlashcardSession({
+  autoFocus = false,
+  cards,
+  onComplete,
+  onResponse,
+  onRestart,
+  now,
+}) {
   const [state, dispatch] = useReducer(flashcardSessionReducer, cards, createValidatedState)
   const answerHeadingRef = useRef(null)
   const cardHeadingRef = useRef(null)
   const focusIntentRef = useRef(autoFocus ? 'card' : null)
   const nowRef = useRef(now)
   const onRestartRef = useRef(onRestart)
+  const completionReportedRef = useRef(false)
   const ratingLockedRef = useRef(false)
+  const reportedResponsesRef = useRef(new Set())
   const resultsHeadingRef = useRef(null)
   const stateRef = useRef(state)
 
@@ -104,6 +113,31 @@ export default function FlashcardSession({ autoFocus = false, cards, onRestart, 
       resultsHeadingRef.current?.focus()
     }
   }, [state.currentIndex, state.revealed, state.status])
+
+  useEffect(() => {
+    if (typeof onResponse !== 'function') return
+
+    state.responses.forEach((response) => {
+      if (reportedResponsesRef.current.has(response.cardId)) return
+
+      reportedResponsesRef.current.add(response.cardId)
+      onResponse(response)
+    })
+  }, [onResponse, state.responses])
+
+  useEffect(() => {
+    if (
+      state.status !== 'completed'
+      || completionReportedRef.current
+      || typeof onComplete !== 'function'
+    ) return
+
+    completionReportedRef.current = true
+    onComplete({
+      itemCount: state.cards.length,
+      ratingCounts: getRatingCounts(state),
+    })
+  }, [onComplete, state])
 
   const revealCurrentCard = useCallback(() => {
     const currentState = stateRef.current
@@ -139,7 +173,9 @@ export default function FlashcardSession({ autoFocus = false, cards, onRestart, 
     const replacementCards = onRestartRef.current()
     if (!isValidCardSet(replacementCards)) return
 
+    completionReportedRef.current = false
     ratingLockedRef.current = false
+    reportedResponsesRef.current.clear()
     focusIntentRef.current = 'card'
     dispatch({ type: 'RESTART', cards: replacementCards })
   }, [])

@@ -2,6 +2,8 @@ import { ArrowLeft } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
+import { createStudySession } from '../../services/studySession.js'
+import useFlashcardPersistence from '../persistence/useFlashcardPersistence.js'
 import FlashcardSession from './FlashcardSession.jsx'
 import { createFlashcardDeck, FLASHCARD_MODULES } from './adapters/flashcardDeckAdapter.js'
 import FlashcardUnavailable from './components/FlashcardUnavailable.jsx'
@@ -19,6 +21,7 @@ function createSession(module, sessionVersion = 0) {
     cards: result.cards,
     error: result.error,
     sessionVersion,
+    studySession: createStudySession({ kind: 'flashcard', module }),
   }
 }
 
@@ -37,6 +40,7 @@ function RecoveryLink({ children, primary = false, to }) {
 
 function SessionHost({ module }) {
   const [session, setSession] = useState(() => createSession(module))
+  const { onComplete, onResponse } = useFlashcardPersistence(session.studySession)
 
   const restart = useCallback(() => {
     const next = createSession(module)
@@ -61,6 +65,8 @@ function SessionHost({ module }) {
       key={session.sessionVersion}
       autoFocus={session.sessionVersion > 0}
       cards={session.cards}
+      onComplete={onComplete}
+      onResponse={onResponse}
       onRestart={restart}
     />
   )
