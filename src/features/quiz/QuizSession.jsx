@@ -8,9 +8,9 @@ import QuizResults from './components/QuizResults'
 import QuizUnavailable from './components/QuizUnavailable'
 import { validateQuiz } from './services/questionValidation'
 import { createQuizResponse } from './services/quizResponse'
-import { createQuizState, quizSessionReducer } from './services/quizSession'
+import { createQuizState, getQuizScore, quizSessionReducer } from './services/quizSession'
 
-export default function QuizSession({ questions, onRestart, now }) {
+export default function QuizSession({ questions, onComplete, onResponse, onRestart, now }) {
   const validation = validateQuiz(questions)
   const [state, dispatch] = useReducer(
     quizSessionReducer,
@@ -19,12 +19,43 @@ export default function QuizSession({ questions, onRestart, now }) {
   )
   const questionHeadingRef = useRef(null)
   const focusAfterNavigation = useRef(false)
+  const reportedResponsesRef = useRef(new Set())
+  const completionReportedRef = useRef(false)
 
   useEffect(() => {
     if (!focusAfterNavigation.current) return
     focusAfterNavigation.current = false
     questionHeadingRef.current?.focus()
   }, [state.currentIndex])
+
+  useEffect(() => {
+    if (typeof onResponse !== 'function') return
+
+    state.questions.forEach((question) => {
+      const acceptedResponse = state.responses[question.id]
+      if (!acceptedResponse || reportedResponsesRef.current.has(question.id)) return
+
+      reportedResponsesRef.current.add(question.id)
+      onResponse(acceptedResponse)
+    })
+  }, [onResponse, state.questions, state.responses])
+
+  useEffect(() => {
+    if (
+      !validation.valid
+      || state.status !== 'completed'
+      || completionReportedRef.current
+      || typeof onComplete !== 'function'
+    ) return
+
+    completionReportedRef.current = true
+    const correctCount = getQuizScore(state)
+    onComplete({
+      itemCount: state.questions.length,
+      correctCount,
+      score: Math.round((correctCount / state.questions.length) * 100),
+    })
+  }, [onComplete, state, validation.valid])
 
   if (!validation.valid) return <QuizUnavailable />
   if (state.status === 'completed') return <QuizResults state={state} onRestart={onRestart} />

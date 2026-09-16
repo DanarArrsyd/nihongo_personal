@@ -1,6 +1,8 @@
 import { ArrowLeft } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { createStudySession } from '../../services/studySession.js'
+import useQuizPersistence from '../persistence/useQuizPersistence.js'
 import { createMixedQuiz } from './adapters/mixedQuizAdapter.js'
 import QuizUnavailable from './components/QuizUnavailable'
 import QuizSession from './QuizSession'
@@ -13,18 +15,19 @@ function createSession(sessionVersion = 0) {
     questions: result.questions,
     error: result.error,
     sessionVersion,
+    studySession: createStudySession({ kind: 'quiz', module: 'mixed' }),
   }
 }
 
 export default function MixedQuizPage() {
   const [session, setSession] = useState(() => createSession())
   const validation = validateQuiz(session.questions)
+  const { onComplete, onResponse } = useQuizPersistence(session.studySession)
 
   function restart() {
-    const result = createMixedQuiz()
+    const nextSession = createSession()
     setSession((current) => ({
-      questions: result.questions,
-      error: result.error,
+      ...nextSession,
       sessionVersion: current.sessionVersion + 1,
     }))
   }
@@ -61,6 +64,8 @@ export default function MixedQuizPage() {
         <QuizSession
           key={session.sessionVersion}
           questions={session.questions}
+          onComplete={onComplete}
+          onResponse={onResponse}
           onRestart={restart}
         />
       </div>

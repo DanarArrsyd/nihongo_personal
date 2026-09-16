@@ -1,6 +1,8 @@
 import { ArrowLeft } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { createStudySession } from '../../services/studySession.js'
+import useQuizPersistence from '../persistence/useQuizPersistence.js'
 import QuizSession from '../quiz/QuizSession'
 import { createKanaQuiz } from '../quiz/adapters/kanaQuizAdapter.js'
 import QuizUnavailable from '../quiz/components/QuizUnavailable'
@@ -20,17 +22,22 @@ function createSession(script, mode, sessionVersion = 0) {
   return {
     questions: createKanaQuiz({ script, mode }),
     sessionVersion,
+    studySession: createStudySession({
+      kind: 'quiz',
+      module: `kana:${script}:${mode}`,
+    }),
   }
 }
 
 function PracticeSession({ mode, script }) {
   const [session, setSession] = useState(() => createSession(script, mode))
   const validation = validateQuiz(session.questions)
+  const { onComplete, onResponse } = useQuizPersistence(session.studySession)
 
   function restart() {
-    const questions = createKanaQuiz({ script, mode })
+    const nextSession = createSession(script, mode)
     setSession((current) => ({
-      questions,
+      ...nextSession,
       sessionVersion: current.sessionVersion + 1,
     }))
   }
@@ -59,6 +66,8 @@ function PracticeSession({ mode, script }) {
           <QuizSession
             key={session.sessionVersion}
             questions={session.questions}
+            onComplete={onComplete}
+            onResponse={onResponse}
             onRestart={restart}
           />
         ) : (

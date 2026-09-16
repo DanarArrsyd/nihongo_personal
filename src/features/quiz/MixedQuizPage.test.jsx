@@ -2,9 +2,23 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../../App'
 
-const { createMixedQuizMock } = vi.hoisted(() => ({ createMixedQuizMock: vi.fn() }))
+const {
+  createMixedQuizMock,
+  createStudySessionMock,
+  onCompleteMock,
+  onResponseMock,
+  useQuizPersistenceMock,
+} = vi.hoisted(() => ({
+  createMixedQuizMock: vi.fn(),
+  createStudySessionMock: vi.fn(),
+  onCompleteMock: vi.fn(),
+  onResponseMock: vi.fn(),
+  useQuizPersistenceMock: vi.fn(),
+}))
 
 vi.mock('./adapters/mixedQuizAdapter.js', () => ({ createMixedQuiz: createMixedQuizMock }))
+vi.mock('../../services/studySession.js', () => ({ createStudySession: createStudySessionMock }))
+vi.mock('../persistence/useQuizPersistence.js', () => ({ default: useQuizPersistenceMock }))
 
 const questions = [
   {
@@ -86,8 +100,19 @@ function answerCurrent(question) {
 
 describe('Mixed quiz route', () => {
   beforeEach(() => {
-    createMixedQuizMock.mockReset()
+    vi.clearAllMocks()
     createMixedQuizMock.mockReturnValue({ questions, error: null })
+    let sessionCount = 0
+    createStudySessionMock.mockImplementation(({ kind, module }) => ({
+      sessionId: `mixed-session-${++sessionCount}`,
+      kind,
+      module,
+      startedAt: '2026-09-15T01:00:00.000Z',
+    }))
+    useQuizPersistenceMock.mockReturnValue({
+      onComplete: onCompleteMock,
+      onResponse: onResponseMock,
+    })
   })
 
   it('adds a primary Mixed Quiz entry to Practice while keeping Kana practice', () => {
@@ -100,6 +125,14 @@ describe('Mixed quiz route', () => {
 
   it('completes ten questions, reviews every answer, and restarts a fresh session', () => {
     renderRoute('/practice/mixed')
+
+    expect(createStudySessionMock).toHaveBeenCalledWith({ kind: 'quiz', module: 'mixed' })
+    expect(useQuizPersistenceMock).toHaveBeenCalledWith({
+      sessionId: 'mixed-session-1',
+      kind: 'quiz',
+      module: 'mixed',
+      startedAt: '2026-09-15T01:00:00.000Z',
+    })
 
     expect(screen.getByRole('heading', { name: 'Mixed Quiz', level: 1 })).toBeVisible()
     expect(screen.getByText(/Kana, Vocabulary, Kanji, dan Grammar/)).toBeVisible()
@@ -115,11 +148,25 @@ describe('Mixed quiz route', () => {
     expect(screen.getByRole('heading', { name: 'Hasil quiz' })).toBeVisible()
     expect(screen.getByText('10 dari 10')).toBeVisible()
     expect(screen.getAllByRole('listitem')).toHaveLength(10)
+    expect(onResponseMock).toHaveBeenCalledTimes(10)
+    expect(onCompleteMock).toHaveBeenCalledOnce()
+    expect(onCompleteMock).toHaveBeenCalledWith({
+      itemCount: 10,
+      correctCount: 10,
+      score: 100,
+    })
 
     fireEvent.click(screen.getByRole('button', { name: 'Mulai lagi' }))
 
     expect(screen.getByRole('heading', { name: 'Soal 1 dari 10' })).toBeVisible()
     expect(createMixedQuizMock).toHaveBeenCalledTimes(2)
+    expect(createStudySessionMock).toHaveBeenCalledTimes(2)
+    expect(useQuizPersistenceMock).toHaveBeenLastCalledWith({
+      sessionId: 'mixed-session-2',
+      kind: 'quiz',
+      module: 'mixed',
+      startedAt: '2026-09-15T01:00:00.000Z',
+    })
   })
 
   it('shows exact recovery when mixed generation is unavailable', () => {

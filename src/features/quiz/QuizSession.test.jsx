@@ -110,6 +110,39 @@ describe('QuizSession', () => {
     expect(next).toBeEnabled()
   })
 
+  it('reports each accepted response once with the real quiz response payload', () => {
+    const onResponse = vi.fn()
+    const view = renderSession({ onResponse })
+
+    answerFirstQuestion()
+
+    expect(onResponse).toHaveBeenCalledOnce()
+    expect(onResponse).toHaveBeenCalledWith({
+      questionId: 'vocabulary-meaning',
+      questionType: 'multiple_choice',
+      userAnswer: 'makan',
+      correctAnswer: 'makan',
+      result: true,
+      timestamp: '2026-08-28T12:00:00.000Z',
+      associatedItem: { module: 'vocabulary', itemId: 'n5-vocab-001' },
+    })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Soal berikutnya' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Soal sebelumnya' }))
+    view.rerender(
+      <MemoryRouter>
+        <QuizSession
+          questions={questions}
+          now={() => new Date('2026-08-28T12:00:00.000Z')}
+          onResponse={onResponse}
+          onRestart={vi.fn()}
+        />
+      </MemoryRouter>,
+    )
+
+    expect(onResponse).toHaveBeenCalledOnce()
+  })
+
   it('moves focus to the new question heading after next navigation', () => {
     renderSession()
     answerFirstQuestion()
@@ -183,6 +216,39 @@ describe('QuizSession', () => {
     const incorrectStatus = within(reviews[1]).getByText('Belum tepat')
     expect(incorrectStatus).toHaveClass('text-ink')
     expect(incorrectStatus.querySelector('svg')).toHaveClass('text-accent')
+  })
+
+  it('reports literal completion totals once after the final accepted answer', () => {
+    const onComplete = vi.fn()
+    const onResponse = vi.fn()
+    const view = renderSession({ onComplete, onResponse })
+
+    answerFirstQuestion()
+    fireEvent.click(screen.getByRole('button', { name: 'Soal berikutnya' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Salah' }))
+
+    expect(onResponse).toHaveBeenCalledTimes(2)
+    expect(onComplete).toHaveBeenCalledOnce()
+    expect(onComplete).toHaveBeenCalledWith({
+      itemCount: 2,
+      correctCount: 1,
+      score: 50,
+    })
+
+    view.rerender(
+      <MemoryRouter>
+        <QuizSession
+          questions={questions}
+          now={() => new Date('2026-08-28T12:00:00.000Z')}
+          onComplete={onComplete}
+          onResponse={onResponse}
+          onRestart={vi.fn()}
+        />
+      </MemoryRouter>,
+    )
+
+    expect(onResponse).toHaveBeenCalledTimes(2)
+    expect(onComplete).toHaveBeenCalledOnce()
   })
 
   it('marks Japanese answers in feedback and results with Japanese language semantics', () => {
