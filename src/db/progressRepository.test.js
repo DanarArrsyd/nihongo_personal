@@ -113,6 +113,28 @@ describe('progress repository', () => {
     })
   })
 
+  it('preserves both increments when answer results are applied concurrently', async () => {
+    await Promise.all([
+      applyAnswerResult({
+        itemType: 'vocabulary',
+        itemId: 'n5-vocab-001',
+        correct: true,
+        timestamp: '2026-09-15T01:00:00.000Z',
+      }, database),
+      applyAnswerResult({
+        itemType: 'vocabulary',
+        itemId: 'n5-vocab-001',
+        correct: true,
+        timestamp: '2026-09-15T01:01:00.000Z',
+      }, database),
+    ])
+
+    await expect(getProgress('vocabulary', 'n5-vocab-001', database)).resolves.toMatchObject({
+      correctCount: 2,
+      incorrectCount: 0,
+    })
+  })
+
   it('stores Date timestamps as canonical ISO strings', async () => {
     await expect(setProgressStatus({
       itemType: 'vocabulary',

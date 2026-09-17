@@ -1,6 +1,7 @@
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb'
 
 import { createDatabase } from './database.js'
+import { setProgressStatus } from './progressRepository.js'
 import { recordQuizResponse } from './quizHistoryRepository.js'
 
 const response = {
@@ -91,6 +92,28 @@ describe('quiz history repository', () => {
       correctCount: 1,
       incorrectCount: 0,
       lastStudiedAt: '2026-09-15T01:00:00.000Z',
+    })
+  })
+
+  it('preserves the quiz counter when status and quiz writes run concurrently', async () => {
+    await Promise.all([
+      setProgressStatus({
+        itemType: 'vocabulary',
+        itemId: 'n5-vocab-001',
+        status: 'familiar',
+        timestamp: '2026-09-15T01:01:00.000Z',
+      }, database),
+      recordQuizResponse({
+        sessionId: 'session-1',
+        response,
+      }, database),
+    ])
+
+    await expect(database.quizHistory.count()).resolves.toBe(1)
+    await expect(database.progress.get(['vocabulary', 'n5-vocab-001'])).resolves.toMatchObject({
+      status: 'familiar',
+      correctCount: 1,
+      incorrectCount: 0,
     })
   })
 

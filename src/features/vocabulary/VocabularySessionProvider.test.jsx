@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb'
+import { StrictMode } from 'react'
 import PersistenceNotice from '../persistence/PersistenceNotice'
 import PersistenceProvider from '../persistence/PersistenceProvider'
 import { createDatabase } from '../../db/database'
@@ -45,8 +46,8 @@ function VocabularyProbe() {
   )
 }
 
-function renderProvider({ favoritesStore, progressStore }) {
-  return render(
+function renderProvider({ favoritesStore, progressStore }, { strict = false } = {}) {
+  const provider = (
     <PersistenceProvider>
       <PersistenceNotice />
       <VocabularySessionProvider
@@ -55,8 +56,10 @@ function renderProvider({ favoritesStore, progressStore }) {
       >
         <VocabularyProbe />
       </VocabularySessionProvider>
-    </PersistenceProvider>,
+    </PersistenceProvider>
   )
+
+  return render(strict ? <StrictMode>{provider}</StrictMode> : provider)
 }
 
 function createDatabaseStores(database) {
@@ -199,6 +202,56 @@ describe('VocabularySessionProvider', () => {
     favoritesRead.resolve([{ itemId: vocabularyId }])
     expect(await screen.findByText('Status: familiar')).toBeVisible()
     expect(screen.getByText('Favorite: yes')).toBeVisible()
+  })
+
+  it('reports an initial progress read failure and finishes hydration', async () => {
+    const readError = new Error('progress read failed')
+    const stores = {
+      progressStore: {
+        listProgress: () => Promise.reject(readError),
+        setProgressStatus: () => Promise.resolve(),
+      },
+      favoritesStore: {
+        listFavorites: () => Promise.resolve([{ itemId: vocabularyId }]),
+        setFavorite: () => Promise.resolve(),
+      },
+    }
+
+    renderProvider(stores)
+
+    expect(await screen.findByText('Status: new')).toBeVisible()
+    expect(screen.getByText('Favorite: yes')).toBeVisible()
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Penyimpanan lokal sedang bermasalah',
+    )
+    expect(consoleError).toHaveBeenCalledWith(readError)
+  })
+
+  it('keeps the active hydration result when Strict Mode replays effects', async () => {
+    const staleProgressRead = createDeferred()
+    const progressStore = {
+      listProgress: vi.fn()
+        .mockImplementationOnce(() => staleProgressRead.promise)
+        .mockResolvedValue([{ itemId: vocabularyId, status: 'familiar' }]),
+      setProgressStatus: () => Promise.resolve(),
+    }
+    const favoritesStore = {
+      listFavorites: () => Promise.resolve([{ itemId: vocabularyId }]),
+      setFavorite: () => Promise.resolve(),
+    }
+
+    renderProvider({ favoritesStore, progressStore }, { strict: true })
+
+    expect(await screen.findByText('Status: familiar')).toBeVisible()
+    expect(screen.getByText('Favorite: yes')).toBeVisible()
+
+    staleProgressRead.resolve([{ itemId: vocabularyId, status: 'mastered' }])
+    await staleProgressRead.promise
+
+    await waitFor(() => {
+      expect(screen.getByText('Status: familiar')).toBeVisible()
+      expect(screen.queryByText('Status: mastered')).not.toBeInTheDocument()
+    })
   })
 
   it('serializes rapid status writes and continues after an earlier rejection', async () => {

@@ -29,29 +29,33 @@ export async function setProgressStatus({ itemType, itemId, status, timestamp },
     throw new Error('Unsupported progress status')
   }
 
-  const existingRecord = await getProgress(itemType, itemId, db)
-  const record = {
-    ...(existingRecord ?? createProgressRecord(itemType, itemId)),
-    status,
-    lastStudiedAt: normalizeTimestamp(timestamp),
-  }
+  return db.transaction('rw', db.progress, async () => {
+    const existingRecord = await getProgress(itemType, itemId, db)
+    const record = {
+      ...(existingRecord ?? createProgressRecord(itemType, itemId)),
+      status,
+      lastStudiedAt: normalizeTimestamp(timestamp),
+    }
 
-  await db.progress.put(record)
-  return record
+    await db.progress.put(record)
+    return record
+  })
 }
 
 export async function applyAnswerResult({ itemType, itemId, correct, timestamp }, db = defaultDatabase) {
   validateItemIdentifiers(itemType, itemId)
   validateBoolean(correct, 'correct')
 
-  const existingRecord = await getProgress(itemType, itemId, db)
-  const record = {
-    ...(existingRecord ?? createProgressRecord(itemType, itemId)),
-    correctCount: (existingRecord?.correctCount ?? 0) + (correct ? 1 : 0),
-    incorrectCount: (existingRecord?.incorrectCount ?? 0) + (correct ? 0 : 1),
-    lastStudiedAt: normalizeTimestamp(timestamp),
-  }
+  return db.transaction('rw', db.progress, async () => {
+    const existingRecord = await getProgress(itemType, itemId, db)
+    const record = {
+      ...(existingRecord ?? createProgressRecord(itemType, itemId)),
+      correctCount: (existingRecord?.correctCount ?? 0) + (correct ? 1 : 0),
+      incorrectCount: (existingRecord?.incorrectCount ?? 0) + (correct ? 0 : 1),
+      lastStudiedAt: normalizeTimestamp(timestamp),
+    }
 
-  await db.progress.put(record)
-  return record
+    await db.progress.put(record)
+    return record
+  })
 }
