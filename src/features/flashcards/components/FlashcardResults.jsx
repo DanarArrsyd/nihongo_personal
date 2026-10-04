@@ -7,7 +7,7 @@ function frontTextClass(card) {
   return card.front.primary.lang === 'ja' ? 'font-japanese' : ''
 }
 
-export default function FlashcardResults({ headingRef, onRestart, state, ratingCounts }) {
+export default function FlashcardResults({ headingRef, onRestart, resultAction, state, ratingCounts }) {
   const cardsById = new Map(state.cards.map((card) => [card.id, card]))
 
   return (
@@ -28,10 +28,12 @@ export default function FlashcardResults({ headingRef, onRestart, state, ratingC
         <p className="mt-4 text-base text-ink-muted">
           {state.responses.length} kartu telah Anda nilai.
         </p>
-        <Button type="button" className="mt-7" onClick={onRestart}>
-          <RotateCcw aria-hidden="true" size={17} />
-          Mulai lagi
-        </Button>
+        {resultAction ?? (typeof onRestart === 'function' ? (
+          <Button type="button" className="mt-7" onClick={onRestart}>
+            <RotateCcw aria-hidden="true" size={17} />
+            Mulai lagi
+          </Button>
+        ) : null)}
       </header>
 
       <section aria-label="Distribusi penilaian" className="mt-8">

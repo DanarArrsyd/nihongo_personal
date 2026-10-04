@@ -47,6 +47,15 @@ function getSourceItems(module, sources) {
   return moduleSources[module]()
 }
 
+export function createFlashcardForItem({ module, itemId } = {}) {
+  if (!FLASHCARD_MODULES.includes(module) || typeof itemId !== 'string') return null
+
+  const item = moduleSources[module]().find((candidate) => candidate.id === itemId)
+  const card = item ? moduleAdapters[module](item) : null
+
+  return isValidFlashcard(card, module) ? card : null
+}
+
 export function createFlashcardDeck({ module, count = 10, rng = Math.random, sources } = {}) {
   if (!FLASHCARD_MODULES.includes(module)) {
     return { cards: [], error: 'unknown-module' }
