@@ -2,9 +2,23 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../../App'
 
-const { createKanaQuizMock } = vi.hoisted(() => ({ createKanaQuizMock: vi.fn() }))
+const {
+  createKanaQuizMock,
+  createStudySessionMock,
+  onCompleteMock,
+  onResponseMock,
+  useQuizPersistenceMock,
+} = vi.hoisted(() => ({
+  createKanaQuizMock: vi.fn(),
+  createStudySessionMock: vi.fn(),
+  onCompleteMock: vi.fn(),
+  onResponseMock: vi.fn(),
+  useQuizPersistenceMock: vi.fn(),
+}))
 
 vi.mock('../quiz/adapters/kanaQuizAdapter.js', () => ({ createKanaQuiz: createKanaQuizMock }))
+vi.mock('../../services/studySession.js', () => ({ createStudySession: createStudySessionMock }))
+vi.mock('../persistence/useQuizPersistence.js', () => ({ default: useQuizPersistenceMock }))
 
 function createQuestion({ id, mode, prompt, answer, distractor }) {
   const reverse = mode === 'reverse'
@@ -66,8 +80,19 @@ function answerTyping(value) {
 
 describe('Kana practice', () => {
   beforeEach(() => {
-    createKanaQuizMock.mockReset()
+    vi.clearAllMocks()
     createKanaQuizMock.mockImplementation(({ mode }) => questionsForMode(mode))
+    let sessionCount = 0
+    createStudySessionMock.mockImplementation(({ kind, module }) => ({
+      sessionId: `kana-session-${++sessionCount}`,
+      kind,
+      module,
+      startedAt: '2026-09-15T01:00:00.000Z',
+    }))
+    useQuizPersistenceMock.mockReturnValue({
+      onComplete: onCompleteMock,
+      onResponse: onResponseMock,
+    })
   })
 
   it('keeps Hiragana and Katakana practice entries on the overview', () => {
@@ -123,17 +148,42 @@ describe('Kana practice', () => {
   it('completes a deterministic Kana session and restarts with replacement questions', () => {
     renderRoute('/practice/kana/hiragana/typing')
 
+    expect(createStudySessionMock).toHaveBeenCalledWith({
+      kind: 'quiz',
+      module: 'kana:hiragana:typing',
+    })
+    expect(useQuizPersistenceMock).toHaveBeenCalledWith({
+      sessionId: 'kana-session-1',
+      kind: 'quiz',
+      module: 'kana:hiragana:typing',
+      startedAt: '2026-09-15T01:00:00.000Z',
+    })
+
     answerTyping('a')
     fireEvent.click(screen.getByRole('button', { name: 'Soal berikutnya' }))
     answerTyping('i')
 
     expect(screen.getByRole('heading', { name: 'Hasil quiz' })).toBeVisible()
     expect(screen.getByText('2 dari 2')).toBeVisible()
+    expect(onResponseMock).toHaveBeenCalledTimes(2)
+    expect(onCompleteMock).toHaveBeenCalledOnce()
+    expect(onCompleteMock).toHaveBeenCalledWith({
+      itemCount: 2,
+      correctCount: 2,
+      score: 100,
+    })
 
     fireEvent.click(screen.getByRole('button', { name: 'Mulai lagi' }))
 
     expect(screen.getByRole('heading', { name: 'Soal 1 dari 2' })).toBeVisible()
     expect(createKanaQuizMock).toHaveBeenCalledTimes(2)
+    expect(createStudySessionMock).toHaveBeenCalledTimes(2)
+    expect(useQuizPersistenceMock).toHaveBeenLastCalledWith({
+      sessionId: 'kana-session-2',
+      kind: 'quiz',
+      module: 'kana:hiragana:typing',
+      startedAt: '2026-09-15T01:00:00.000Z',
+    })
   })
 
   it('shows safe recovery for an invalid practice path', () => {

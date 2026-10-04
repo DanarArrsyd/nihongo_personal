@@ -90,12 +90,20 @@ describe('FlashcardSession', () => {
     ['Hard', 'hard'],
     ['Good', 'good'],
     ['Easy', 'easy'],
-  ])('records %s once and advances hidden to the next card', (label) => {
-    renderSession()
+  ])('records %s once with its response payload and advances hidden to the next card', (label, rating) => {
+    const onResponse = vi.fn()
+    renderSession({ onResponse })
     reveal()
 
     rate(label)
 
+    expect(onResponse).toHaveBeenCalledOnce()
+    expect(onResponse).toHaveBeenCalledWith({
+      cardId: 'flashcard-vocabulary-n5-vocab-001',
+      rating,
+      timestamp: '2026-08-30T12:00:00.000Z',
+      associatedItem: { module: 'vocabulary', itemId: 'n5-vocab-001' },
+    })
     expect(screen.getByRole('heading', { name: '飲' })).toHaveFocus()
     expect(screen.queryByText('minum')).not.toBeInTheDocument()
     expect(screen.getByText('Kartu 2 dari 2')).toBeVisible()
@@ -104,7 +112,8 @@ describe('FlashcardSession', () => {
 
   it('locks a rating immediately so a double click records only one response', () => {
     const now = vi.fn(() => new Date('2026-08-30T12:00:00.000Z'))
-    renderSession({ now })
+    const onResponse = vi.fn()
+    renderSession({ now, onResponse })
     reveal()
     const goodButton = screen.getByRole('button', { name: 'Good, tombol 3' })
 
@@ -112,7 +121,51 @@ describe('FlashcardSession', () => {
     fireEvent.click(goodButton)
 
     expect(now).toHaveBeenCalledOnce()
+    expect(onResponse).toHaveBeenCalledOnce()
     expect(screen.getByRole('heading', { name: '飲' })).toBeVisible()
+  })
+
+  it('reports completion once with literal rating counts after the final accepted rating', () => {
+    const onComplete = vi.fn()
+    const onResponse = vi.fn()
+    const { rerender } = renderSession({ onComplete, onResponse })
+    reveal()
+    rate('Again')
+    reveal()
+    rate('Easy')
+
+    expect(onComplete).toHaveBeenCalledOnce()
+    expect(onComplete).toHaveBeenCalledWith({
+      itemCount: 2,
+      ratingCounts: { again: 1, hard: 0, good: 0, easy: 1 },
+    })
+    expect(onResponse).toHaveBeenCalledTimes(2)
+
+    rerender(
+      <FlashcardSession
+        cards={cards}
+        now={() => new Date('2026-08-30T12:00:00.000Z')}
+        onComplete={onComplete}
+        onResponse={onResponse}
+        onRestart={() => cards}
+      />,
+    )
+
+    expect(onComplete).toHaveBeenCalledOnce()
+    expect(onResponse).toHaveBeenCalledTimes(2)
+  })
+
+  it('ignores repeated rating shortcuts without duplicating response or completion callbacks', () => {
+    const onComplete = vi.fn()
+    const onResponse = vi.fn()
+    renderSession({ cards: [cards[0]], onComplete, onResponse })
+    reveal()
+
+    fireEvent.keyDown(document, { key: '3', repeat: false })
+    fireEvent.keyDown(document, { key: '3', repeat: true })
+
+    expect(onResponse).toHaveBeenCalledOnce()
+    expect(onComplete).toHaveBeenCalledOnce()
   })
 
   it('shows exact rating distribution and one review item per response', () => {

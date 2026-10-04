@@ -1,18 +1,36 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../../App'
+import PersistenceProvider from '../persistence/PersistenceProvider'
 
-function renderRoute(path) {
-  return render(
+vi.mock('../../db/progressRepository', () => ({
+  listProgress: () => Promise.resolve([]),
+  setProgressStatus: () => Promise.resolve(),
+}))
+
+vi.mock('../../db/favoritesRepository', () => ({
+  listFavorites: () => Promise.resolve([]),
+  setFavorite: () => Promise.resolve(),
+}))
+
+async function renderRoute(path) {
+  const view = render(
     <MemoryRouter initialEntries={[path]}>
-      <App />
+      <PersistenceProvider>
+        <App />
+      </PersistenceProvider>
     </MemoryRouter>,
   )
+
+  const loadingState = screen.queryByTestId('loading-skeletons')
+  if (loadingState) await waitForElementToBeRemoved(loadingState)
+
+  return view
 }
 
 describe('Vocabulary learning', () => {
-  it('opens Vocabulary from Learn', () => {
-    renderRoute('/learn')
+  it('opens Vocabulary from Learn', async () => {
+    await renderRoute('/learn')
 
     expect(screen.getByRole('link', { name: 'Study Vocabulary' })).toHaveAttribute(
       'href',
@@ -20,8 +38,8 @@ describe('Vocabulary learning', () => {
     )
   })
 
-  it('shows the N5 vocabulary index', () => {
-    renderRoute('/learn/vocabulary')
+  it('shows the N5 vocabulary index', async () => {
+    await renderRoute('/learn/vocabulary')
 
     expect(screen.getByRole('heading', { name: 'Vocabulary', level: 1 })).toBeVisible()
     expect(screen.getByText('30 words')).toBeVisible()
@@ -31,8 +49,8 @@ describe('Vocabulary learning', () => {
 
   it.each(['食べ', 'たべ', 'TABERU', 'makan'])(
     'searches vocabulary using %s',
-    (query) => {
-      renderRoute('/learn/vocabulary')
+    async (query) => {
+      await renderRoute('/learn/vocabulary')
 
       fireEvent.change(screen.getByRole('searchbox', { name: 'Search vocabulary' }), {
         target: { value: query },
@@ -43,8 +61,8 @@ describe('Vocabulary learning', () => {
     },
   )
 
-  it('filters vocabulary by word type', () => {
-    renderRoute('/learn/vocabulary')
+  it('filters vocabulary by word type', async () => {
+    await renderRoute('/learn/vocabulary')
 
     fireEvent.change(screen.getByRole('combobox', { name: 'Word type' }), {
       target: { value: 'adjective' },
@@ -55,8 +73,8 @@ describe('Vocabulary learning', () => {
     expect(screen.queryByRole('link', { name: 'Study 食べる' })).not.toBeInTheDocument()
   })
 
-  it('recovers from an empty search', () => {
-    renderRoute('/learn/vocabulary')
+  it('recovers from an empty search', async () => {
+    await renderRoute('/learn/vocabulary')
 
     fireEvent.change(screen.getByRole('searchbox', { name: 'Search vocabulary' }), {
       target: { value: 'tidak-ada' },
@@ -67,8 +85,8 @@ describe('Vocabulary learning', () => {
     expect(screen.getByText('30 words')).toBeVisible()
   })
 
-  it('shows vocabulary detail and example sentence', () => {
-    renderRoute('/learn/vocabulary/n5-vocab-001')
+  it('shows vocabulary detail and example sentence', async () => {
+    await renderRoute('/learn/vocabulary/n5-vocab-001')
 
     expect(screen.getByRole('heading', { name: '食べる', level: 1 })).toBeVisible()
     expect(screen.getByText('たべる')).toBeVisible()
@@ -78,8 +96,8 @@ describe('Vocabulary learning', () => {
     expect(screen.getByText('Saya makan roti.')).toBeVisible()
   })
 
-  it('keeps favorite and learning status during route navigation', () => {
-    renderRoute('/learn/vocabulary/n5-vocab-001')
+  it('keeps favorite and learning status during route navigation', async () => {
+    await renderRoute('/learn/vocabulary/n5-vocab-001')
 
     fireEvent.click(screen.getByRole('button', { name: 'Add 食べる to favorites' }))
     fireEvent.change(screen.getByRole('combobox', { name: 'Learning status' }), {
@@ -95,8 +113,8 @@ describe('Vocabulary learning', () => {
     expect(screen.getByRole('combobox', { name: 'Learning status' })).toHaveValue('learning')
   })
 
-  it('shows pronunciation fallback without browser speech support', () => {
-    renderRoute('/learn/vocabulary/n5-vocab-001')
+  it('shows pronunciation fallback without browser speech support', async () => {
+    await renderRoute('/learn/vocabulary/n5-vocab-001')
 
     fireEvent.click(screen.getByRole('button', { name: 'Pronounce 食べる' }))
 
@@ -105,8 +123,8 @@ describe('Vocabulary learning', () => {
     )
   })
 
-  it('shows safe recovery for an invalid vocabulary ID', () => {
-    renderRoute('/learn/vocabulary/not-real')
+  it('shows safe recovery for an invalid vocabulary ID', async () => {
+    await renderRoute('/learn/vocabulary/not-real')
 
     expect(screen.getByRole('heading', { name: 'Vocabulary not found' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Back to Vocabulary' })).toHaveAttribute(

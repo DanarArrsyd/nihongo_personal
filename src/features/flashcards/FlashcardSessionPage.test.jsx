@@ -2,8 +2,18 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { Link, MemoryRouter, Route, Routes } from 'react-router-dom'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { createStudySession } from '../../services/studySession.js'
+import useFlashcardPersistence from '../persistence/useFlashcardPersistence.js'
 import { createFlashcardDeck } from './adapters/flashcardDeckAdapter.js'
 import FlashcardSessionPage from './FlashcardSessionPage.jsx'
+
+const { onCompleteMock, onResponseMock } = vi.hoisted(() => ({
+  onCompleteMock: vi.fn(),
+  onResponseMock: vi.fn(),
+}))
+
+vi.mock('../../services/studySession.js', () => ({ createStudySession: vi.fn() }))
+vi.mock('../persistence/useFlashcardPersistence.js', () => ({ default: vi.fn() }))
 
 vi.mock('./adapters/flashcardDeckAdapter.js', async (importOriginal) => {
   const actual = await importOriginal()
@@ -76,6 +86,17 @@ describe('FlashcardSessionPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     createFlashcardDeck.mockImplementation(({ module }) => successfulDeck(module))
+    let sessionCount = 0
+    createStudySession.mockImplementation(({ kind, module }) => ({
+      sessionId: `flashcard-session-${++sessionCount}`,
+      kind,
+      module,
+      startedAt: '2026-09-15T02:00:00.000Z',
+    }))
+    useFlashcardPersistence.mockReturnValue({
+      onComplete: onCompleteMock,
+      onResponse: onResponseMock,
+    })
   })
 
   it.each([
@@ -87,6 +108,13 @@ describe('FlashcardSessionPage', () => {
 
     expect(createFlashcardDeck).toHaveBeenCalledOnce()
     expect(createFlashcardDeck).toHaveBeenCalledWith({ module })
+    expect(createStudySession).toHaveBeenCalledWith({ kind: 'flashcard', module })
+    expect(useFlashcardPersistence).toHaveBeenCalledWith({
+      sessionId: 'flashcard-session-1',
+      kind: 'flashcard',
+      module,
+      startedAt: '2026-09-15T02:00:00.000Z',
+    })
     expect(screen.getByRole('heading', { name: heading, level: 1 })).toBeVisible()
     expect(screen.getByRole('heading', { name: front, level: 2 })).toBeVisible()
   })
@@ -99,6 +127,11 @@ describe('FlashcardSessionPage', () => {
 
     expect(screen.getByRole('heading', { name: 'Hasil flashcard' })).toBeVisible()
     expect(screen.getByLabelText('Good: 1')).toBeVisible()
+    expect(onResponseMock).toHaveBeenCalledOnce()
+    expect(onCompleteMock).toHaveBeenCalledWith({
+      itemCount: 1,
+      ratingCounts: { again: 0, hard: 0, good: 1, easy: 0 },
+    })
   })
 
   it('regenerates the deck on restart and returns to a hidden front', () => {
@@ -119,6 +152,13 @@ describe('FlashcardSessionPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Mulai lagi' }))
 
     expect(createFlashcardDeck).toHaveBeenCalledTimes(2)
+    expect(createStudySession).toHaveBeenCalledTimes(2)
+    expect(useFlashcardPersistence).toHaveBeenLastCalledWith({
+      sessionId: 'flashcard-session-2',
+      kind: 'flashcard',
+      module: 'vocabulary',
+      startedAt: '2026-09-15T02:00:00.000Z',
+    })
     expect(screen.getByRole('heading', { name: '飲む' })).toHaveFocus()
     expect(screen.queryByText('minum')).not.toBeInTheDocument()
   })
@@ -155,5 +195,7 @@ describe('FlashcardSessionPage', () => {
       .toHaveAttribute('href', '/practice/flashcards')
     expect(screen.getByRole('link', { name: 'Kembali ke Practice' }))
       .toHaveAttribute('href', '/practice')
+    expect(onResponseMock).not.toHaveBeenCalled()
+    expect(onCompleteMock).not.toHaveBeenCalled()
   })
 })
