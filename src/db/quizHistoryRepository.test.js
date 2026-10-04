@@ -66,6 +66,11 @@ describe('quiz history repository', () => {
       incorrectCount: 0,
       lastStudiedAt: '2026-09-15T01:00:00.000Z',
     })
+    await expect(database.reviews.get(['vocabulary', 'n5-vocab-001'])).resolves.toMatchObject({
+      lastRating: 'good',
+      interval: 3,
+      dueAt: '2026-09-18T01:00:00.000Z',
+    })
   })
 
   it('keeps the original history and counter when the same operation is delivered twice', async () => {
@@ -93,6 +98,7 @@ describe('quiz history repository', () => {
       incorrectCount: 0,
       lastStudiedAt: '2026-09-15T01:00:00.000Z',
     })
+    await expect(database.reviews.count()).resolves.toBe(1)
   })
 
   it('preserves the quiz counter when status and quiz writes run concurrently', async () => {
@@ -130,6 +136,20 @@ describe('quiz history repository', () => {
 
     await expect(database.quizHistory.count()).resolves.toBe(0)
     await expect(database.progress.count()).resolves.toBe(0)
+    await expect(database.reviews.count()).resolves.toBe(0)
+  })
+
+  it('schedules an incorrect answer for immediate review', async () => {
+    await recordQuizResponse({
+      sessionId: 'session-1',
+      response: { ...response, result: false, userAnswer: 'minum' },
+    }, database)
+
+    await expect(database.reviews.get(['vocabulary', 'n5-vocab-001'])).resolves.toMatchObject({
+      lastRating: 'again',
+      interval: 0,
+      dueAt: '2026-09-15T01:00:00.000Z',
+    })
   })
 
   it.each([

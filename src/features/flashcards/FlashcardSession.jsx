@@ -22,7 +22,8 @@ const ratingShortcuts = {
   4: 'easy',
 }
 
-const supportedModules = new Set(['vocabulary', 'kanji', 'grammar'])
+const flashcardModules = new Set(['vocabulary', 'kanji', 'grammar'])
+const reviewModules = new Set([...flashcardModules, 'kana'])
 
 function hasText(value) {
   return typeof value === 'string' && value.trim().length > 0
@@ -41,7 +42,7 @@ function isValidExample(example) {
   )
 }
 
-function isValidCard(card) {
+function isValidCard(card, supportedModules) {
   return hasText(card?.id)
     && supportedModules.has(card.source?.module)
     && hasText(card.source?.itemId)
@@ -55,14 +56,16 @@ function isValidCard(card) {
     && isValidExample(card.back.example)
 }
 
-function isValidCardSet(cards) {
-  if (!Array.isArray(cards) || cards.length === 0 || !cards.every(isValidCard)) return false
+function isValidCardSet(cards, supportedModules) {
+  if (!Array.isArray(cards)
+    || cards.length === 0
+    || !cards.every((card) => isValidCard(card, supportedModules))) return false
 
   return new Set(cards.map(({ id }) => id)).size === cards.length
 }
 
-function createValidatedState(cards) {
-  return createFlashcardState(isValidCardSet(cards) ? cards : [])
+function createValidatedState({ cards, supportedModules }) {
+  return createFlashcardState(isValidCardSet(cards, supportedModules) ? cards : [])
 }
 
 function isShortcutBlockedTarget(target) {
@@ -72,14 +75,21 @@ function isShortcutBlockedTarget(target) {
 }
 
 export default function FlashcardSession({
+  allowKana = false,
   autoFocus = false,
   cards,
   onComplete,
   onResponse,
   onRestart,
   now,
+  resultAction,
 }) {
-  const [state, dispatch] = useReducer(flashcardSessionReducer, cards, createValidatedState)
+  const supportedModules = allowKana ? reviewModules : flashcardModules
+  const [state, dispatch] = useReducer(
+    flashcardSessionReducer,
+    { cards, supportedModules },
+    createValidatedState,
+  )
   const answerHeadingRef = useRef(null)
   const cardHeadingRef = useRef(null)
   const focusIntentRef = useRef(autoFocus ? 'card' : null)
@@ -171,14 +181,14 @@ export default function FlashcardSession({
     if (typeof onRestartRef.current !== 'function') return
 
     const replacementCards = onRestartRef.current()
-    if (!isValidCardSet(replacementCards)) return
+    if (!isValidCardSet(replacementCards, supportedModules)) return
 
     completionReportedRef.current = false
     ratingLockedRef.current = false
     reportedResponsesRef.current.clear()
     focusIntentRef.current = 'card'
     dispatch({ type: 'RESTART', cards: replacementCards })
-  }, [])
+  }, [supportedModules])
 
   useEffect(() => {
     function handleKeyDown(event) {
@@ -197,7 +207,7 @@ export default function FlashcardSession({
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [rateCurrentCard, revealCurrentCard])
 
-  if (!isValidCardSet(state.cards)) {
+  if (!isValidCardSet(state.cards, supportedModules)) {
     return (
       <FlashcardUnavailable
         primaryAction={typeof onRestart === 'function' ? (
@@ -213,7 +223,8 @@ export default function FlashcardSession({
         headingRef={resultsHeadingRef}
         state={state}
         ratingCounts={getRatingCounts(state)}
-        onRestart={restart}
+        onRestart={typeof onRestart === 'function' ? restart : undefined}
+        resultAction={resultAction}
       />
     )
   }

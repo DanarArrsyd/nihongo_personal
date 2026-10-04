@@ -1,7 +1,7 @@
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb'
 
 import { createDatabase } from './database.js'
-import { getReview, recordFlashcardRating } from './reviewRepository.js'
+import { getReview, listDueReviews, recordFlashcardRating } from './reviewRepository.js'
 
 const response = {
   cardId: 'vocabulary:n5-vocab-001',
@@ -40,7 +40,7 @@ describe('review repository', () => {
     await expect(getReview('kanji', 'n5-kanji-001', database)).resolves.toBeNull()
   })
 
-  it('stores the latest scalar rating without calculating SRS fields', async () => {
+  it('stores the latest rating with its next review schedule', async () => {
     await expect(recordFlashcardRating({
       sessionId: 'session-1',
       response,
@@ -51,9 +51,9 @@ describe('review repository', () => {
       lastRating: 'good',
       lastReviewedAt: '2026-09-15T01:00:00.000Z',
       sessionId: 'session-1',
-      dueAt: null,
-      interval: null,
-      difficulty: null,
+      dueAt: '2026-09-18T01:00:00.000Z',
+      interval: 3,
+      difficulty: 2,
     })
 
     await expect(getReview('vocabulary', 'n5-vocab-001', database)).resolves.toEqual({
@@ -63,9 +63,9 @@ describe('review repository', () => {
       lastRating: 'good',
       lastReviewedAt: '2026-09-15T01:00:00.000Z',
       sessionId: 'session-1',
-      dueAt: null,
-      interval: null,
-      difficulty: null,
+      dueAt: '2026-09-18T01:00:00.000Z',
+      interval: 3,
+      difficulty: 2,
     })
     await expect(database.progress.get(['vocabulary', 'n5-vocab-001'])).resolves.toEqual({
       itemType: 'vocabulary',
@@ -97,10 +97,42 @@ describe('review repository', () => {
       lastRating: 'hard',
       lastReviewedAt: '2026-09-15T02:00:00.000Z',
       sessionId: 'session-2',
-      dueAt: null,
-      interval: null,
-      difficulty: null,
+      dueAt: '2026-09-19T02:00:00.000Z',
+      interval: 4,
+      difficulty: 3,
     })
+  })
+
+  it('lists only due reviews in chronological order', async () => {
+    await database.reviews.bulkPut([
+      {
+        itemType: 'kanji',
+        itemId: 'n5-kanji-002',
+        dueAt: '2026-09-15T08:00:00.000Z',
+      },
+      {
+        itemType: 'vocabulary',
+        itemId: 'n5-vocab-001',
+        dueAt: '2026-09-15T07:00:00.000Z',
+      },
+      {
+        itemType: 'grammar',
+        itemId: 'n5-grammar-001',
+        dueAt: '2026-09-16T07:00:00.000Z',
+      },
+      {
+        itemType: 'kanji',
+        itemId: 'n5-kanji-003',
+        dueAt: null,
+      },
+    ])
+
+    const due = await listDueReviews('2026-09-15T09:00:00.000Z', database)
+
+    expect(due.map(({ itemType, itemId }) => `${itemType}:${itemId}`)).toEqual([
+      'vocabulary:n5-vocab-001',
+      'kanji:n5-kanji-002',
+    ])
   })
 
   it('rolls back the review when the progress update fails', async () => {

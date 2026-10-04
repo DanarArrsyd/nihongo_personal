@@ -1,5 +1,6 @@
 import { database as defaultDatabase } from './database.js'
 import { applyAnswerResult } from './progressRepository.js'
+import { createScheduledReview } from './reviewRepository.js'
 import {
   normalizeRequiredTimestamp,
   validateBoolean,
@@ -34,10 +35,21 @@ export async function recordQuizResponse({ sessionId, response }, db = defaultDa
     itemId,
   }
 
-  return db.transaction('rw', db.quizHistory, db.progress, async () => {
+  return db.transaction('rw', db.quizHistory, db.progress, db.reviews, async () => {
     const existingRecord = await db.quizHistory.where('operationId').equals(operationId).first()
 
     if (existingRecord) return existingRecord
+
+    const existingReview = await db.reviews.get([itemType, itemId])
+    const reviewRecord = createScheduledReview({
+      cardId: `quiz:${response.questionId}`,
+      itemId,
+      itemType,
+      previousInterval: existingReview?.interval,
+      rating: response.result ? 'good' : 'again',
+      sessionId,
+      timestamp: historyRecord.timestamp,
+    })
 
     await db.quizHistory.add(historyRecord)
     await applyAnswerResult({
@@ -46,6 +58,7 @@ export async function recordQuizResponse({ sessionId, response }, db = defaultDa
       correct: response.result,
       timestamp: historyRecord.timestamp,
     }, db)
+    await db.reviews.put(reviewRecord)
 
     return historyRecord
   })

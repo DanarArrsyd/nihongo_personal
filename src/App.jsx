@@ -12,6 +12,7 @@ import KanjiPage from './features/kanji/KanjiPage'
 import LearnPage from './features/learn/LearnPage'
 import PracticePage from './features/practice/PracticePage'
 import MixedQuizPage from './features/quiz/MixedQuizPage'
+import ReviewPage from './features/review/ReviewPage'
 import VocabularyDetailPage from './features/vocabulary/VocabularyDetailPage'
 import VocabularyLayout from './features/vocabulary/VocabularyLayout'
 import VocabularyPage from './features/vocabulary/VocabularyPage'
@@ -19,13 +20,6 @@ import NotFoundPage from './pages/NotFoundPage'
 import PagePlaceholder from './pages/PagePlaceholder'
 
 const pages = [
-  {
-    path: '/review',
-    title: 'Review',
-    japanese: '復習',
-    index: '04',
-    description: 'Previously learned material will return here at the right time.',
-  },
   {
     path: '/progress',
     title: 'Progress',
@@ -63,6 +57,7 @@ export default function App() {
         <Route path="/practice/flashcards" element={<FlashcardsPage />} />
         <Route path="/practice/flashcards/:module" element={<FlashcardSessionPage />} />
         <Route path="/practice/kana/:script/:mode" element={<KanaPracticePage />} />
+        <Route path="/review" element={<ReviewPage />} />
         {pages.map((page) => (
           <Route key={page.path} path={page.path} element={<PagePlaceholder {...page} />} />
         ))}

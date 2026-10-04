@@ -10,10 +10,14 @@ Nihongo Personal is a private, single-user Japanese learning workspace built for
 - Kana recognition, reverse-recognition, and typing practice
 - JLPT N5 vocabulary seed set with 30 structured entries
 - Vocabulary search, word-type and learning-status filters
-- Vocabulary details, example sentences, pronunciation, favorites, and session status
+- Vocabulary details, example sentences, pronunciation, favorites, and persisted learning status
+- JLPT N5 Kanji and Grammar reference modules
+- Reusable mixed quiz and Vocabulary, Kanji, and Grammar flashcards
+- IndexedDB learning history, favorites, settings, progress, and study sessions
+- Interval-based SRS scheduling with a responsive due-review queue
 - Basic PWA manifest and application-shell caching
 
-Favorites, learning status, and progress currently live only for the active browser session. IndexedDB persistence is planned for Milestone 9.
+User progress stays in local IndexedDB on the current browser. Cloud synchronization is outside Version 1 scope.
 
 ## Technology
 

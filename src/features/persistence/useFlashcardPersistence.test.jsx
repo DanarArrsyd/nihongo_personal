@@ -114,9 +114,9 @@ describe('useFlashcardPersistence', () => {
       lastRating: 'good',
       lastReviewedAt: '2026-09-15T02:01:00.000Z',
       sessionId: 'flashcard-session-1',
-      dueAt: null,
-      interval: null,
-      difficulty: null,
+      dueAt: '2026-09-18T02:01:00.000Z',
+      interval: 3,
+      difficulty: 2,
     })
     await expect(database.studySessions.get('flashcard-session-1')).resolves.toMatchObject({
       sessionId: 'flashcard-session-1',
