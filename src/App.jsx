@@ -1,5 +1,7 @@
+import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AppShell from './components/layout/AppShell'
+import LoadingState from './components/feedback/LoadingState'
 import DashboardPage from './features/dashboard/DashboardPage'
 import FlashcardsPage from './features/flashcards/FlashcardsPage'
 import FlashcardSessionPage from './features/flashcards/FlashcardSessionPage'
@@ -18,6 +20,8 @@ import VocabularyLayout from './features/vocabulary/VocabularyLayout'
 import VocabularyPage from './features/vocabulary/VocabularyPage'
 import NotFoundPage from './pages/NotFoundPage'
 import PagePlaceholder from './pages/PagePlaceholder'
+
+const DailyMissionPage = lazy(() => import('./features/missions/DailyMissionPage'))
 
 const pages = [
   {
@@ -42,6 +46,14 @@ export default function App() {
       <Route element={<AppShell />}>
         <Route path="/" element={<DashboardPage />} />
         <Route path="/learn" element={<LearnPage />} />
+        <Route
+          path="/mission"
+          element={(
+            <Suspense fallback={<div className="page-frame"><LoadingState label="Memuat Daily Mission" /></div>}>
+              <DailyMissionPage />
+            </Suspense>
+          )}
+        />
         <Route path="/learn/kana/:script" element={<KanaEntryRedirect />} />
         <Route path="/learn/kana/:script/:groupId" element={<KanaLearningPage />} />
         <Route path="/learn/kanji" element={<KanjiPage />} />

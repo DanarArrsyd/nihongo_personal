@@ -12,6 +12,10 @@ export function createDatabase(name, dependencies) {
     settings: 'key',
   })
 
+  database.version(2).stores({
+    dailyMissions: 'date, status, updatedAt',
+  })
+
   return database
 }
 

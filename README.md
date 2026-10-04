@@ -15,6 +15,7 @@ Nihongo Personal is a private, single-user Japanese learning workspace built for
 - Reusable mixed quiz and Vocabulary, Kanji, and Grammar flashcards
 - IndexedDB learning history, favorites, settings, progress, and study sessions
 - Interval-based SRS scheduling with a responsive due-review queue
+- Persisted daily missions covering review, new learning, and mixed practice
 - Basic PWA manifest and application-shell caching
 
 User progress stays in local IndexedDB on the current browser. Cloud synchronization is outside Version 1 scope.

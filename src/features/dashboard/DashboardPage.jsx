@@ -9,11 +9,22 @@ import DailyMission from './components/DailyMission'
 import LearningStatistics from './components/LearningStatistics'
 import RecentActivity from './components/RecentActivity'
 import WeeklyActivity from './components/WeeklyActivity'
+import useDailyMission from '../missions/useDailyMission.js'
 
 export default function DashboardPage() {
   const navigate = useNavigate()
-  const { dailyGoal, mission, profile, recentActivity, statistics, streak, weeklyActivity } = dashboardData
+  const { dailyGoal, profile, recentActivity, statistics, streak, weeklyActivity } = dashboardData
+  const dailyMission = useDailyMission()
   const goalPercentage = Math.round((dailyGoal.current / dailyGoal.target) * 100)
+
+  async function openMission() {
+    if (dailyMission.mission?.status === 'not_started') {
+      const started = await dailyMission.start()
+      if (!started) return
+    }
+
+    navigate('/mission')
+  }
 
   return (
     <div className="page-frame dashboard-page">
@@ -62,7 +73,14 @@ export default function DashboardPage() {
       </Card>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-12">
-        <div className="xl:col-span-7"><DailyMission mission={mission} /></div>
+        <div className="xl:col-span-7">
+          <DailyMission
+            mission={dailyMission.mission}
+            status={dailyMission.status}
+            onOpen={openMission}
+            onRetry={dailyMission.retry}
+          />
+        </div>
         <div className="xl:col-span-5"><LearningStatistics statistics={statistics} /></div>
         <div className="xl:col-span-7"><WeeklyActivity activity={weeklyActivity} /></div>
         <div className="xl:col-span-5"><RecentActivity activities={recentActivity} /></div>

@@ -2,6 +2,43 @@ import { fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../../App'
 
+const dailyMissionMock = vi.hoisted(() => {
+  const createTask = (id, type, target, unit, completed = false) => ({
+    id,
+    type,
+    title: id,
+    route: '/',
+    target,
+    unit,
+    itemIds: [],
+    completed,
+    completedAt: null,
+  })
+  const mission = {
+    date: '2026-10-04',
+    status: 'not_started',
+    tasks: [
+      createTask('review', 'review', 0, 'item', true),
+      createTask('vocabulary', 'learn', 5, 'kata'),
+      createTask('kanji', 'learn', 2, 'kanji'),
+      createTask('grammar', 'learn', 1, 'pola'),
+      createTask('practice', 'practice', 10, 'soal'),
+    ],
+  }
+
+  return {
+    completeTask: vi.fn(),
+    mission,
+    retry: vi.fn(),
+    start: vi.fn(async () => ({ ...mission, status: 'in_progress' })),
+    status: 'ready',
+  }
+})
+
+vi.mock('../missions/useDailyMission.js', () => ({
+  default: () => dailyMissionMock,
+}))
+
 function renderDashboard() {
   return render(
     <MemoryRouter initialEntries={['/']}>
@@ -24,15 +61,16 @@ describe('Dashboard', () => {
     expect(screen.getByText('18 / 20 minutes')).toBeVisible()
   })
 
-  it('shows complete daily mission groups from dashboard data', () => {
+  it('shows generated daily mission groups from persisted mission data', () => {
     renderDashboard()
 
     const mission = screen.getByRole('region', { name: 'Daily mission' })
-    expect(within(mission).getByText('18 items')).toBeVisible()
-    expect(within(mission).getByText('5 Vocabulary')).toBeVisible()
-    expect(within(mission).getByText('2 Kanji')).toBeVisible()
-    expect(within(mission).getByText('1 Grammar')).toBeVisible()
-    expect(within(mission).getByText('10 Questions')).toBeVisible()
+    expect(within(mission).getByText('0 item')).toBeVisible()
+    expect(within(mission).getByText('5 kata')).toBeVisible()
+    expect(within(mission).getByText('2 kanji')).toBeVisible()
+    expect(within(mission).getByText('1 pola')).toBeVisible()
+    expect(within(mission).getByText('10 soal')).toBeVisible()
+    expect(within(mission).getByRole('button', { name: 'Mulai misi' })).toBeVisible()
   })
 
   it('shows streak, learning statistics, weekly activity, and recent activity', () => {

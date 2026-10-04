@@ -13,7 +13,7 @@ describe('createDatabase', () => {
     }
   })
 
-  it('creates the version one schema and supports one record in every table', async () => {
+  it('creates the current schema and supports one record in every table', async () => {
     database = createDatabase(`nihongo-personal-test-${Date.now()}`, {
       indexedDB,
       IDBKeyRange,
@@ -22,6 +22,7 @@ describe('createDatabase', () => {
     await database.open()
 
     const expectedTables = [
+      'dailyMissions',
       'favorites',
       'progress',
       'quizHistory',
@@ -33,6 +34,7 @@ describe('createDatabase', () => {
     expect(database.tables.map(({ name }) => name).sort()).toEqual(expectedTables)
 
     const records = {
+      dailyMissions: { date: '2026-10-04', status: 'not_started', updatedAt: 1 },
       favorites: { itemType: 'vocabulary', itemId: 'test-vocab', updatedAt: 1 },
       progress: { itemType: 'vocabulary', itemId: 'test-vocab', status: 'new', lastStudiedAt: 1 },
       quizHistory: {
@@ -49,6 +51,7 @@ describe('createDatabase', () => {
     }
 
     const keys = {
+      dailyMissions: '2026-10-04',
       favorites: ['vocabulary', 'test-vocab'],
       progress: ['vocabulary', 'test-vocab'],
       reviews: ['vocabulary', 'test-vocab'],

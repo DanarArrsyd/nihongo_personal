@@ -13,26 +13,6 @@ export const dashboardData = {
     days: 12,
     best: 18,
   },
-  mission: [
-    {
-      id: 'review',
-      label: 'Review',
-      description: 'Strengthen what you already know.',
-      items: ['18 items'],
-    },
-    {
-      id: 'learn',
-      label: 'Learn',
-      description: 'Add a small, focused set.',
-      items: ['5 Vocabulary', '2 Kanji', '1 Grammar'],
-    },
-    {
-      id: 'practice',
-      label: 'Practice',
-      description: 'Finish with active recall.',
-      items: ['10 Questions'],
-    },
-  ],
   statistics: [
     { id: 'vocabulary', label: 'Vocabulary mastered', value: 126, accent: 'red' },
     { id: 'kanji', label: 'Kanji mastered', value: 38, accent: 'matcha' },
