@@ -19,20 +19,10 @@ import VocabularyDetailPage from './features/vocabulary/VocabularyDetailPage'
 import VocabularyLayout from './features/vocabulary/VocabularyLayout'
 import VocabularyPage from './features/vocabulary/VocabularyPage'
 import NotFoundPage from './pages/NotFoundPage'
-import PagePlaceholder from './pages/PagePlaceholder'
 
 const DailyMissionPage = lazy(() => import('./features/missions/DailyMissionPage'))
+const LibraryPage = lazy(() => import('./features/library/LibraryPage'))
 const ProgressPage = lazy(() => import('./features/progress/ProgressPage'))
-
-const pages = [
-  {
-    path: '/library',
-    title: 'Library',
-    japanese: '資料',
-    index: '06',
-    description: 'Reference material stays organized and easy to revisit.',
-  },
-]
 
 export default function App() {
   return (
@@ -72,9 +62,14 @@ export default function App() {
             </Suspense>
           )}
         />
-        {pages.map((page) => (
-          <Route key={page.path} path={page.path} element={<PagePlaceholder {...page} />} />
-        ))}
+        <Route
+          path="/library"
+          element={(
+            <Suspense fallback={<div className="page-frame"><LoadingState label="Memuat library" /></div>}>
+              <LibraryPage />
+            </Suspense>
+          )}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

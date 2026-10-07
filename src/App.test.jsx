@@ -31,8 +31,19 @@ const progressAnalyticsMock = vi.hoisted(() => ({
   status: 'ready',
 }))
 
+const libraryFavoritesMock = vi.hoisted(() => ({
+  favoriteKeys: new Set(),
+  retry: vi.fn(),
+  status: 'ready',
+  toggleFavorite: vi.fn(),
+}))
+
 vi.mock('./features/progress/useProgressAnalytics.js', () => ({
   default: () => progressAnalyticsMock,
+}))
+
+vi.mock('./features/library/useLibraryFavorites.js', () => ({
+  default: () => libraryFavoritesMock,
 }))
 
 function renderRoute(path) {
