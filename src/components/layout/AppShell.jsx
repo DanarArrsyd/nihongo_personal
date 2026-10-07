@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import PersistenceNotice from '../../features/persistence/PersistenceNotice'
+import PwaStatus from '../../features/pwa/PwaStatus'
 import MobileHeader from './MobileHeader'
 import Sidebar from './Sidebar'
 
@@ -17,6 +18,7 @@ export default function AppShell() {
         onClose={closeNavigation}
         onOpen={() => setIsNavigationOpen(true)}
       />
+      <PwaStatus />
       <main id="main-content" className="min-h-screen lg:ml-72">
         <PersistenceNotice />
         <Outlet />

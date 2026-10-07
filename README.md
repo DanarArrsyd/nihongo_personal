@@ -18,7 +18,7 @@ Nihongo Personal is a private, single-user Japanese learning workspace built for
 - Persisted daily missions covering review, new learning, and mixed practice
 - Persisted progress analytics for mastery, accuracy, streaks, weekly activity, and study history
 - Searchable Vocabulary, Kanji, and Grammar library with persisted favorites
-- Basic PWA manifest and application-shell caching
+- Installable PWA with final icons, offline learning shell, and user-controlled updates
 
 User progress stays in local IndexedDB on the current browser. Cloud synchronization is outside Version 1 scope.
 
@@ -42,6 +42,15 @@ npm run dev
 ```
 
 Open the local URL printed by Vite, usually `http://localhost:5173`.
+
+To verify the installable production PWA locally, build first and serve the generated output:
+
+```bash
+npm run build
+npm run preview
+```
+
+Open the HTTPS deployment or local preview once while online. The application shell and bundled learning content are then available offline; personal progress remains in the browser's IndexedDB.
 
 ## Scripts
 
