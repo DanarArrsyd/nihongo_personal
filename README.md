@@ -2,6 +2,8 @@
 
 Nihongo Personal is a private, single-user Japanese learning workspace built for structured, calm, and measurable study.
 
+Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
+
 ## Current features
 
 - Responsive application shell for desktop, tablet, and smartphone
