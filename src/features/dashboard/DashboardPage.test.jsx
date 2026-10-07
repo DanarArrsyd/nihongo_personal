@@ -35,8 +35,38 @@ const dailyMissionMock = vi.hoisted(() => {
   }
 })
 
+const progressAnalyticsMock = vi.hoisted(() => ({
+  analytics: {
+    dueReviewCount: 2,
+    history: [{
+      accuracy: 80,
+      date: '2026-10-04T01:00:00.000Z',
+      id: 'session-1',
+      itemCount: 10,
+      kind: 'quiz',
+      label: 'Mixed Quiz',
+      module: 'mixed',
+    }],
+    modules: [
+      { id: 'kana', mastered: 4 },
+      { id: 'vocabulary', mastered: 3 },
+      { id: 'kanji', mastered: 2 },
+      { id: 'grammar', mastered: 1 },
+    ],
+    streak: { current: 3 },
+    today: { minutes: 12 },
+    weeklyActivity: Array.from({ length: 7 }, (_, index) => ({ day: `D${index + 1}`, minutes: index * 2 })),
+  },
+  retry: vi.fn(),
+  status: 'ready',
+}))
+
 vi.mock('../missions/useDailyMission.js', () => ({
   default: () => dailyMissionMock,
+}))
+
+vi.mock('../progress/useProgressAnalytics.js', () => ({
+  default: () => progressAnalyticsMock,
 }))
 
 function renderDashboard() {
@@ -56,9 +86,9 @@ describe('Dashboard', () => {
     expect(screen.getByText('JLPT N5')).toBeVisible()
     expect(screen.getByRole('progressbar', { name: 'Daily goal' })).toHaveAttribute(
       'aria-valuenow',
-      '90',
+      '60',
     )
-    expect(screen.getByText('18 / 20 minutes')).toBeVisible()
+    expect(screen.getByText('12 / 20 minutes')).toBeVisible()
   })
 
   it('shows generated daily mission groups from persisted mission data', () => {
@@ -76,7 +106,7 @@ describe('Dashboard', () => {
   it('shows streak, learning statistics, weekly activity, and recent activity', () => {
     renderDashboard()
 
-    expect(screen.getByText('12 days')).toBeVisible()
+    expect(screen.getByText('3 days')).toBeVisible()
     expect(screen.getByRole('region', { name: 'Learning statistics' })).toBeInTheDocument()
     expect(screen.getByRole('figure', { name: 'Weekly learning activity' })).toBeInTheDocument()
     expect(screen.getByRole('region', { name: 'Recent activity' })).toBeInTheDocument()

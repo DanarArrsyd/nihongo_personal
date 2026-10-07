@@ -3,6 +3,38 @@ import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 import PersistenceProvider from './features/persistence/PersistenceProvider'
 
+const progressAnalyticsMock = vi.hoisted(() => ({
+  analytics: {
+    dueReviewCount: 0,
+    empty: true,
+    history: [],
+    modules: [
+      { id: 'kana', label: 'Kana', japanese: 'かな', mastered: 0, percentage: 0, studied: 0, total: 2 },
+      { id: 'vocabulary', label: 'Vocabulary', japanese: '言葉', mastered: 0, percentage: 0, studied: 0, total: 2 },
+      { id: 'kanji', label: 'Kanji', japanese: '漢字', mastered: 0, percentage: 0, studied: 0, total: 1 },
+      { id: 'grammar', label: 'Grammar', japanese: '文法', mastered: 0, percentage: 0, studied: 0, total: 1 },
+    ],
+    overall: { mastered: 0, percentage: 0, studied: 0, total: 6 },
+    quizAccuracy: { correct: 0, percentage: 0, total: 0 },
+    reviewAccuracy: { correct: 0, percentage: 0, total: 0 },
+    streak: { best: 0, current: 0 },
+    today: { minutes: 0, sessions: 0 },
+    totalSessions: 0,
+    weeklyActivity: Array.from({ length: 7 }, (_, index) => ({
+      date: `2026-10-0${index + 1}`,
+      day: `D${index + 1}`,
+      minutes: 0,
+      sessions: 0,
+    })),
+  },
+  retry: vi.fn(),
+  status: 'ready',
+}))
+
+vi.mock('./features/progress/useProgressAnalytics.js', () => ({
+  default: () => progressAnalyticsMock,
+}))
+
 function renderRoute(path) {
   return render(
     <MemoryRouter initialEntries={[path]}>
@@ -21,10 +53,10 @@ describe('application routes', () => {
     ['/review', 'Review'],
     ['/progress', 'Progress'],
     ['/library', 'Library'],
-  ])('renders the %s route as %s', (path, heading) => {
+  ])('renders the %s route as %s', async (path, heading) => {
     renderRoute(path)
 
-    expect(screen.getByRole('heading', { name: heading, level: 1 })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: heading, level: 1 })).toBeInTheDocument()
   })
 
   it('marks the current destination in primary navigation', () => {

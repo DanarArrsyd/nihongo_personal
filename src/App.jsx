@@ -22,15 +22,9 @@ import NotFoundPage from './pages/NotFoundPage'
 import PagePlaceholder from './pages/PagePlaceholder'
 
 const DailyMissionPage = lazy(() => import('./features/missions/DailyMissionPage'))
+const ProgressPage = lazy(() => import('./features/progress/ProgressPage'))
 
 const pages = [
-  {
-    path: '/progress',
-    title: 'Progress',
-    japanese: '進捗',
-    index: '05',
-    description: 'A measured view of consistency, mastery, and study history.',
-  },
   {
     path: '/library',
     title: 'Library',
@@ -70,6 +64,14 @@ export default function App() {
         <Route path="/practice/flashcards/:module" element={<FlashcardSessionPage />} />
         <Route path="/practice/kana/:script/:mode" element={<KanaPracticePage />} />
         <Route path="/review" element={<ReviewPage />} />
+        <Route
+          path="/progress"
+          element={(
+            <Suspense fallback={<div className="page-frame"><LoadingState label="Memuat progress belajar" /></div>}>
+              <ProgressPage />
+            </Suspense>
+          )}
+        />
         {pages.map((page) => (
           <Route key={page.path} path={page.path} element={<PagePlaceholder {...page} />} />
         ))}

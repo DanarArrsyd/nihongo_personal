@@ -27,6 +27,10 @@ function validateFields(summary) {
   }
 }
 
+export async function listStudySessions(db = defaultDatabase) {
+  return db.studySessions.orderBy('endedAt').reverse().toArray()
+}
+
 export async function saveStudySession(summary, db = defaultDatabase) {
   validateNonBlankString(summary?.sessionId, 'sessionId')
   validateStudySessionKind(summary.kind)

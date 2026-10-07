@@ -28,6 +28,10 @@ export async function listDueReviews(timestamp = new Date(), db = defaultDatabas
   return db.reviews.where('dueAt').belowOrEqual(dueAt).sortBy('dueAt')
 }
 
+export async function listReviews(db = defaultDatabase) {
+  return db.reviews.toArray()
+}
+
 export function createScheduledReview({
   cardId,
   itemId,

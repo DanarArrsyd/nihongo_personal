@@ -1,7 +1,7 @@
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb'
 
 import { createDatabase } from './database.js'
-import { saveStudySession } from './studySessionRepository.js'
+import { listStudySessions, saveStudySession } from './studySessionRepository.js'
 
 const summary = {
   sessionId: 'session-1',
@@ -34,6 +34,21 @@ describe('study session repository', () => {
   it('stores and returns a completed session summary', async () => {
     await expect(saveStudySession(summary, database)).resolves.toEqual(summary)
     await expect(database.studySessions.get('session-1')).resolves.toEqual(summary)
+  })
+
+  it('lists newest completed sessions first', async () => {
+    await saveStudySession(summary, database)
+    await saveStudySession({
+      ...summary,
+      sessionId: 'session-2',
+      startedAt: '2026-09-16T01:00:00.000Z',
+      endedAt: '2026-09-16T01:05:00.000Z',
+    }, database)
+
+    await expect(listStudySessions(database)).resolves.toMatchObject([
+      { sessionId: 'session-2' },
+      { sessionId: 'session-1' },
+    ])
   })
 
   it('keeps the first summary when the same session is delivered twice', async () => {

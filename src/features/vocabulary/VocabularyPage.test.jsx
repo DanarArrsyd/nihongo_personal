@@ -4,6 +4,7 @@ import App from '../../App'
 import PersistenceProvider from '../persistence/PersistenceProvider'
 
 vi.mock('../../db/progressRepository', () => ({
+  listAllProgress: () => Promise.resolve([]),
   listProgress: () => Promise.resolve([]),
   setProgressStatus: () => Promise.resolve(),
 }))

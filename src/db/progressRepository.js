@@ -22,6 +22,10 @@ export async function listProgress(itemType, db = defaultDatabase) {
   return db.progress.where('itemType').equals(itemType).toArray()
 }
 
+export async function listAllProgress(db = defaultDatabase) {
+  return db.progress.toArray()
+}
+
 export async function setProgressStatus({ itemType, itemId, status, timestamp }, db = defaultDatabase) {
   validateItemIdentifiers(itemType, itemId)
 

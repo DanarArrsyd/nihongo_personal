@@ -9,6 +9,10 @@ import {
   validateScalarValue,
 } from './validation.js'
 
+export async function listQuizHistory(db = defaultDatabase) {
+  return db.quizHistory.orderBy('timestamp').reverse().toArray()
+}
+
 export async function recordQuizResponse({ sessionId, response }, db = defaultDatabase) {
   validateNonBlankString(sessionId, 'sessionId')
   validateNonBlankString(response?.questionId, 'questionId')

@@ -2,7 +2,7 @@ import { IDBKeyRange, indexedDB } from 'fake-indexeddb'
 
 import { createDatabase } from './database.js'
 import { setProgressStatus } from './progressRepository.js'
-import { recordQuizResponse } from './quizHistoryRepository.js'
+import { listQuizHistory, recordQuizResponse } from './quizHistoryRepository.js'
 
 const response = {
   questionId: 'vocab-001-meaning',
@@ -71,6 +71,23 @@ describe('quiz history repository', () => {
       interval: 3,
       dueAt: '2026-09-18T01:00:00.000Z',
     })
+  })
+
+  it('lists newest quiz answers first', async () => {
+    await recordQuizResponse({ sessionId: 'session-1', response }, database)
+    await recordQuizResponse({
+      sessionId: 'session-2',
+      response: {
+        ...response,
+        questionId: 'vocab-002-meaning',
+        timestamp: '2026-09-16T01:00:00.000Z',
+      },
+    }, database)
+
+    await expect(listQuizHistory(database)).resolves.toMatchObject([
+      { sessionId: 'session-2' },
+      { sessionId: 'session-1' },
+    ])
   })
 
   it('keeps the original history and counter when the same operation is delivered twice', async () => {

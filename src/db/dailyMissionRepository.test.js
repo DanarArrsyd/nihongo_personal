@@ -6,6 +6,7 @@ import {
   completeDailyMissionTask,
   getDailyMission,
   getOrCreateDailyMission,
+  listDailyMissions,
   startDailyMission,
 } from './dailyMissionRepository.js'
 
@@ -71,6 +72,9 @@ describe('daily mission repository', () => {
     await getOrCreateDailyMission(createMission('2026-10-05'), database)
 
     await expect(database.dailyMissions.count()).resolves.toBe(2)
+    await expect(listDailyMissions(database)).resolves.toMatchObject([
+      { date: '2026-10-05' },
+      { date: '2026-10-04' },
+    ])
   })
 })
-

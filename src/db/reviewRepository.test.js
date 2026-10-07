@@ -1,7 +1,7 @@
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb'
 
 import { createDatabase } from './database.js'
-import { getReview, listDueReviews, recordFlashcardRating } from './reviewRepository.js'
+import { getReview, listDueReviews, listReviews, recordFlashcardRating } from './reviewRepository.js'
 
 const response = {
   cardId: 'vocabulary:n5-vocab-001',
@@ -34,6 +34,14 @@ describe('review repository', () => {
   afterEach(async () => {
     database.close()
     await database.delete()
+  })
+
+  it('lists all persisted review states', async () => {
+    await recordFlashcardRating({ sessionId: 'session-1', response }, database)
+
+    await expect(listReviews(database)).resolves.toEqual([
+      expect.objectContaining({ itemType: 'vocabulary', itemId: 'n5-vocab-001' }),
+    ])
   })
 
   it('returns null when an item has no review', async () => {

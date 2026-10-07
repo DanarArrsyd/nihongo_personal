@@ -4,6 +4,7 @@ import { createDatabase } from './database.js'
 import {
   applyAnswerResult,
   getProgress,
+  listAllProgress,
   listProgress,
   setProgressStatus,
 } from './progressRepository.js'
@@ -27,6 +28,19 @@ describe('progress repository', () => {
   it('returns null and an empty list when no matching progress exists', async () => {
     await expect(getProgress('vocabulary', 'n5-vocab-001', database)).resolves.toBeNull()
     await expect(listProgress('vocabulary', database)).resolves.toEqual([])
+    await expect(listAllProgress(database)).resolves.toEqual([])
+  })
+
+  it('lists progress across learning modules', async () => {
+    await database.progress.bulkAdd([
+      { itemType: 'vocabulary', itemId: 'vocab-1', status: 'learning' },
+      { itemType: 'kanji', itemId: 'kanji-1', status: 'mastered' },
+    ])
+
+    await expect(listAllProgress(database)).resolves.toEqual(expect.arrayContaining([
+      expect.objectContaining({ itemType: 'vocabulary', itemId: 'vocab-1' }),
+      expect.objectContaining({ itemType: 'kanji', itemId: 'kanji-1' }),
+    ]))
   })
 
   it('stores each supported progress status', async () => {

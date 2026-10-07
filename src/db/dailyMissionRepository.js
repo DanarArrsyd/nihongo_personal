@@ -24,6 +24,10 @@ export async function getDailyMission(date, db = defaultDatabase) {
   return (await db.dailyMissions.get(date)) ?? null
 }
 
+export async function listDailyMissions(db = defaultDatabase) {
+  return db.dailyMissions.orderBy('date').reverse().toArray()
+}
+
 export async function getOrCreateDailyMission(mission, db = defaultDatabase) {
   validateMission(mission)
 
@@ -87,4 +91,3 @@ export async function completeDailyMissionTask({ date, taskId, timestamp }, db =
     return updated
   })
 }
-

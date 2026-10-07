@@ -10,12 +10,53 @@ import LearningStatistics from './components/LearningStatistics'
 import RecentActivity from './components/RecentActivity'
 import WeeklyActivity from './components/WeeklyActivity'
 import useDailyMission from '../missions/useDailyMission.js'
+import useProgressAnalytics from '../progress/useProgressAnalytics.js'
+
+const activityTimeFormatter = new Intl.DateTimeFormat('id-ID', {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+})
+
+function createDashboardAnalytics(analytics) {
+  if (!analytics) {
+    return {
+      dailyMinutes: 0,
+      recentActivity: [],
+      statistics: [],
+      streak: 0,
+      weeklyActivity: [],
+    }
+  }
+
+  const moduleById = Object.fromEntries(analytics.modules.map((module) => [module.id, module]))
+
+  return {
+    dailyMinutes: analytics.today.minutes,
+    recentActivity: analytics.history.slice(0, 3).map((session) => ({
+      detail: `${session.itemCount} item${session.accuracy === null ? '' : ` · ${session.accuracy}% accuracy`}`,
+      id: session.id,
+      time: activityTimeFormatter.format(new Date(session.date)),
+      title: session.label,
+      type: session.module === 'review' ? 'Review' : (session.kind === 'quiz' ? 'Practice' : 'Learn'),
+    })),
+    statistics: [
+      { id: 'vocabulary', label: 'Vocabulary mastered', value: moduleById.vocabulary.mastered },
+      { id: 'kanji', label: 'Kanji mastered', value: moduleById.kanji.mastered },
+      { id: 'grammar', label: 'Grammar mastered', value: moduleById.grammar.mastered },
+      { id: 'reviews', label: 'Reviews due today', value: analytics.dueReviewCount },
+    ],
+    streak: analytics.streak.current,
+    weeklyActivity: analytics.weeklyActivity,
+  }
+}
 
 export default function DashboardPage() {
   const navigate = useNavigate()
-  const { dailyGoal, profile, recentActivity, statistics, streak, weeklyActivity } = dashboardData
+  const { dailyGoal, profile } = dashboardData
   const dailyMission = useDailyMission()
-  const goalPercentage = Math.round((dailyGoal.current / dailyGoal.target) * 100)
+  const progressAnalytics = useProgressAnalytics()
+  const dashboardAnalytics = createDashboardAnalytics(progressAnalytics.analytics)
+  const goalPercentage = Math.min(100, Math.round((dashboardAnalytics.dailyMinutes / dailyGoal.target) * 100))
 
   async function openMission() {
     if (dailyMission.mission?.status === 'not_started') {
@@ -50,7 +91,7 @@ export default function DashboardPage() {
               </Button>
               <div className="flex items-center gap-2 text-sm text-ink-muted">
                 <Flame aria-hidden="true" size={17} className="text-accent" />
-                <span><strong className="font-semibold text-ink">{streak.days} days</strong> current streak</span>
+                <span><strong className="font-semibold text-ink">{dashboardAnalytics.streak} days</strong> current streak</span>
               </div>
             </div>
           </div>
@@ -61,12 +102,12 @@ export default function DashboardPage() {
               style={{ '--goal-progress': `${goalPercentage * 3.6}deg` }}
               aria-hidden="true"
             >
-              <span className="text-2xl font-semibold tracking-[-0.04em] text-ink">{dailyGoal.current}</span>
+              <span className="text-2xl font-semibold tracking-[-0.04em] text-ink">{dashboardAnalytics.dailyMinutes}</span>
               <span className="text-[0.62rem] font-bold tracking-[0.12em] text-ink-muted uppercase">minutes</span>
             </div>
             <div className="w-full min-w-0 flex-1 min-[360px]:min-w-32 xl:max-w-36">
               <ProgressBar label="Daily goal" value={goalPercentage} />
-              <p className="mt-2 text-xs text-ink-muted">{dailyGoal.current} / {dailyGoal.target} {dailyGoal.unit}</p>
+              <p className="mt-2 text-xs text-ink-muted">{dashboardAnalytics.dailyMinutes} / {dailyGoal.target} {dailyGoal.unit}</p>
             </div>
           </div>
         </div>
@@ -81,9 +122,9 @@ export default function DashboardPage() {
             onRetry={dailyMission.retry}
           />
         </div>
-        <div className="xl:col-span-5"><LearningStatistics statistics={statistics} /></div>
-        <div className="xl:col-span-7"><WeeklyActivity activity={weeklyActivity} /></div>
-        <div className="xl:col-span-5"><RecentActivity activities={recentActivity} /></div>
+        <div className="xl:col-span-5"><LearningStatistics statistics={dashboardAnalytics.statistics} /></div>
+        <div className="xl:col-span-7"><WeeklyActivity activity={dashboardAnalytics.weeklyActivity} /></div>
+        <div className="xl:col-span-5"><RecentActivity activities={dashboardAnalytics.recentActivity} /></div>
       </div>
     </div>
   )
