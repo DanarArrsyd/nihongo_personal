@@ -36,8 +36,13 @@ User progress stays in local IndexedDB on the current browser. Cloud synchroniza
 
 ## Local setup
 
+Prerequisites:
+
+- Node.js `20.19+` or `22.12+`
+- npm
+
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -51,6 +56,27 @@ npm run preview
 ```
 
 Open the HTTPS deployment or local preview once while online. The application shell and bundled learning content are then available offline; personal progress remains in the browser's IndexedDB.
+
+## Local data and recovery
+
+Progress, review history, favorites, missions, and settings are stored only in IndexedDB for the current browser and origin. Clearing site data, using a different browser, or changing the deployment origin starts a separate empty workspace. Version 1 does not include cloud sync or backup export.
+
+If browser storage cannot be opened, the application keeps static learning content available where possible and shows a persistence warning. Retry after confirming that IndexedDB is enabled and storage is not blocked. Clear site data only as a last resort because it permanently removes local progress for that origin.
+
+## Production readiness check
+
+Run the complete local gate before release:
+
+```bash
+npm ci
+npm run lint
+npm test -- --run
+npm run build
+npm audit --audit-level=high
+npm run preview
+```
+
+The deployable static output is generated in `dist/`. Hosting and production deployment are intentionally handled in the next milestone.
 
 ## Scripts
 

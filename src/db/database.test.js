@@ -1,3 +1,4 @@
+import Dexie from 'dexie'
 import { IDBKeyRange, indexedDB } from 'fake-indexeddb'
 
 import { createDatabase } from './database.js'
@@ -64,5 +65,43 @@ describe('createDatabase', () => {
       const key = tableName === 'quizHistory' ? primaryKey : keys[tableName]
       await expect(database.table(tableName).get(key)).resolves.toMatchObject(record)
     }
+  })
+
+  it('upgrades version 1 data without losing existing progress', async () => {
+    const databaseName = `nihongo-personal-migration-test-${crypto.randomUUID()}`
+    const legacyDatabase = new Dexie(databaseName, { indexedDB, IDBKeyRange })
+
+    legacyDatabase.version(1).stores({
+      progress: '[itemType+itemId], itemType, status, lastStudiedAt',
+      reviews: '[itemType+itemId], itemType, dueAt',
+      quizHistory: '++id, &operationId, sessionId, questionId, timestamp, [itemType+itemId]',
+      studySessions: 'sessionId, module, startedAt, endedAt',
+      favorites: '[itemType+itemId], itemType, updatedAt',
+      settings: 'key',
+    })
+
+    await legacyDatabase.open()
+    await legacyDatabase.progress.put({
+      itemType: 'vocabulary',
+      itemId: 'n5-vocab-001',
+      status: 'learning',
+      lastStudiedAt: 1,
+    })
+    await legacyDatabase.favorites.put({
+      itemType: 'vocabulary',
+      itemId: 'n5-vocab-001',
+      updatedAt: 1,
+    })
+    legacyDatabase.close()
+
+    database = createDatabase(databaseName, { indexedDB, IDBKeyRange })
+    await database.open()
+
+    expect(database.verno).toBe(2)
+    await expect(database.progress.get(['vocabulary', 'n5-vocab-001'])).resolves.toMatchObject({
+      status: 'learning',
+    })
+    await expect(database.favorites.get(['vocabulary', 'n5-vocab-001'])).resolves.toBeTruthy()
+    await expect(database.dailyMissions.count()).resolves.toBe(0)
   })
 })
