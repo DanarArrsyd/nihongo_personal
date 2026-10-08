@@ -1,6 +1,7 @@
 import { getGrammar } from '../../grammar/services/grammarData.js'
 import { getAllKana } from '../../kana/services/kanaData.js'
 import { getKanji } from '../../kanji/services/kanjiData.js'
+import { selectPracticeQuestions } from '../../practice/services/practiceSelection.js'
 import { getVocabulary } from '../../vocabulary/services/vocabularyData.js'
 import { sampleUnique, shuffle } from '../services/quizGeneration.js'
 import { validateQuiz } from '../services/questionValidation.js'
@@ -9,8 +10,17 @@ import { createKanaQuiz } from './kanaQuizAdapter.js'
 import { createKanjiQuestion } from './kanjiQuizAdapter.js'
 import { createVocabularyQuestion } from './vocabularyQuizAdapter.js'
 
-const unavailableResult = () => ({ questions: [], error: 'Quiz belum tersedia.' })
-const zeroRng = () => 0
+export const MIXED_QUIZ_MODULES = ['kana', 'vocabulary', 'kanji', 'grammar']
+export const MIXED_QUIZ_TYPES = [
+  'multiple_choice',
+  'reverse_multiple_choice',
+  'typing',
+  'recognition',
+  'sentence_completion',
+]
+export const MIXED_QUIZ_COUNTS = [10, 20, 30]
+
+const unavailableResult = () => ({ questions: [], error: 'Quiz belum tersedia untuk pilihan ini.' })
 
 function getDefaultSources() {
   return {
@@ -30,19 +40,16 @@ function uniqueBy(items, selectValue) {
   return items.filter((item) => {
     const value = selectValue(item)
     if (value === undefined || value === null || value === '' || values.has(value)) return false
-
     values.add(value)
     return true
   })
 }
 
 function selectDistractors(items, item, field, rng) {
-  const pool = uniqueBy(
+  return sampleUnique(uniqueBy(
     items.filter((candidate) => candidate.id !== item.id && candidate[field] !== item[field]),
     (candidate) => candidate[field],
-  )
-
-  return sampleUnique(pool, 3, rng)
+  ), 3, rng)
 }
 
 function selectFalseTruthItem(items, item, selectMeaning, rng) {
@@ -51,177 +58,123 @@ function selectFalseTruthItem(items, item, selectMeaning, rng) {
   )), 1, rng)[0]
 }
 
-function createVocabularySlots(items, rng) {
-  if (!Array.isArray(items)) return []
+function createKanaPool(kanaSources, rng) {
+  if (!kanaSources || !Array.isArray(kanaSources.hiragana) || !Array.isArray(kanaSources.katakana)) return []
 
-  const validItems = items.filter((item) => (
-    item?.id && item.word && item.reading && item.romaji && item.meaning
+  return ['hiragana', 'katakana'].flatMap((script) => (
+    ['recognition', 'reverse', 'typing'].flatMap((mode) => createKanaQuiz({
+      script,
+      mode,
+      count: kanaSources[script].length,
+      rng,
+      items: kanaSources[script],
+    }))
   ))
-  const selectedItems = sampleUnique(validItems, 3, rng)
-  if (selectedItems.length !== 3) return []
+}
 
-  const types = ['multiple_choice', 'reverse_multiple_choice', 'typing']
-  return selectedItems.map((item, index) => {
-    const field = types[index] === 'reverse_multiple_choice' ? 'word' : 'meaning'
-    const distractors = types[index] === 'typing'
-      ? []
-      : selectDistractors(validItems, item, field, rng)
+function createVocabularyPool(items, rng) {
+  if (!Array.isArray(items)) return []
+  const validItems = items.filter((item) => item?.id && item.word && item.reading && item.romaji && item.meaning)
 
-    if (types[index] !== 'typing' && distractors.length !== 3) return null
+  return validItems.flatMap((item) => {
+    const falseTruthItem = selectFalseTruthItem(validItems, item, (candidate) => candidate.meaning, rng)
+    const questions = [
+      ['multiple_choice', selectDistractors(validItems, item, 'meaning', rng)],
+      ['reverse_multiple_choice', selectDistractors(validItems, item, 'word', rng)],
+      ['typing', []],
+    ].map(([type, distractors]) => (
+      type !== 'typing' && distractors.length !== 3
+        ? null
+        : createVocabularyQuestion({ item, type, distractors, rng })
+    ))
 
-    return createVocabularyQuestion({ item, type: types[index], distractors, rng })
+    if (falseTruthItem) {
+      questions.push(createVocabularyQuestion({ item, type: 'recognition', truthItem: falseTruthItem, rng }))
+    }
+    return questions.filter(Boolean)
   })
 }
 
-function createKanjiSlots(items, rng) {
+function createKanjiPool(items, rng) {
   if (!Array.isArray(items)) return []
-
   const validItems = items.filter((item) => (
-    item?.id
-    && item.kanji
-    && Array.isArray(item.meaning)
-    && item.meaning[0]
-    && Array.isArray(item.onyomi)
-    && item.onyomi[0]
-    && Array.isArray(item.kunyomi)
+    item?.id && item.kanji && item.meaning?.[0] && item.onyomi?.[0] && Array.isArray(item.kunyomi)
   ))
-  const [typingItem] = sampleUnique(validItems, 1, rng)
-  const [recognitionItem] = sampleUnique(
-    validItems.filter((item) => item.id !== typingItem?.id),
-    1,
-    rng,
-  )
-  if (!typingItem || !recognitionItem) return []
 
-  const truthItem = selectFalseTruthItem(
-    validItems,
-    recognitionItem,
-    (item) => item.meaning[0],
-    rng,
-  )
-  if (!truthItem) return []
-
-  const recognitionQuestion = createKanjiQuestion({
-    item: recognitionItem,
-    type: 'recognition',
-    truthItem,
-    rng,
+  return validItems.flatMap((item) => {
+    const falseTruthItem = selectFalseTruthItem(validItems, item, (candidate) => candidate.meaning[0], rng)
+    const questions = [createKanjiQuestion({ item, type: 'typing', rng })]
+    if (falseTruthItem) {
+      questions.push(createKanjiQuestion({ item, type: 'recognition', truthItem: falseTruthItem, rng }))
+    }
+    return questions.filter(Boolean)
   })
-  if (recognitionQuestion?.answer.value !== false) return []
-
-  return [
-    createKanjiQuestion({ item: typingItem, type: 'typing', rng }),
-    recognitionQuestion,
-  ]
 }
 
-function getCompletionCandidates(items) {
-  return uniqueBy(
-    items.map((item) => ({
+function createGrammarPool(items, rng) {
+  if (!Array.isArray(items)) return []
+  const validItems = items.filter((item) => item?.id && item.pattern && item.meaning)
+
+  return validItems.flatMap((item) => {
+    const falseTruthItem = selectFalseTruthItem(validItems, item, (candidate) => candidate.meaning, rng)
+    const questions = [createGrammarQuestion({
       item,
-      question: createGrammarQuestion({
-        item,
-        type: 'sentence_completion',
-        distractors: items,
-        rng: zeroRng,
-      }),
-    })).filter(({ question }) => question),
-    ({ question }) => question.answer.value,
-  )
-}
-
-function createGrammarSlots(items, rng) {
-  if (!Array.isArray(items)) return []
-
-  const recognitionItems = items.filter((item) => item?.id && item.pattern && item.meaning)
-  const completionCandidates = getCompletionCandidates(recognitionItems)
-  const selectedCompletions = sampleUnique(completionCandidates, 2, rng)
-  if (selectedCompletions.length !== 2) return []
-
-  const usedIds = new Set(selectedCompletions.map(({ item }) => item.id))
-  const recognitionPool = recognitionItems.filter((item) => !usedIds.has(item.id))
-  const [recognitionItem] = sampleUnique(recognitionPool, 1, rng)
-  if (!recognitionItem) return []
-
-  const truthItem = selectFalseTruthItem(
-    recognitionItems,
-    recognitionItem,
-    (item) => item.meaning,
-    rng,
-  )
-  if (!truthItem) return []
-
-  const completionQuestions = selectedCompletions.map(({ item }) => {
-    const distractors = sampleUnique(
-      completionCandidates
-        .filter((candidate) => candidate.item.id !== item.id)
-        .map((candidate) => candidate.item),
-      3,
+      type: 'sentence_completion',
+      distractors: sampleUnique(
+        validItems.filter((candidate) => candidate.id !== item.id),
+        3,
+        rng,
+      ),
       rng,
-    )
-
-    if (distractors.length !== 3) return null
-    return createGrammarQuestion({ item, type: 'sentence_completion', distractors, rng })
+    })]
+    if (falseTruthItem) {
+      questions.push(createGrammarQuestion({ item, type: 'recognition', truthItem: falseTruthItem, rng }))
+    }
+    return questions.filter(Boolean)
   })
-
-  const recognitionQuestion = createGrammarQuestion({
-    item: recognitionItem,
-    type: 'recognition',
-    truthItem,
-    rng,
-  })
-  if (recognitionQuestion?.answer.value !== false) return []
-
-  return [recognitionQuestion, ...completionQuestions]
 }
 
-function createKanaSlots(kanaSources, rng) {
-  if (!kanaSources || !Array.isArray(kanaSources.hiragana) || !Array.isArray(kanaSources.katakana)) {
-    return []
-  }
-
-  return [
-    createKanaQuiz({
-      script: 'hiragana',
-      mode: 'recognition',
-      count: 1,
-      rng,
-      items: kanaSources.hiragana,
-    })[0],
-    createKanaQuiz({
-      script: 'katakana',
-      mode: 'reverse',
-      count: 1,
-      rng,
-      items: kanaSources.katakana,
-    })[0],
-  ]
+function addMixedId(question) {
+  return { ...question, id: `mixed-${question.id.replaceAll(':', '-')}` }
 }
 
-function addMixedId(question, index) {
-  return {
-    ...question,
-    id: `mixed-${question.source.module}-${question.source.itemId}-${question.type}-${index + 1}`,
-  }
-}
+export function createMixedQuiz({
+  count = 10,
+  modules = MIXED_QUIZ_MODULES,
+  questionTypes = MIXED_QUIZ_TYPES,
+  progress = [],
+  history = [],
+  rng = Math.random,
+  sources,
+} = {}) {
+  if (
+    typeof rng !== 'function'
+    || !MIXED_QUIZ_COUNTS.includes(count)
+    || !Array.isArray(modules)
+    || !Array.isArray(questionTypes)
+  ) return unavailableResult()
 
-export function createMixedQuiz({ rng = Math.random, sources } = {}) {
-  if (typeof rng !== 'function') return unavailableResult()
+  const selectedModules = new Set(modules.filter((module) => MIXED_QUIZ_MODULES.includes(module)))
+  const selectedTypes = new Set(questionTypes.filter((type) => MIXED_QUIZ_TYPES.includes(type)))
+  if (selectedModules.size === 0 || selectedTypes.size === 0) return unavailableResult()
 
   const resolvedSources = sources === undefined ? getDefaultSources() : sources
   if (!resolvedSources || typeof resolvedSources !== 'object') return unavailableResult()
 
-  const questions = [
-    ...createKanaSlots(resolvedSources.kana, rng),
-    ...createVocabularySlots(resolvedSources.vocabulary, rng),
-    ...createKanjiSlots(resolvedSources.kanji, rng),
-    ...createGrammarSlots(resolvedSources.grammar, rng),
-  ]
+  const pool = [
+    ...createKanaPool(resolvedSources.kana, rng),
+    ...createVocabularyPool(resolvedSources.vocabulary, rng),
+    ...createKanjiPool(resolvedSources.kanji, rng),
+    ...createGrammarPool(resolvedSources.grammar, rng),
+  ].filter((question) => (
+    question
+    && selectedModules.has(question.source.module)
+    && selectedTypes.has(question.type)
+  )).map(addMixedId)
 
-  if (questions.length !== 10 || questions.some((question) => !question)) return unavailableResult()
+  const selectedQuestions = selectPracticeQuestions({ questions: pool, count, progress, history, rng })
+  if (selectedQuestions.length !== count) return unavailableResult()
 
-  const mixedQuestions = shuffle(questions.map(addMixedId), rng)
-  return validateQuiz(mixedQuestions).valid
-    ? { questions: mixedQuestions, error: null }
-    : unavailableResult()
+  const questions = shuffle(selectedQuestions, rng)
+  return validateQuiz(questions).valid ? { questions, error: null } : unavailableResult()
 }

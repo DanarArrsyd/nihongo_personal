@@ -1,46 +1,85 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, SlidersHorizontal } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Button from '../../components/ui/Button.jsx'
 import { createStudySession } from '../../services/studySession.js'
+import PracticeSessionSetup from '../practice/components/PracticeSessionSetup.jsx'
+import usePracticePersonalization from '../practice/usePracticePersonalization.js'
 import useQuizPersistence from '../persistence/useQuizPersistence.js'
 import { createMixedQuiz } from './adapters/mixedQuizAdapter.js'
-import QuizUnavailable from './components/QuizUnavailable'
-import QuizSession from './QuizSession'
-import { validateQuiz } from './services/questionValidation.js'
+import QuizSession from './QuizSession.jsx'
 
-function createSession(sessionVersion = 0) {
-  const result = createMixedQuiz()
+function createSession(config, personalization, sessionVersion = 0) {
+  const result = createMixedQuiz({ ...config, ...personalization })
+  if (result.error) return result
 
   return {
+    config,
     questions: result.questions,
-    error: result.error,
+    error: null,
     sessionVersion,
     studySession: createStudySession({ kind: 'quiz', module: 'mixed' }),
   }
 }
 
-export default function MixedQuizPage() {
-  const [session, setSession] = useState(() => createSession())
-  const validation = validateQuiz(session.questions)
+function ActiveSession({ session, onChangeSetup, onRestart }) {
   const { onComplete, onResponse } = useQuizPersistence(session.studySession)
 
-  function restart() {
-    const nextSession = createSession()
-    setSession((current) => ({
-      ...nextSession,
-      sessionVersion: current.sessionVersion + 1,
-    }))
+  return (
+    <>
+      <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-border bg-paper-deep px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-ink-muted">
+          <strong className="text-ink">{session.config.count} soal</strong>
+          {' · '}{session.config.modules.length} materi
+          {' · '}{session.config.questionTypes.length} tipe
+        </p>
+        <Button type="button" variant="ghost" className="w-full sm:w-auto" onClick={onChangeSetup}>
+          <SlidersHorizontal size={16} aria-hidden="true" /> Ubah pengaturan
+        </Button>
+      </div>
+      <QuizSession
+        key={session.sessionVersion}
+        questions={session.questions}
+        onComplete={onComplete}
+        onResponse={onResponse}
+        onRestart={onRestart}
+      />
+    </>
+  )
+}
+
+export default function MixedQuizPage() {
+  const personalization = usePracticePersonalization()
+  const [session, setSession] = useState(null)
+  const [setupError, setSetupError] = useState(null)
+
+  function startSession(config) {
+    const nextSession = createSession(config, personalization)
+    if (nextSession.error) {
+      setSetupError('Kombinasi ini belum punya cukup soal unik. Tambahkan materi atau tipe pertanyaan.')
+      return
+    }
+
+    setSetupError(null)
+    setSession(nextSession)
   }
 
-  if (session.error || !validation.valid) {
-    return (
-      <div className="page-frame max-w-6xl">
-        <QuizUnavailable
-          title="Quiz belum tersedia"
-          description="Mixed Quiz belum dapat dibuat. Kembali ke Practice untuk memilih latihan lain."
-        />
-      </div>
+  function restart() {
+    const currentHistory = session.questions.map((question) => ({
+      itemType: question.source.module,
+      itemId: question.source.itemId,
+    }))
+    const nextSession = createSession(
+      session.config,
+      { ...personalization, history: [...currentHistory, ...personalization.history] },
+      session.sessionVersion + 1,
     )
+    if (!nextSession.error) setSession(nextSession)
+  }
+
+  function changeSetup() {
+    setSession(null)
+    setSetupError(null)
   }
 
   return (
@@ -56,18 +95,20 @@ export default function MixedQuizPage() {
         <p className="text-sm font-semibold tracking-[0.12em] text-accent uppercase">Latihan campuran</p>
         <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">Mixed Quiz</h1>
         <p className="mt-3 max-w-2xl leading-7 text-ink-muted">
-          Uji Kana, Vocabulary, Kanji, dan Grammar dalam sepuluh soal terarah.
+          Susun sesi dari Kana, Vocabulary, Kanji, dan Grammar sesuai fokus belajarmu hari ini.
         </p>
       </header>
 
       <div className="mt-8">
-        <QuizSession
-          key={session.sessionVersion}
-          questions={session.questions}
-          onComplete={onComplete}
-          onResponse={onResponse}
-          onRestart={restart}
-        />
+        {session ? (
+          <ActiveSession session={session} onChangeSetup={changeSetup} onRestart={restart} />
+        ) : (
+          <PracticeSessionSetup
+            isPreparing={personalization.isLoading}
+            error={setupError}
+            onStart={startSession}
+          />
+        )}
       </div>
     </div>
   )

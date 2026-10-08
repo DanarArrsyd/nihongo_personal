@@ -14,7 +14,8 @@ Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
 - Vocabulary search, word-type and learning-status filters
 - Vocabulary details, example sentences, pronunciation, favorites, and persisted learning status
 - JLPT N5 Kanji and Grammar reference modules
-- Reusable mixed quiz and Vocabulary, Kanji, and Grammar flashcards
+- Configurable 10, 20, or 30-question Mixed Quiz with module/type filters and smart randomization
+- Vocabulary, Kanji, and Grammar flashcards
 - IndexedDB learning history, favorites, settings, progress, and study sessions
 - Interval-based SRS scheduling with a responsive due-review queue
 - Persisted daily missions covering review, new learning, and mixed practice

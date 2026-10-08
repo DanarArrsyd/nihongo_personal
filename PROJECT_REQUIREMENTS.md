@@ -2,7 +2,7 @@
 
 # Nihongo Personal
 
-Version: 1.2
+Version: 1.3
 
 Project Type:
 Personal Japanese Learning Web Application
@@ -1048,3 +1048,27 @@ Undo, clear, or hide the guide without leaving the session.
 Store successful writing practice in the existing local progress and study-session records.
 
 Stroke data must be bundled locally for offline use and retain its required attribution.
+
+---
+
+# 33. Practice Variety
+
+Version 1.3 must allow the user to:
+
+Configure a Mixed Quiz before starting.
+
+Choose a 10, 20, or 30 question session.
+
+Choose one or more learning modules from Kana, Vocabulary, Kanji, and Grammar.
+
+Choose one or more supported question types.
+
+Receive unique questions within one session.
+
+Reduce immediate repetition of recently practised items.
+
+Prioritize weaker items using existing local progress where available.
+
+Continue using Mixed Quiz when progress history is empty or local storage is unavailable.
+
+Kana Writing Practice remains a separate focused activity and is not forced into Mixed Quiz.

@@ -95,7 +95,7 @@ describe('application routes', () => {
 
     expect(screen.getByRole('link', { name: 'Pilih deck Flashcards' }))
       .toHaveAttribute('href', '/practice/flashcards')
-    expect(screen.getByRole('link', { name: 'Mulai Mixed Quiz' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Atur Mixed Quiz' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Practice Hiragana' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Practice Katakana' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Mulai menulis' }))
