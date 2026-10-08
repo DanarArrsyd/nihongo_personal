@@ -11,6 +11,53 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>Nihongo Personal</title>
+    <script>
+      (() => {
+        const recoveryKey = 'nihongo-stale-asset-recovery'
+        let recoveryStarted = false
+
+        async function recoverFromStaleAssets() {
+          if (recoveryStarted || sessionStorage.getItem(recoveryKey)) return
+
+          recoveryStarted = true
+          sessionStorage.setItem(recoveryKey, 'pending')
+
+          try {
+            const registrations = await navigator.serviceWorker?.getRegistrations?.() ?? []
+            await Promise.all(registrations.map((registration) => registration.unregister()))
+
+            const cacheKeys = await globalThis.caches?.keys?.() ?? []
+            await Promise.all(cacheKeys
+              .filter((cacheKey) => cacheKey.startsWith('workbox-precache'))
+              .map((cacheKey) => globalThis.caches.delete(cacheKey)))
+          } finally {
+            const recoveryUrl = new URL(window.location.href)
+            recoveryUrl.searchParams.set('_asset_refresh', Date.now().toString())
+            window.location.replace(recoveryUrl)
+          }
+        }
+
+        window.addEventListener('error', (event) => {
+          const element = event.target
+          const assetUrl = element?.href ?? element?.src ?? ''
+          const isStaticAsset = element?.tagName === 'LINK' || element?.tagName === 'SCRIPT'
+
+          if (isStaticAsset && assetUrl.includes('/assets/')) {
+            void recoverFromStaleAssets()
+          }
+        }, true)
+
+        window.addEventListener('load', () => {
+          const currentUrl = new URL(window.location.href)
+          if (currentUrl.searchParams.has('_asset_refresh')) {
+            currentUrl.searchParams.delete('_asset_refresh')
+            window.history.replaceState({}, '', currentUrl)
+          }
+
+          window.setTimeout(() => sessionStorage.removeItem(recoveryKey), 5_000)
+        })
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
