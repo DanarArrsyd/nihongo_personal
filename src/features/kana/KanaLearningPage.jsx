@@ -94,7 +94,12 @@ export default function KanaLearningPage() {
             </section>
 
             <aside>
-              <KanaDetail item={selectedItem} isLearned={learnedIds.has(selectedItem.id)} onToggleLearned={toggleLearned} />
+              <KanaDetail
+                item={selectedItem}
+                script={script}
+                isLearned={learnedIds.has(selectedItem.id)}
+                onToggleLearned={toggleLearned}
+              />
             </aside>
           </div>
         </div>

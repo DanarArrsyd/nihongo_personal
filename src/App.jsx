@@ -22,6 +22,7 @@ import NotFoundPage from './pages/NotFoundPage'
 
 const DailyMissionPage = lazy(() => import('./features/missions/DailyMissionPage'))
 const DataSafetyPage = lazy(() => import('./features/data-safety/DataSafetyPage'))
+const KanaWritingPage = lazy(() => import('./features/writing/KanaWritingPage'))
 const LibraryPage = lazy(() => import('./features/library/LibraryPage'))
 const ProgressPage = lazy(() => import('./features/progress/ProgressPage'))
 
@@ -54,6 +55,14 @@ export default function App() {
         <Route path="/practice/flashcards" element={<FlashcardsPage />} />
         <Route path="/practice/flashcards/:module" element={<FlashcardSessionPage />} />
         <Route path="/practice/kana/:script/:mode" element={<KanaPracticePage />} />
+        <Route
+          path="/practice/writing/kana/:script/:kanaId?"
+          element={(
+            <Suspense fallback={<div className="page-frame"><LoadingState label="Memuat latihan menulis" /></div>}>
+              <KanaWritingPage />
+            </Suspense>
+          )}
+        />
         <Route path="/review" element={<ReviewPage />} />
         <Route
           path="/data-safety"

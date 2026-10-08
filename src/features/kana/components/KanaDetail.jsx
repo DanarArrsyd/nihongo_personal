@@ -1,10 +1,11 @@
-import { Check, Volume2 } from 'lucide-react'
+import { Check, PenLine, Volume2 } from 'lucide-react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Badge from '../../../components/ui/Badge'
 import Card from '../../../components/ui/Card'
 import { speakJapanese } from '../services/speech'
 
-export default function KanaDetail({ isLearned, item, onToggleLearned }) {
+export default function KanaDetail({ isLearned, item, onToggleLearned, script }) {
   const [speechMessage, setSpeechMessage] = useState('')
 
   function pronounce() {
@@ -45,6 +46,15 @@ export default function KanaDetail({ isLearned, item, onToggleLearned }) {
           >
             <Check size={17} aria-hidden="true" /> {isLearned ? 'Marked as learned' : 'Mark as learned'}
           </button>
+          {[...item.character].length === 1 ? (
+            <Link
+              to={`/practice/writing/kana/${script}/${item.id}`}
+              aria-label={`Practice writing ${item.character}`}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-ink transition hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <PenLine size={17} aria-hidden="true" /> Practice writing
+            </Link>
+          ) : null}
         </div>
         {speechMessage && <p role="status" className="mt-4 text-sm leading-6 text-ink-muted">{speechMessage}</p>}
       </div>

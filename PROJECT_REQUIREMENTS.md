@@ -2,7 +2,7 @@
 
 # Nihongo Personal
 
-Version: 1.1
+Version: 1.2
 
 Project Type:
 Personal Japanese Learning Web Application
@@ -1028,3 +1028,23 @@ Confirm before replacing current local data.
 Restore all tables in one atomic transaction so failed restores preserve existing data.
 
 Static Japanese learning content must remain outside the backup.
+
+---
+
+# 32. Kana Writing Practice
+
+Version 1.2 must allow the user to:
+
+Open writing practice from Kana learning and the Practice overview.
+
+Draw Hiragana and Katakana with touch, stylus, or mouse input.
+
+Follow an accurate, numbered stroke-order guide.
+
+Receive immediate feedback for stroke start, direction, length, and path accuracy.
+
+Undo, clear, or hide the guide without leaving the session.
+
+Store successful writing practice in the existing local progress and study-session records.
+
+Stroke data must be bundled locally for offline use and retain its required attribution.

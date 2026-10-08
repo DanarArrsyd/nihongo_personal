@@ -746,6 +746,38 @@ Backup and restore remain usable on desktop and mobile.
 
 ---
 
+# V1.2 — KANA WRITING PRACTICE
+
+Goal:
+
+Teach the physical stroke order of Kana through direct drawing practice.
+
+Implement:
+
+Touch, stylus, and mouse writing canvas.
+
+Numbered Hiragana and Katakana stroke guides.
+
+Stroke-order, direction, and shape feedback.
+
+Entry points from Learn and Practice.
+
+Existing progress and study-session persistence.
+
+Locally bundled, attributed stroke data for offline use.
+
+Acceptance Criteria:
+
+All single-character Kana in the current catalogue can be practised.
+
+Incorrect stroke order or direction produces understandable feedback.
+
+The writing board remains usable on smartphone, tablet, and desktop.
+
+Successful practice is included in existing progress and data backups.
+
+---
+
 # FUTURE V2
 
 Sentence Builder

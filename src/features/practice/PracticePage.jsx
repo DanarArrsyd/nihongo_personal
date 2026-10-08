@@ -1,4 +1,4 @@
-import { ArrowRight, Blend, Keyboard, Layers3, Repeat2, ScanText } from 'lucide-react'
+import { ArrowRight, Blend, Keyboard, Layers3, PenLine, Repeat2, ScanText } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Badge from '../../components/ui/Badge'
 import Card from '../../components/ui/Card'
@@ -70,6 +70,32 @@ export default function PracticePage() {
           >
             Pilih deck Flashcards <ArrowRight size={17} aria-hidden="true" />
           </Link>
+        </Card>
+      </section>
+
+      <section className="mt-8" aria-labelledby="writing-title">
+        <Card className="relative overflow-hidden">
+          <div className="genko-grid absolute inset-y-0 right-0 w-48 opacity-55" aria-hidden="true" />
+          <div className="relative flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex max-w-2xl items-start gap-4">
+              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent" aria-hidden="true">
+                <PenLine size={20} />
+              </span>
+              <div>
+                <p lang="ja" className="font-japanese text-xs font-semibold text-accent">書き方 · Kakikata</p>
+                <h2 id="writing-title" className="mt-1 text-xl font-semibold tracking-[-0.02em]">Kana Writing Practice</h2>
+                <p className="mt-2 text-sm leading-6 text-ink-muted">
+                  Pelajari urutan dan arah stroke Hiragana atau Katakana dengan jari, stylus, maupun mouse.
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/practice/writing/kana/hiragana/a"
+              className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-xl bg-ink px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              Mulai menulis <ArrowRight size={17} aria-hidden="true" />
+            </Link>
+          </div>
         </Card>
       </section>
 

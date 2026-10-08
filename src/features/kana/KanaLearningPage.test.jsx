@@ -45,6 +45,8 @@ describe('Kana learning', () => {
     fireEvent.click(screen.getByRole('button', { name: 'き, ki' }))
     expect(screen.getByRole('region', { name: 'Character detail' })).toHaveTextContent('き')
     expect(screen.getByRole('region', { name: 'Character detail' })).toHaveTextContent('ki')
+    expect(screen.getByRole('link', { name: 'Practice writing き' }))
+      .toHaveAttribute('href', '/practice/writing/kana/hiragana/ki')
   })
 
   it('tracks learned characters only in current session', () => {

@@ -22,8 +22,11 @@ Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
 - Searchable Vocabulary, Kanji, and Grammar library with persisted favorites
 - Installable PWA with final icons, offline learning shell, and user-controlled updates
 - Manual JSON backup and atomic restore for all local learning data
+- Guided Hiragana and Katakana writing practice with touch, stylus, and mouse input
 
 User progress stays in local IndexedDB on the current browser. Cloud synchronization is outside Version 1 scope.
+
+Kana writing uses locally bundled stroke-order data from KanjiVG. Attribution and licence details are available in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
 ## Technology
 

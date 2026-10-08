@@ -64,6 +64,7 @@ describe('application routes', () => {
     ['/review', 'Review'],
     ['/progress', 'Progress'],
     ['/data-safety', 'Backup & restore'],
+    ['/practice/writing/kana/hiragana/o', 'Hiragana writing'],
     ['/library', 'Library'],
   ])('renders the %s route as %s', async (path, heading) => {
     renderRoute(path)
@@ -97,6 +98,8 @@ describe('application routes', () => {
     expect(screen.getByRole('link', { name: 'Mulai Mixed Quiz' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Practice Hiragana' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Practice Katakana' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Mulai menulis' }))
+      .toHaveAttribute('href', '/practice/writing/kana/hiragana/a')
   })
 
   it('returns from an unknown route to the dashboard', () => {
