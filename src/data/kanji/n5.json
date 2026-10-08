@@ -198,5 +198,853 @@
     "jlpt": "N5",
     "strokes": 4,
     "relatedVocabularyIds": ["n5-vocab-019", "n5-vocab-020", "n5-vocab-021"]
+  },
+  {
+    "id": "n5-kanji-021",
+    "kanji": "人",
+    "meaning": [
+      "orang"
+    ],
+    "onyomi": [
+      "ジン",
+      "ニン"
+    ],
+    "kunyomi": [
+      "ひと"
+    ],
+    "jlpt": "N5",
+    "strokes": 2,
+    "relatedVocabularyIds": [
+      "n5-vocab-051"
+    ]
+  },
+  {
+    "id": "n5-kanji-022",
+    "kanji": "男",
+    "meaning": [
+      "laki-laki"
+    ],
+    "onyomi": [
+      "ダン",
+      "ナン"
+    ],
+    "kunyomi": [
+      "おとこ"
+    ],
+    "jlpt": "N5",
+    "strokes": 7,
+    "relatedVocabularyIds": [
+      "n5-vocab-052"
+    ]
+  },
+  {
+    "id": "n5-kanji-023",
+    "kanji": "女",
+    "meaning": [
+      "perempuan"
+    ],
+    "onyomi": [
+      "ジョ"
+    ],
+    "kunyomi": [
+      "おんな"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [
+      "n5-vocab-053"
+    ]
+  },
+  {
+    "id": "n5-kanji-024",
+    "kanji": "子",
+    "meaning": [
+      "anak"
+    ],
+    "onyomi": [
+      "シ",
+      "ス"
+    ],
+    "kunyomi": [
+      "こ"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [
+      "n5-vocab-054",
+      "n5-vocab-078"
+    ]
+  },
+  {
+    "id": "n5-kanji-025",
+    "kanji": "父",
+    "meaning": [
+      "ayah"
+    ],
+    "onyomi": [
+      "フ"
+    ],
+    "kunyomi": [
+      "ちち"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [
+      "n5-vocab-055"
+    ]
+  },
+  {
+    "id": "n5-kanji-026",
+    "kanji": "母",
+    "meaning": [
+      "ibu"
+    ],
+    "onyomi": [
+      "ボ"
+    ],
+    "kunyomi": [
+      "はは"
+    ],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": [
+      "n5-vocab-056"
+    ]
+  },
+  {
+    "id": "n5-kanji-027",
+    "kanji": "車",
+    "meaning": [
+      "mobil",
+      "kendaraan"
+    ],
+    "onyomi": [
+      "シャ"
+    ],
+    "kunyomi": [
+      "くるま"
+    ],
+    "jlpt": "N5",
+    "strokes": 7,
+    "relatedVocabularyIds": [
+      "n5-vocab-070",
+      "n5-vocab-071",
+      "n5-vocab-072"
+    ]
+  },
+  {
+    "id": "n5-kanji-028",
+    "kanji": "電",
+    "meaning": [
+      "listrik"
+    ],
+    "onyomi": [
+      "デン"
+    ],
+    "kunyomi": [],
+    "jlpt": "N5",
+    "strokes": 13,
+    "relatedVocabularyIds": [
+      "n5-vocab-070",
+      "n5-vocab-079"
+    ]
+  },
+  {
+    "id": "n5-kanji-029",
+    "kanji": "山",
+    "meaning": [
+      "gunung"
+    ],
+    "onyomi": [
+      "サン"
+    ],
+    "kunyomi": [
+      "やま"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [
+      "n5-vocab-081"
+    ]
+  },
+  {
+    "id": "n5-kanji-030",
+    "kanji": "川",
+    "meaning": [
+      "sungai"
+    ],
+    "onyomi": [
+      "セン"
+    ],
+    "kunyomi": [
+      "かわ"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [
+      "n5-vocab-082"
+    ]
+  },
+  {
+    "id": "n5-kanji-031",
+    "kanji": "雨",
+    "meaning": [
+      "hujan"
+    ],
+    "onyomi": [
+      "ウ"
+    ],
+    "kunyomi": [
+      "あめ",
+      "あま-"
+    ],
+    "jlpt": "N5",
+    "strokes": 8,
+    "relatedVocabularyIds": [
+      "n5-vocab-083"
+    ]
+  },
+  {
+    "id": "n5-kanji-032",
+    "kanji": "天",
+    "meaning": [
+      "langit"
+    ],
+    "onyomi": [
+      "テン"
+    ],
+    "kunyomi": [
+      "あまつ",
+      "あめ"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [
+      "n5-vocab-085"
+    ]
+  },
+  {
+    "id": "n5-kanji-033",
+    "kanji": "気",
+    "meaning": [
+      "semangat",
+      "udara"
+    ],
+    "onyomi": [
+      "キ",
+      "ケ"
+    ],
+    "kunyomi": [
+      "いき"
+    ],
+    "jlpt": "N5",
+    "strokes": 6,
+    "relatedVocabularyIds": [
+      "n5-vocab-030",
+      "n5-vocab-085"
+    ]
+  },
+  {
+    "id": "n5-kanji-034",
+    "kanji": "大",
+    "meaning": [
+      "besar"
+    ],
+    "onyomi": [
+      "ダイ",
+      "タイ"
+    ],
+    "kunyomi": [
+      "おお.きい"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [
+      "n5-vocab-025"
+    ]
+  },
+  {
+    "id": "n5-kanji-035",
+    "kanji": "小",
+    "meaning": [
+      "kecil"
+    ],
+    "onyomi": [
+      "ショウ"
+    ],
+    "kunyomi": [
+      "ちい.さい"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [
+      "n5-vocab-026"
+    ]
+  },
+  {
+    "id": "n5-kanji-036",
+    "kanji": "高",
+    "meaning": [
+      "tinggi",
+      "mahal"
+    ],
+    "onyomi": [
+      "コウ"
+    ],
+    "kunyomi": [
+      "たか.い"
+    ],
+    "jlpt": "N5",
+    "strokes": 10,
+    "relatedVocabularyIds": [
+      "n5-vocab-088"
+    ]
+  },
+  {
+    "id": "n5-kanji-037",
+    "kanji": "長",
+    "meaning": [
+      "panjang"
+    ],
+    "onyomi": [
+      "チョウ"
+    ],
+    "kunyomi": [
+      "なが.い"
+    ],
+    "jlpt": "N5",
+    "strokes": 8,
+    "relatedVocabularyIds": [
+      "n5-vocab-090"
+    ]
+  },
+  {
+    "id": "n5-kanji-038",
+    "kanji": "白",
+    "meaning": [
+      "putih"
+    ],
+    "onyomi": [
+      "ハク",
+      "ビャク"
+    ],
+    "kunyomi": [
+      "しろ",
+      "しろ.い"
+    ],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": [
+      "n5-vocab-092"
+    ]
+  },
+  {
+    "id": "n5-kanji-039",
+    "kanji": "入",
+    "meaning": [
+      "masuk"
+    ],
+    "onyomi": [
+      "ニュウ"
+    ],
+    "kunyomi": [
+      "はい.る",
+      "い.れる"
+    ],
+    "jlpt": "N5",
+    "strokes": 2,
+    "relatedVocabularyIds": [
+      "n5-vocab-043"
+    ]
+  },
+  {
+    "id": "n5-kanji-040",
+    "kanji": "出",
+    "meaning": [
+      "keluar"
+    ],
+    "onyomi": [
+      "シュツ"
+    ],
+    "kunyomi": [
+      "で.る",
+      "だ.す"
+    ],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": [
+      "n5-vocab-044"
+    ]
+  },
+  {
+    "id": "n5-kanji-041",
+    "kanji": "休",
+    "meaning": [
+      "istirahat"
+    ],
+    "onyomi": [
+      "キュウ"
+    ],
+    "kunyomi": [
+      "やす.む"
+    ],
+    "jlpt": "N5",
+    "strokes": 6,
+    "relatedVocabularyIds": [
+      "n5-vocab-037"
+    ]
+  },
+  {
+    "id": "n5-kanji-042",
+    "kanji": "上",
+    "meaning": [
+      "atas"
+    ],
+    "onyomi": [
+      "ジョウ"
+    ],
+    "kunyomi": [
+      "うえ",
+      "あ.げる",
+      "あ.がる"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "本は机の上にあります。",
+        "reading": "ほんはつくえのうえにあります。",
+        "meaning": "Buku ada di atas meja."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-043",
+    "kanji": "中",
+    "meaning": [
+      "tengah",
+      "dalam"
+    ],
+    "onyomi": [
+      "チュウ"
+    ],
+    "kunyomi": [
+      "なか"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "かばんの中に本があります。",
+        "reading": "かばんのなかにほんがあります。",
+        "meaning": "Ada buku di dalam tas."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-044",
+    "kanji": "下",
+    "meaning": [
+      "bawah"
+    ],
+    "onyomi": [
+      "カ",
+      "ゲ"
+    ],
+    "kunyomi": [
+      "した",
+      "さ.げる",
+      "さ.がる"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "猫は机の下にいます。",
+        "reading": "ねこはつくえのしたにいます。",
+        "meaning": "Kucing ada di bawah meja."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-045",
+    "kanji": "右",
+    "meaning": [
+      "kanan"
+    ],
+    "onyomi": [
+      "ウ",
+      "ユウ"
+    ],
+    "kunyomi": [
+      "みぎ"
+    ],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "駅は右にあります。",
+        "reading": "えきはみぎにあります。",
+        "meaning": "Stasiun ada di sebelah kanan."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-046",
+    "kanji": "左",
+    "meaning": [
+      "kiri"
+    ],
+    "onyomi": [
+      "サ"
+    ],
+    "kunyomi": [
+      "ひだり"
+    ],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "店は左にあります。",
+        "reading": "みせはひだりにあります。",
+        "meaning": "Toko ada di sebelah kiri."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-047",
+    "kanji": "年",
+    "meaning": [
+      "tahun"
+    ],
+    "onyomi": [
+      "ネン"
+    ],
+    "kunyomi": [
+      "とし"
+    ],
+    "jlpt": "N5",
+    "strokes": 6,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "今年は日本語を勉強します。",
+        "reading": "ことしはにほんごをべんきょうします。",
+        "meaning": "Tahun ini saya belajar bahasa Jepang."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-048",
+    "kanji": "月",
+    "meaning": [
+      "bulan"
+    ],
+    "onyomi": [
+      "ゲツ",
+      "ガツ"
+    ],
+    "kunyomi": [
+      "つき"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "月が見えます。",
+        "reading": "つきがみえます。",
+        "meaning": "Bulan terlihat."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-049",
+    "kanji": "火",
+    "meaning": [
+      "api"
+    ],
+    "onyomi": [
+      "カ"
+    ],
+    "kunyomi": [
+      "ひ"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "火を使います。",
+        "reading": "ひをつかいます。",
+        "meaning": "Saya menggunakan api."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-050",
+    "kanji": "木",
+    "meaning": [
+      "pohon",
+      "kayu"
+    ],
+    "onyomi": [
+      "ボク",
+      "モク"
+    ],
+    "kunyomi": [
+      "き"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "公園に大きい木があります。",
+        "reading": "こうえんにおおきいきがあります。",
+        "meaning": "Ada pohon besar di taman."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-051",
+    "kanji": "金",
+    "meaning": [
+      "emas",
+      "uang"
+    ],
+    "onyomi": [
+      "キン",
+      "コン"
+    ],
+    "kunyomi": [
+      "かね"
+    ],
+    "jlpt": "N5",
+    "strokes": 8,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "お金を持っています。",
+        "reading": "おかねをもっています。",
+        "meaning": "Saya membawa uang."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-052",
+    "kanji": "土",
+    "meaning": [
+      "tanah"
+    ],
+    "onyomi": [
+      "ド",
+      "ト"
+    ],
+    "kunyomi": [
+      "つち"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "子供が土で遊んでいます。",
+        "reading": "こどもがつちであそんでいます。",
+        "meaning": "Anak sedang bermain dengan tanah."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-053",
+    "kanji": "一",
+    "meaning": [
+      "satu"
+    ],
+    "onyomi": [
+      "イチ",
+      "イツ"
+    ],
+    "kunyomi": [
+      "ひと.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 1,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "パンを一つください。",
+        "reading": "パンをひとつください。",
+        "meaning": "Tolong beri saya satu roti."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-054",
+    "kanji": "二",
+    "meaning": [
+      "dua"
+    ],
+    "onyomi": [
+      "ニ"
+    ],
+    "kunyomi": [
+      "ふた.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 2,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "猫が二匹います。",
+        "reading": "ねこがにひきいます。",
+        "meaning": "Ada dua ekor kucing."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-055",
+    "kanji": "三",
+    "meaning": [
+      "tiga"
+    ],
+    "onyomi": [
+      "サン"
+    ],
+    "kunyomi": [
+      "みっ.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 3,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "本を三冊買います。",
+        "reading": "ほんをさんさつかいます。",
+        "meaning": "Saya membeli tiga buku."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-056",
+    "kanji": "四",
+    "meaning": [
+      "empat"
+    ],
+    "onyomi": [
+      "シ"
+    ],
+    "kunyomi": [
+      "よん",
+      "よっ.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 5,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "四時に帰ります。",
+        "reading": "よじにかえります。",
+        "meaning": "Saya pulang pukul empat."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-057",
+    "kanji": "五",
+    "meaning": [
+      "lima"
+    ],
+    "onyomi": [
+      "ゴ"
+    ],
+    "kunyomi": [
+      "いつ.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "五時に帰ります。",
+        "reading": "ごじにかえります。",
+        "meaning": "Saya pulang pukul lima."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-058",
+    "kanji": "六",
+    "meaning": [
+      "enam"
+    ],
+    "onyomi": [
+      "ロク"
+    ],
+    "kunyomi": [
+      "むっ.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 4,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "六時に起きます。",
+        "reading": "ろくじにおきます。",
+        "meaning": "Saya bangun pukul enam."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-059",
+    "kanji": "七",
+    "meaning": [
+      "tujuh"
+    ],
+    "onyomi": [
+      "シチ"
+    ],
+    "kunyomi": [
+      "なな",
+      "なな.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 2,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "七時に家を出ます。",
+        "reading": "しちじにいえをでます。",
+        "meaning": "Saya keluar rumah pukul tujuh."
+      }
+    ]
+  },
+  {
+    "id": "n5-kanji-060",
+    "kanji": "八",
+    "meaning": [
+      "delapan"
+    ],
+    "onyomi": [
+      "ハチ"
+    ],
+    "kunyomi": [
+      "やっ.つ"
+    ],
+    "jlpt": "N5",
+    "strokes": 2,
+    "relatedVocabularyIds": [],
+    "exampleSentences": [
+      {
+        "japanese": "八時に学校へ行きます。",
+        "reading": "はちじにがっこうへいきます。",
+        "meaning": "Saya pergi ke sekolah pukul delapan."
+      }
+    ]
   }
 ]

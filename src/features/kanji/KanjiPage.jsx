@@ -2,6 +2,7 @@ import { ArrowLeft, Grid3X3 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Badge from '../../components/ui/Badge'
 import KanjiGrid from './components/KanjiGrid'
+import KanjiDataNotice from './components/KanjiDataNotice'
 import { getKanji } from './services/kanjiData'
 
 export default function KanjiPage() {
@@ -20,7 +21,7 @@ export default function KanjiPage() {
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span className="study-seal" aria-hidden="true">漢字</span>
-            <Badge variant="accent">Curated JLPT N5 seed</Badge>
+            <Badge variant="accent">Curated JLPT N5 collection</Badge>
           </div>
           <h1 className="text-4xl font-semibold tracking-[-0.04em] text-ink sm:text-5xl">Kanji</h1>
           <p className="mt-3 max-w-2xl leading-7 text-ink-muted">
@@ -33,9 +34,10 @@ export default function KanjiPage() {
         </div>
       </header>
 
-      <section className="mt-7" aria-label="Kanji seed set">
+      <section className="mt-7" aria-label="Kanji collection">
         <KanjiGrid items={kanji} />
       </section>
+      <KanjiDataNotice />
     </div>
   )
 }

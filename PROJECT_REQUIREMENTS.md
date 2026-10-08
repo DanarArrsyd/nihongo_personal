@@ -1087,4 +1087,8 @@ The shared static catalogue supplies Learn, Library, Flashcards, Mixed Quiz, and
 
 Content references and editorial conventions must be documented. N5 labels indicate a curated study level, not an official complete exam vocabulary list.
 
-Kanji and grammar expansion are separate subsequent stages.
+The Kanji stage provides 60 curated beginner characters, preserves the original 20 records, resolves related vocabulary from the shared catalogue, and displays contextual sentences with readings and Indonesian meanings.
+
+Added Kanji readings and stroke counts must be checked against a documented reference and retain its attribution and licence.
+
+Grammar expansion remains a separate subsequent stage.

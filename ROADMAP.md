@@ -830,9 +830,15 @@ Reuse the shared catalogue in Learn, Library, Flashcards, Mixed Quiz, and SRS re
 
 Document content references and validate schema, uniqueness, legacy compatibility, and integrations.
 
-Stage 2 — Kanji (not implemented):
+Stage 2 — Kanji (implemented locally):
 
-Expand Kanji content and connect related vocabulary.
+60 curated beginner Kanji with verified readings and stroke counts.
+
+Preserve all original 20 records and their IDs.
+
+Resolve vocabulary connections dynamically from the 100-word catalogue and show contextual example sentences.
+
+Document KANJIDIC2 attribution and validate catalogue, legacy compatibility, and practice integrations.
 
 Stage 3 — Grammar (not implemented):
 
