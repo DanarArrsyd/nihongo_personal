@@ -33,19 +33,19 @@ export default function PracticePage() {
           <div className="genko-grid absolute inset-y-0 right-0 w-52 opacity-50" aria-hidden="true" />
           <div className="relative flex max-w-3xl flex-col items-start">
             <span className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.12em] text-accent uppercase">
-              <Blend size={17} aria-hidden="true" /> 10 soal campuran
+              <Blend size={17} aria-hidden="true" /> 10 · 20 · 30 soal
             </span>
             <h2 id="mixed-quiz-title" className="mt-3 text-2xl font-semibold tracking-[-0.025em] sm:text-3xl">
-              Satu sesi, empat materi
+              Satu sesi, fokusmu sendiri
             </h2>
             <p className="mt-3 max-w-2xl leading-7 text-ink-muted">
-              Berpindah antara lima tipe soal untuk menguji ingatan dari berbagai arah.
+              Pilih materi dan tipe pertanyaan. Sistem mengurangi pengulangan serta memprioritaskan bagian yang masih lemah.
             </p>
             <Link
               to="/practice/mixed"
               className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#B9403C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              Mulai Mixed Quiz <ArrowRight size={17} aria-hidden="true" />
+              Atur Mixed Quiz <ArrowRight size={17} aria-hidden="true" />
             </Link>
           </div>
         </Card>

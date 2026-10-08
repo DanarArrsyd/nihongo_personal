@@ -778,6 +778,42 @@ Successful practice is included in existing progress and data backups.
 
 ---
 
+# V1.3 — PRACTICE VARIETY
+
+Goal:
+
+Make practice sessions configurable, varied, and informed by existing learning progress.
+
+Implement:
+
+Mixed Quiz session setup.
+
+10, 20, and 30 question sessions.
+
+Module and question-type selection.
+
+Unique questions within a session.
+
+Balanced module and question-type distribution.
+
+Reduced repetition from recent quiz history.
+
+Weak-item prioritization from existing progress.
+
+Acceptance Criteria:
+
+The user can configure and start a valid session on smartphone, tablet, and desktop.
+
+Every generated session contains the requested number of unique, valid questions.
+
+Restarting creates a fresh session with reduced immediate repetition.
+
+Empty or failed local personalization data does not block practice.
+
+This milestone does not add new curriculum records or future practice modules.
+
+---
+
 # FUTURE V2
 
 Sentence Builder

@@ -7,18 +7,32 @@ const {
   createStudySessionMock,
   onCompleteMock,
   onResponseMock,
+  usePracticePersonalizationMock,
   useQuizPersistenceMock,
 } = vi.hoisted(() => ({
   createMixedQuizMock: vi.fn(),
   createStudySessionMock: vi.fn(),
   onCompleteMock: vi.fn(),
   onResponseMock: vi.fn(),
+  usePracticePersonalizationMock: vi.fn(),
   useQuizPersistenceMock: vi.fn(),
 }))
 
-vi.mock('./adapters/mixedQuizAdapter.js', () => ({ createMixedQuiz: createMixedQuizMock }))
+vi.mock('./adapters/mixedQuizAdapter.js', () => ({
+  createMixedQuiz: createMixedQuizMock,
+  MIXED_QUIZ_COUNTS: [10, 20, 30],
+  MIXED_QUIZ_MODULES: ['kana', 'vocabulary', 'kanji', 'grammar'],
+  MIXED_QUIZ_TYPES: [
+    'multiple_choice',
+    'reverse_multiple_choice',
+    'typing',
+    'recognition',
+    'sentence_completion',
+  ],
+}))
 vi.mock('../../services/studySession.js', () => ({ createStudySession: createStudySessionMock }))
 vi.mock('../persistence/useQuizPersistence.js', () => ({ default: useQuizPersistenceMock }))
+vi.mock('../practice/usePracticePersonalization.js', () => ({ default: usePracticePersonalizationMock }))
 
 const questions = [
   {
@@ -113,18 +127,27 @@ describe('Mixed quiz route', () => {
       onComplete: onCompleteMock,
       onResponse: onResponseMock,
     })
+    usePracticePersonalizationMock.mockReturnValue({
+      history: [],
+      progress: [],
+      isLoading: false,
+    })
   })
 
   it('adds a primary Mixed Quiz entry to Practice while keeping Kana practice', () => {
     renderRoute('/practice')
 
-    expect(screen.getByRole('link', { name: 'Mulai Mixed Quiz' })).toHaveAttribute('href', '/practice/mixed')
+    expect(screen.getByRole('link', { name: 'Atur Mixed Quiz' })).toHaveAttribute('href', '/practice/mixed')
     expect(screen.getByRole('link', { name: 'Practice Hiragana' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Practice Katakana' })).toBeVisible()
   })
 
   it('completes ten questions, reviews every answer, and restarts a fresh session', () => {
     renderRoute('/practice/mixed')
+
+    expect(screen.getByRole('heading', { name: 'Racik sesi belajarmu' })).toBeVisible()
+    expect(screen.getByRole('radio', { name: /10 soal/ })).toBeChecked()
+    fireEvent.click(screen.getByRole('button', { name: 'Mulai sesi' }))
 
     expect(createStudySessionMock).toHaveBeenCalledWith({ kind: 'quiz', module: 'mixed' })
     expect(useQuizPersistenceMock).toHaveBeenCalledWith({
@@ -173,8 +196,9 @@ describe('Mixed quiz route', () => {
     createMixedQuizMock.mockReturnValue({ questions: [], error: 'Quiz belum tersedia.' })
 
     renderRoute('/practice/mixed')
+    fireEvent.click(screen.getByRole('button', { name: 'Mulai sesi' }))
 
-    expect(screen.getByRole('heading', { name: 'Quiz belum tersedia' })).toBeVisible()
-    expect(screen.getByRole('link', { name: 'Kembali ke Practice' })).toHaveAttribute('href', '/practice')
+    expect(screen.getByRole('alert')).toHaveTextContent('Kombinasi ini belum punya cukup soal unik')
+    expect(screen.getByRole('heading', { name: 'Racik sesi belajarmu' })).toBeVisible()
   })
 })

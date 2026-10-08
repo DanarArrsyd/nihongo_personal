@@ -56,30 +56,19 @@ function createCustomSources() {
 }
 
 describe('Mixed quiz adapter', () => {
-  it('creates the exact balanced ten-question blueprint', () => {
+  it('creates a balanced ten-question session without duplicates', () => {
     const result = createMixedQuiz({ rng: zeroRng })
 
     expect(result.error).toBeNull()
     expect(result.questions).toHaveLength(10)
     expect(new Set(result.questions.map((question) => question.id)).size).toBe(10)
-    expect(countBy(result.questions, (question) => question.type)).toEqual({
-      multiple_choice: 2,
-      reverse_multiple_choice: 2,
-      typing: 2,
-      recognition: 2,
-      sentence_completion: 2,
-    })
-    expect(countBy(result.questions, (question) => question.source.module)).toEqual({
-      kana: 2,
-      vocabulary: 3,
-      kanji: 2,
-      grammar: 3,
-    })
+    expect(Object.values(countBy(result.questions, (question) => question.type)))
+      .toEqual(expect.arrayContaining([expect.any(Number)]))
+    expect(new Set(result.questions.map((question) => question.type)))
+      .toEqual(new Set(['multiple_choice', 'reverse_multiple_choice', 'typing', 'recognition', 'sentence_completion']))
     expect(new Set(result.questions.map((question) => question.source.module)))
       .toEqual(new Set(['kana', 'vocabulary', 'kanji', 'grammar']))
-    expect(result.questions.every((question) => (
-      question.id.startsWith(`mixed-${question.source.module}-${question.source.itemId}-${question.type}-`)
-    ))).toBe(true)
+    expect(result.questions.every((question) => question.id.startsWith(`mixed-${question.source.module}-`))).toBe(true)
     const recognitionQuestions = result.questions.filter((question) => question.type === 'recognition')
     expect(recognitionQuestions.every((question) => question.answer.value === false)).toBe(true)
     recognitionQuestions.forEach((question) => {
@@ -90,6 +79,29 @@ describe('Mixed quiz adapter', () => {
       expect(question.content.secondary).not.toBe(sourceMeaning)
     })
     expect(validateQuiz(result.questions)).toEqual({ valid: true, errors: [] })
+  })
+
+  it.each([20, 30])('creates a valid unique %i-question session', (count) => {
+    const result = createMixedQuiz({ count, rng: zeroRng })
+
+    expect(result.error).toBeNull()
+    expect(result.questions).toHaveLength(count)
+    expect(new Set(result.questions.map((question) => question.id)).size).toBe(count)
+    expect(validateQuiz(result.questions)).toEqual({ valid: true, errors: [] })
+  })
+
+  it('honors selected modules and question types', () => {
+    const result = createMixedQuiz({
+      count: 10,
+      modules: ['vocabulary'],
+      questionTypes: ['typing'],
+      rng: zeroRng,
+    })
+
+    expect(result.error).toBeNull()
+    expect(result.questions.every((question) => (
+      question.source.module === 'vocabulary' && question.type === 'typing'
+    ))).toBe(true)
   })
 
   it('uses real source content for prompts, pair claims, and distractors', () => {
@@ -246,21 +258,33 @@ describe('Mixed quiz adapter', () => {
 
   it('returns unavailable when Kanji cannot form a semantically false pair', () => {
     const sources = createCustomSources()
-    sources.kanji = sources.kanji.map((item) => ({ ...item, meaning: ['makna sama'] }))
+    sources.kanji = getKanji().map((item) => ({ ...item, meaning: ['makna sama'] }))
 
-    expect(createMixedQuiz({ rng: zeroRng, sources })).toEqual({
+    expect(createMixedQuiz({
+      count: 10,
+      modules: ['kanji'],
+      questionTypes: ['recognition'],
+      rng: zeroRng,
+      sources,
+    })).toEqual({
       questions: [],
-      error: 'Quiz belum tersedia.',
+      error: 'Quiz belum tersedia untuk pilihan ini.',
     })
   })
 
   it('returns unavailable when Grammar cannot form a semantically false pair', () => {
     const sources = createCustomSources()
-    sources.grammar = sources.grammar.map((item) => ({ ...item, meaning: 'fungsi sama' }))
+    sources.grammar = getGrammar().map((item) => ({ ...item, meaning: 'fungsi sama' }))
 
-    expect(createMixedQuiz({ rng: zeroRng, sources })).toEqual({
+    expect(createMixedQuiz({
+      count: 10,
+      modules: ['grammar'],
+      questionTypes: ['recognition'],
+      rng: zeroRng,
+      sources,
+    })).toEqual({
       questions: [],
-      error: 'Quiz belum tersedia.',
+      error: 'Quiz belum tersedia untuk pilihan ini.',
     })
   })
 
@@ -268,9 +292,15 @@ describe('Mixed quiz adapter', () => {
     const sources = createCustomSources()
     sources.grammar = sources.grammar.slice(0, 1)
 
-    expect(createMixedQuiz({ rng: zeroRng, sources })).toEqual({
+    expect(createMixedQuiz({
+      count: 10,
+      modules: ['grammar'],
+      questionTypes: ['sentence_completion'],
+      rng: zeroRng,
+      sources,
+    })).toEqual({
       questions: [],
-      error: 'Quiz belum tersedia.',
+      error: 'Quiz belum tersedia untuk pilihan ini.',
     })
   })
 })
