@@ -814,6 +814,32 @@ This milestone does not add new curriculum records or future practice modules.
 
 ---
 
+# V1.4 — N5 CONTENT EXPANSION
+
+Goal:
+
+Expand the beginner curriculum in small, validated batches without changing existing learning-item identities.
+
+Stage 1 — Vocabulary (implemented locally):
+
+100 curated N5 vocabulary entries with readings, romaji, Indonesian meanings, and example sentences.
+
+Preserve the original 30 entries and their IDs.
+
+Reuse the shared catalogue in Learn, Library, Flashcards, Mixed Quiz, and SRS review cards.
+
+Document content references and validate schema, uniqueness, legacy compatibility, and integrations.
+
+Stage 2 — Kanji (not implemented):
+
+Expand Kanji content and connect related vocabulary.
+
+Stage 3 — Grammar (not implemented):
+
+Expand grammar patterns and sentence-completion variations.
+
+---
+
 # FUTURE V2
 
 Sentence Builder

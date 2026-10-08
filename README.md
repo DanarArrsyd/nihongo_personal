@@ -10,7 +10,7 @@ Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
 - Dashboard with structured study overview data
 - Complete shared Hiragana and Katakana learning architecture
 - Kana recognition, reverse-recognition, and typing practice
-- JLPT N5 vocabulary seed set with 30 structured entries
+- Curated N5 vocabulary collection with 100 structured entries and Indonesian meanings
 - Vocabulary search, word-type and learning-status filters
 - Vocabulary details, example sentences, pronunciation, favorites, and persisted learning status
 - JLPT N5 Kanji and Grammar reference modules
@@ -28,6 +28,8 @@ Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
 User progress stays in local IndexedDB on the current browser. Cloud synchronization is outside Version 1 scope.
 
 Kana writing uses locally bundled stroke-order data from KanjiVG. Attribution and licence details are available in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+Vocabulary selection and editorial conventions are documented in [`src/data/vocabulary/CONTENT_NOTES.md`](src/data/vocabulary/CONTENT_NOTES.md). This is a curated beginner collection, not a complete official JLPT syllabus.
 
 ## Technology
 

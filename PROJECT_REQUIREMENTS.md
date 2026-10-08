@@ -1072,3 +1072,19 @@ Prioritize weaker items using existing local progress where available.
 Continue using Mixed Quiz when progress history is empty or local storage is unavailable.
 
 Kana Writing Practice remains a separate focused activity and is not forced into Mixed Quiz.
+
+---
+
+# 34. N5 Content Expansion
+
+Version 1.4 is delivered in stages.
+
+The vocabulary stage provides 100 curated beginner entries with Japanese words, readings, romaji, Indonesian meanings, and contextual examples.
+
+Existing vocabulary IDs and content remain unchanged so local progress, favorites, review schedules, and backups retain their references.
+
+The shared static catalogue supplies Learn, Library, Flashcards, Mixed Quiz, and SRS review-card resolution without duplicating curriculum data in IndexedDB.
+
+Content references and editorial conventions must be documented. N5 labels indicate a curated study level, not an official complete exam vocabulary list.
+
+Kanji and grammar expansion are separate subsequent stages.
