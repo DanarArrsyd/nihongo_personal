@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { vi } from 'vitest'
 
 import ProgressPage from './ProgressPage.jsx'
@@ -41,7 +42,7 @@ const analytics = {
 describe('ProgressPage', () => {
   it('renders persisted analytics and study history', () => {
     const useAnalytics = () => ({ analytics, retry: vi.fn(), status: 'ready' })
-    render(<ProgressPage useAnalytics={useAnalytics} />)
+    render(<MemoryRouter><ProgressPage useAnalytics={useAnalytics} /></MemoryRouter>)
 
     expect(screen.getByRole('heading', { name: 'Progress', level: 1 })).toBeVisible()
     expect(screen.getByRole('progressbar', { name: 'Overall mastery' })).toHaveAttribute('aria-valuenow', '12')
@@ -51,6 +52,7 @@ describe('ProgressPage', () => {
     expect(screen.getByText('3 hari')).toBeVisible()
     expect(screen.getByText('24')).toBeVisible()
     expect(screen.getByText('Current streak · best 5')).toBeVisible()
+    expect(screen.getByRole('link', { name: /Kelola backup/ })).toHaveAttribute('href', '/data-safety')
   })
 
   it('shows an honest empty-state note', () => {
@@ -59,7 +61,7 @@ describe('ProgressPage', () => {
       retry: vi.fn(),
       status: 'ready',
     })
-    render(<ProgressPage useAnalytics={useAnalytics} />)
+    render(<MemoryRouter><ProgressPage useAnalytics={useAnalytics} /></MemoryRouter>)
 
     expect(screen.getByText(/Belum ada aktivitas tersimpan/)).toBeVisible()
     expect(screen.getByRole('heading', { name: 'Belum ada sesi selesai' })).toBeVisible()
@@ -68,7 +70,7 @@ describe('ProgressPage', () => {
   it('retries after a persistence failure', () => {
     const retry = vi.fn()
     const useAnalytics = () => ({ analytics: null, retry, status: 'error' })
-    render(<ProgressPage useAnalytics={useAnalytics} />)
+    render(<MemoryRouter><ProgressPage useAnalytics={useAnalytics} /></MemoryRouter>)
 
     fireEvent.click(screen.getByRole('button', { name: 'Coba lagi' }))
     expect(retry).toHaveBeenCalledOnce()

@@ -2,7 +2,7 @@
 
 # Nihongo Personal
 
-Version: 1.0
+Version: 1.1
 
 Project Type:
 Personal Japanese Learning Web Application
@@ -1010,3 +1010,21 @@ Install the application as a PWA.
 Refresh or reopen the application without losing progress.
 
 Deploy the application successfully through Vercel.
+
+---
+
+# 31. Data Safety
+
+Version 1.1 must allow the user to:
+
+Export all user-specific IndexedDB records to a portable JSON backup.
+
+Inspect a backup summary before restoring it.
+
+Reject malformed, oversized, duplicate, or incompatible backup data.
+
+Confirm before replacing current local data.
+
+Restore all tables in one atomic transaction so failed restores preserve existing data.
+
+Static Japanese learning content must remain outside the backup.

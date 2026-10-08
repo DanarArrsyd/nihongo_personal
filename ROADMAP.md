@@ -716,6 +716,36 @@ PWA can be installed where supported.
 
 ---
 
+# V1.1 — DATA SAFETY
+
+Goal:
+
+Protect local learning progress from accidental browser or device data loss.
+
+Implement:
+
+Manual JSON export for every user-data table.
+
+Validated backup preview.
+
+Explicit restore confirmation.
+
+Atomic full-database restore.
+
+Clear success and failure feedback.
+
+Acceptance Criteria:
+
+Exported backup contains user data only.
+
+Malformed or incompatible files cannot replace current data.
+
+Restore failure preserves the previous database state.
+
+Backup and restore remain usable on desktop and mobile.
+
+---
+
 # FUTURE V2
 
 Sentence Builder

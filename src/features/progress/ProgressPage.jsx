@@ -1,4 +1,5 @@
-import { BookOpenCheck, Flame, RotateCcw, TimerReset } from 'lucide-react'
+import { BookOpenCheck, ChevronRight, Flame, RotateCcw, ShieldCheck, TimerReset } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import LoadingState from '../../components/feedback/LoadingState.jsx'
 import Button from '../../components/ui/Button.jsx'
@@ -90,6 +91,23 @@ export default function ProgressPage({ useAnalytics = useProgressAnalytics }) {
         <div className="xl:col-span-7"><AccuracyPanel quizAccuracy={analytics.quizAccuracy} reviewAccuracy={analytics.reviewAccuracy} /></div>
         <div className="xl:col-span-5"><StudyHistory history={analytics.history} /></div>
       </div>
+
+      <section aria-labelledby="data-safety-heading" className="mt-6 grid gap-5 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:p-7">
+        <span className="grid size-11 place-items-center rounded-xl bg-matcha-soft text-matcha">
+          <ShieldCheck aria-hidden="true" size={22} />
+        </span>
+        <div>
+          <p className="font-japanese text-xs font-semibold text-accent">データ保護</p>
+          <h2 id="data-safety-heading" className="mt-1 text-xl font-semibold tracking-[-0.03em] text-ink">Lindungi progress lokal</h2>
+          <p className="mt-1 text-sm leading-6 text-ink-muted">Unduh backup atau pulihkan data belajar dari file yang sudah divalidasi.</p>
+        </div>
+        <Link
+          to="/data-safety"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-[#C9C0B2] hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          Kelola backup <ChevronRight aria-hidden="true" size={17} />
+        </Link>
+      </section>
     </div>
   )
 }

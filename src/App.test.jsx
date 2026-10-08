@@ -63,6 +63,7 @@ describe('application routes', () => {
     ['/practice', 'Practice'],
     ['/review', 'Review'],
     ['/progress', 'Progress'],
+    ['/data-safety', 'Backup & restore'],
     ['/library', 'Library'],
   ])('renders the %s route as %s', async (path, heading) => {
     renderRoute(path)

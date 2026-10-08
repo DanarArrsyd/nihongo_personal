@@ -21,6 +21,7 @@ Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
 - Persisted progress analytics for mastery, accuracy, streaks, weekly activity, and study history
 - Searchable Vocabulary, Kanji, and Grammar library with persisted favorites
 - Installable PWA with final icons, offline learning shell, and user-controlled updates
+- Manual JSON backup and atomic restore for all local learning data
 
 User progress stays in local IndexedDB on the current browser. Cloud synchronization is outside Version 1 scope.
 
@@ -61,7 +62,7 @@ Open the HTTPS deployment or local preview once while online. The application sh
 
 ## Local data and recovery
 
-Progress, review history, favorites, missions, and settings are stored only in IndexedDB for the current browser and origin. Clearing site data, using a different browser, or changing the deployment origin starts a separate empty workspace. Version 1 does not include cloud sync or backup export.
+Progress, review history, favorites, missions, and settings are stored only in IndexedDB for the current browser and origin. Clearing site data, using a different browser, or changing the deployment origin starts a separate empty workspace. V1.1 provides manual JSON backup and restore from the Progress page; cloud sync remains outside the current scope.
 
 If browser storage cannot be opened, the application keeps static learning content available where possible and shows a persistence warning. Retry after confirming that IndexedDB is enabled and storage is not blocked. Clear site data only as a last resort because it permanently removes local progress for that origin.
 

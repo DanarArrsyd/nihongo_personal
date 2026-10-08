@@ -1,5 +1,7 @@
 import Dexie from 'dexie'
 
+export const DATABASE_VERSION = 2
+
 export function createDatabase(name, dependencies) {
   const database = new Dexie(name, dependencies)
 
@@ -12,7 +14,7 @@ export function createDatabase(name, dependencies) {
     settings: 'key',
   })
 
-  database.version(2).stores({
+  database.version(DATABASE_VERSION).stores({
     dailyMissions: 'date, status, updatedAt',
   })
 
