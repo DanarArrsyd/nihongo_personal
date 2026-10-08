@@ -154,5 +154,908 @@
       { "japanese": "日本へ行きたいです。", "reading": "にほんへいきたいです。", "meaning": "Saya ingin pergi ke Jepang." }
     ],
     "relatedGrammarIds": ["n5-grammar-006", "n5-grammar-009"]
+  },
+  {
+    "id": "n5-grammar-013",
+    "pattern": "～ます",
+    "meaning": "menyatakan kegiatan atau kebiasaan dengan sopan",
+    "jlpt": "N5",
+    "structure": "Verb stem + ます",
+    "explanation": "Bentuk ます digunakan untuk kegiatan sekarang, kebiasaan, atau rencana mendatang. Ini bukan bentuk lampau.",
+    "examples": [
+      {
+        "japanese": "毎朝パンを食べます。",
+        "reading": "まいあさぱんをたべます。",
+        "meaning": "Saya makan roti setiap pagi."
+      },
+      {
+        "japanese": "明日学校へ行きます。",
+        "reading": "あしたがっこうへいきます。",
+        "meaning": "Besok saya akan pergi ke sekolah."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-006",
+      "n5-grammar-014",
+      "n5-grammar-015"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "毎朝パンを",
+        "answer": "食べます",
+        "after": "。",
+        "distractors": [
+          "食べました",
+          "食べません",
+          "食べませんでした"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "明日学校へ",
+        "answer": "行きます",
+        "after": "。",
+        "distractors": [
+          "行きました",
+          "行きません",
+          "行きませんでした"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-014",
+    "pattern": "～ません",
+    "meaning": "tidak melakukan sesuatu; negatif sopan",
+    "jlpt": "N5",
+    "structure": "Verb stem + ません",
+    "explanation": "Ganti ます dengan ません untuk menyangkal kegiatan atau kebiasaan sekarang maupun mendatang.",
+    "examples": [
+      {
+        "japanese": "私はコーヒーを飲みません。",
+        "reading": "わたしはこーひーをのみません。",
+        "meaning": "Saya tidak minum kopi."
+      },
+      {
+        "japanese": "明日は学校へ行きません。",
+        "reading": "あしたはがっこうへいきません。",
+        "meaning": "Besok saya tidak pergi ke sekolah."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-013",
+      "n5-grammar-016"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "私はコーヒーを",
+        "answer": "飲みません",
+        "after": "。",
+        "distractors": [
+          "飲みます",
+          "飲みました",
+          "飲みませんでした"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "明日は学校へ",
+        "answer": "行きません",
+        "after": "。",
+        "distractors": [
+          "行きます",
+          "行きました",
+          "行きませんでした"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-015",
+    "pattern": "～ました",
+    "meaning": "telah melakukan sesuatu; lampau sopan",
+    "jlpt": "N5",
+    "structure": "Verb stem + ました",
+    "explanation": "Ganti ます dengan ました untuk menceritakan kegiatan yang telah terjadi.",
+    "examples": [
+      {
+        "japanese": "昨日、本を読みました。",
+        "reading": "きのう、ほんをよみました。",
+        "meaning": "Kemarin saya membaca buku."
+      },
+      {
+        "japanese": "先週、日本へ行きました。",
+        "reading": "せんしゅう、にほんへいきました。",
+        "meaning": "Minggu lalu saya pergi ke Jepang."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-013",
+      "n5-grammar-016",
+      "n5-grammar-017"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "昨日、本を",
+        "answer": "読みました",
+        "after": "。",
+        "distractors": [
+          "読みます",
+          "読みません",
+          "読みませんでした"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "先週、日本へ",
+        "answer": "行きました",
+        "after": "。",
+        "distractors": [
+          "行きます",
+          "行きません",
+          "行きませんでした"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-016",
+    "pattern": "～ませんでした",
+    "meaning": "tidak melakukan sesuatu pada masa lampau",
+    "jlpt": "N5",
+    "structure": "Verb stem + ませんでした",
+    "explanation": "Tambahkan でした setelah ません untuk menyangkal kegiatan yang terjadi pada masa lampau.",
+    "examples": [
+      {
+        "japanese": "昨日はテレビを見ませんでした。",
+        "reading": "きのうはてれびをみませんでした。",
+        "meaning": "Kemarin saya tidak menonton televisi."
+      },
+      {
+        "japanese": "今朝はパンを食べませんでした。",
+        "reading": "けさはぱんをたべませんでした。",
+        "meaning": "Tadi pagi saya tidak makan roti."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-014",
+      "n5-grammar-015"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "昨日はテレビを",
+        "answer": "見ませんでした",
+        "after": "。",
+        "distractors": [
+          "見ました",
+          "見ます",
+          "見ません"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "今朝はパンを",
+        "answer": "食べませんでした",
+        "after": "。",
+        "distractors": [
+          "食べました",
+          "食べます",
+          "食べません"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-017",
+    "pattern": "～でした",
+    "meaning": "adalah; keadaan atau identitas pada masa lampau",
+    "jlpt": "N5",
+    "structure": "Noun / な-adjective stem + でした",
+    "explanation": "Untuk nomina dan kata sifat な, ganti です dengan でした untuk menyatakan keadaan lampau. Kata sifat い memakai bentuk ～かったです.",
+    "examples": [
+      {
+        "japanese": "昨日は日曜日でした。",
+        "reading": "きのうはにちようびでした。",
+        "meaning": "Kemarin adalah hari Minggu."
+      },
+      {
+        "japanese": "昨日、この町は静かでした。",
+        "reading": "きのう、このまちはしずかでした。",
+        "meaning": "Kemarin kota ini tenang."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-001",
+      "n5-grammar-015",
+      "n5-grammar-019"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "昨日は",
+        "answer": "日曜日でした",
+        "after": "。",
+        "distractors": [
+          "日曜日です",
+          "日曜日ではありません",
+          "日曜日ではありませんでした"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "昨日、この町は",
+        "answer": "静かでした",
+        "after": "。",
+        "distractors": [
+          "静かです",
+          "静かではありません",
+          "静かではありませんでした"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-018",
+    "pattern": "～くないです",
+    "meaning": "tidak; bentuk negatif kata sifat い",
+    "jlpt": "N5",
+    "structure": "い-adjective stem + くないです",
+    "explanation": "Buang い terakhir lalu tambahkan くないです. Pengecualian penting: いい menjadi よくないです. Bentuk ini tidak digunakan untuk kata sifat な.",
+    "examples": [
+      {
+        "japanese": "この本は高くないです。",
+        "reading": "このほんはたかくないです。",
+        "meaning": "Buku ini tidak mahal."
+      },
+      {
+        "japanese": "今日は寒くないです。",
+        "reading": "きょうはさむくないです。",
+        "meaning": "Hari ini tidak dingin."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-002",
+      "n5-grammar-019"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "この本は",
+        "answer": "高くないです",
+        "after": "。",
+        "distractors": [
+          "高いです",
+          "高かったです",
+          "高くなかったです"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "今日は",
+        "answer": "寒くないです",
+        "after": "。",
+        "distractors": [
+          "寒いです",
+          "寒かったです",
+          "寒くなかったです"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-019",
+    "pattern": "～な",
+    "meaning": "menghubungkan kata sifat な dengan nomina",
+    "jlpt": "N5",
+    "structure": "な-adjective stem + な + Noun",
+    "explanation": "Gunakan な di antara kata sifat な dan nomina yang diterangkannya. Sebelum です, jangan tambahkan な. Contoh: 静かな町, tetapi 町は静かです.",
+    "examples": [
+      {
+        "japanese": "ここは静かな町です。",
+        "reading": "ここはしずかなまちです。",
+        "meaning": "Ini kota yang tenang."
+      },
+      {
+        "japanese": "あれは有名な学校です。",
+        "reading": "あれはゆうめいながっこうです。",
+        "meaning": "Itu sekolah yang terkenal."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-001",
+      "n5-grammar-017",
+      "n5-grammar-018"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "ここは静か",
+        "answer": "な",
+        "after": "町です。",
+        "distractors": [
+          "に",
+          "を",
+          "で"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "あれは有名",
+        "answer": "な",
+        "after": "学校です。",
+        "distractors": [
+          "に",
+          "を",
+          "で"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-020",
+    "pattern": "～ませんか",
+    "meaning": "mengajak seseorang dengan sopan",
+    "jlpt": "N5",
+    "structure": "Verb stem + ませんか",
+    "explanation": "Gunakan ませんか untuk mengundang atau mengajak lawan bicara melakukan suatu kegiatan. Maknanya berbeda dari pernyataan negatif biasa.",
+    "examples": [
+      {
+        "japanese": "一緒にお茶を飲みませんか。",
+        "reading": "いっしょにおちゃをのみませんか。",
+        "meaning": "Maukah kamu minum teh bersama saya?"
+      },
+      {
+        "japanese": "明日、一緒に公園へ行きませんか。",
+        "reading": "あした、いっしょにこうえんへいきませんか。",
+        "meaning": "Maukah kamu pergi ke taman bersama saya besok?"
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-014",
+      "n5-grammar-021"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "一緒にお茶を",
+        "answer": "飲みませんか",
+        "after": "。",
+        "distractors": [
+          "飲みました",
+          "飲みません",
+          "飲みませんでした"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "明日、一緒に公園へ",
+        "answer": "行きませんか",
+        "after": "。",
+        "distractors": [
+          "行きました",
+          "行きません",
+          "行きませんでした"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-021",
+    "pattern": "～ましょう",
+    "meaning": "mari melakukan sesuatu",
+    "jlpt": "N5",
+    "structure": "Verb stem + ましょう",
+    "explanation": "Ganti ます dengan ましょう untuk mengusulkan kegiatan bersama atau menyatakan persetujuan terhadap ajakan.",
+    "examples": [
+      {
+        "japanese": "一緒に日本語を勉強しましょう。",
+        "reading": "いっしょににほんごをべんきょうしましょう。",
+        "meaning": "Mari belajar bahasa Jepang bersama."
+      },
+      {
+        "japanese": "ここで少し休みましょう。",
+        "reading": "ここですこしやすみましょう。",
+        "meaning": "Mari beristirahat sebentar di sini."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-013",
+      "n5-grammar-020"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "一緒に日本語を",
+        "answer": "勉強しましょう",
+        "after": "。",
+        "distractors": [
+          "勉強しました",
+          "勉強しません",
+          "勉強しませんでした"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "ここで少し",
+        "answer": "休みましょう",
+        "after": "。",
+        "distractors": [
+          "休みました",
+          "休みません",
+          "休みませんでした"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-022",
+    "pattern": "～てください",
+    "meaning": "meminta seseorang melakukan sesuatu",
+    "jlpt": "N5",
+    "structure": "Verb て-form + ください",
+    "explanation": "Gunakan bentuk て dari kata kerja diikuti ください untuk permintaan atau instruksi sopan. Bentuk て dapat berakhir dengan で, misalnya 読んでください.",
+    "examples": [
+      {
+        "japanese": "この本を読んでください。",
+        "reading": "このほんをよんでください。",
+        "meaning": "Tolong baca buku ini."
+      },
+      {
+        "japanese": "ここに名前を書いてください。",
+        "reading": "ここになまえをかいてください。",
+        "meaning": "Tolong tulis nama di sini."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-023",
+      "n5-grammar-026"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "この本を",
+        "answer": "読んでください",
+        "after": "。",
+        "distractors": [
+          "読みました",
+          "読みません",
+          "読まないでください"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "ここに名前を",
+        "answer": "書いてください",
+        "after": "。",
+        "distractors": [
+          "書きました",
+          "書きません",
+          "書かないでください"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-023",
+    "pattern": "～ています",
+    "meaning": "sedang melakukan sesuatu; keadaan yang berlangsung",
+    "jlpt": "N5",
+    "structure": "Verb て-form + います",
+    "explanation": "Bentuk て diikuti います dapat menyatakan kegiatan yang sedang berjalan atau keadaan yang berlanjut. Contoh di sini berfokus pada kegiatan yang sedang berlangsung.",
+    "examples": [
+      {
+        "japanese": "今、本を読んでいます。",
+        "reading": "いま、ほんをよんでいます。",
+        "meaning": "Sekarang saya sedang membaca buku."
+      },
+      {
+        "japanese": "今、母はご飯を作っています。",
+        "reading": "いま、はははごはんをつくっています。",
+        "meaning": "Sekarang ibu sedang memasak."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-013",
+      "n5-grammar-022"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "今、本を",
+        "answer": "読んでいます",
+        "after": "。",
+        "distractors": [
+          "読みました",
+          "読みません",
+          "読んでください"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "今、母はご飯を",
+        "answer": "作っています",
+        "after": "。",
+        "distractors": [
+          "作りました",
+          "作りません",
+          "作ってください"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-024",
+    "pattern": "～てもいいです",
+    "meaning": "boleh melakukan sesuatu",
+    "jlpt": "N5",
+    "structure": "Verb て-form + もいいです",
+    "explanation": "Tambahkan もいいです setelah bentuk て untuk memberi izin. Tambahkan か untuk meminta izin. Bentuk て dapat berakhir dengan で.",
+    "examples": [
+      {
+        "japanese": "ここで写真を撮ってもいいです。",
+        "reading": "ここでしゃしんをとってもいいです。",
+        "meaning": "Kamu boleh mengambil foto di sini."
+      },
+      {
+        "japanese": "この水を飲んでもいいですか。",
+        "reading": "このみずをのんでもいいですか。",
+        "meaning": "Bolehkah saya minum air ini?"
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-022",
+      "n5-grammar-025"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "ここで写真を",
+        "answer": "撮ってもいいです",
+        "after": "。",
+        "distractors": [
+          "撮ってはいけません",
+          "撮らないでください",
+          "撮りました"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "この水を",
+        "answer": "飲んでもいいです",
+        "after": "か。",
+        "distractors": [
+          "飲んでいます",
+          "飲みました",
+          "飲みませんでした"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-025",
+    "pattern": "～てはいけません",
+    "meaning": "tidak boleh melakukan sesuatu",
+    "jlpt": "N5",
+    "structure": "Verb て-form + はいけません",
+    "explanation": "Gunakan bentuk て diikuti はいけません untuk menyatakan larangan atau aturan. Ini lebih tegas daripada permintaan ～ないでください.",
+    "examples": [
+      {
+        "japanese": "ここで写真を撮ってはいけません。",
+        "reading": "ここでしゃしんをとってはいけません。",
+        "meaning": "Tidak boleh mengambil foto di sini."
+      },
+      {
+        "japanese": "この部屋に入ってはいけません。",
+        "reading": "このへやにはいってはいけません。",
+        "meaning": "Tidak boleh masuk ke kamar ini."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-024",
+      "n5-grammar-026"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "ここで写真を",
+        "answer": "撮ってはいけません",
+        "after": "。",
+        "distractors": [
+          "撮ってもいいです",
+          "撮ってください",
+          "撮っています"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "この部屋に",
+        "answer": "入ってはいけません",
+        "after": "。",
+        "distractors": [
+          "入ってもいいです",
+          "入ってください",
+          "入っています"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-026",
+    "pattern": "～ないでください",
+    "meaning": "meminta seseorang tidak melakukan sesuatu",
+    "jlpt": "N5",
+    "structure": "Verb ない-form + でください",
+    "explanation": "Gunakan bentuk negatif ない dari kata kerja diikuti でください untuk meminta seseorang tidak melakukan tindakan. Contoh: 書く → 書かないでください.",
+    "examples": [
+      {
+        "japanese": "ここに名前を書かないでください。",
+        "reading": "ここになまえをかかないでください。",
+        "meaning": "Tolong jangan tulis nama di sini."
+      },
+      {
+        "japanese": "窓を開けないでください。",
+        "reading": "まどをあけないでください。",
+        "meaning": "Tolong jangan buka jendela."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-022",
+      "n5-grammar-025"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "ここに名前を",
+        "answer": "書かないでください",
+        "after": "。",
+        "distractors": [
+          "書いてください",
+          "書いてもいいです",
+          "書いています"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "窓を",
+        "answer": "開けないでください",
+        "after": "。",
+        "distractors": [
+          "開けてください",
+          "開けてもいいです",
+          "開けています"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-027",
+    "pattern": "～から（理由）",
+    "meaning": "karena; menyampaikan alasan",
+    "jlpt": "N5",
+    "structure": "Reason clause + から + Result clause",
+    "explanation": "Letakkan から setelah alasan, lalu sampaikan hasil atau tindakan. Dengan nomina atau kata sifat な dalam bentuk biasa, gunakan だから. Jangan tertukar dengan から yang menandai titik awal.",
+    "examples": [
+      {
+        "japanese": "今日は寒いから、窓を閉めます。",
+        "reading": "きょうはさむいから、まどをしめます。",
+        "meaning": "Karena hari ini dingin, saya menutup jendela."
+      },
+      {
+        "japanese": "明日は休みだから、家にいます。",
+        "reading": "あしたはやすみだから、いえにいます。",
+        "meaning": "Karena besok libur, saya berada di rumah."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-028",
+      "n5-grammar-001"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "今日は寒い",
+        "answer": "から",
+        "after": "、窓を閉めます。",
+        "distractors": [
+          "まで",
+          "を",
+          "に"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "明日は休みだ",
+        "answer": "から",
+        "after": "、家にいます。",
+        "distractors": [
+          "まで",
+          "を",
+          "に"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-028",
+    "pattern": "～から～まで",
+    "meaning": "dari suatu titik awal sampai titik akhir",
+    "jlpt": "N5",
+    "structure": "Start + から + End + まで",
+    "explanation": "から menunjukkan titik awal dan まで menunjukkan titik akhir untuk waktu atau tempat.",
+    "examples": [
+      {
+        "japanese": "九時から五時まで働きます。",
+        "reading": "くじからごじまではたらきます。",
+        "meaning": "Saya bekerja dari pukul sembilan sampai pukul lima."
+      },
+      {
+        "japanese": "家から駅まで歩きます。",
+        "reading": "いえからえきまであるきます。",
+        "meaning": "Saya berjalan dari rumah sampai stasiun."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-007",
+      "n5-grammar-009",
+      "n5-grammar-027"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "九時から五時",
+        "answer": "まで",
+        "after": "働きます。",
+        "distractors": [
+          "から",
+          "を",
+          "の"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "家",
+        "answer": "から",
+        "after": "駅まで歩きます。",
+        "distractors": [
+          "まで",
+          "を",
+          "の"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-029",
+    "pattern": "～より",
+    "meaning": "daripada; patokan perbandingan",
+    "jlpt": "N5",
+    "structure": "A + は + B + より + Adjective",
+    "explanation": "より menandai hal yang menjadi patokan perbandingan. AはBより高いです berarti A lebih tinggi atau mahal daripada B, sesuai konteks.",
+    "examples": [
+      {
+        "japanese": "電車はバスより速いです。",
+        "reading": "でんしゃはばすよりはやいです。",
+        "meaning": "Kereta lebih cepat daripada bus."
+      },
+      {
+        "japanese": "この本はあの本より安いです。",
+        "reading": "このほんはあのほんよりやすいです。",
+        "meaning": "Buku ini lebih murah daripada buku itu."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-030"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "電車はバス",
+        "answer": "より",
+        "after": "速いです。",
+        "distractors": [
+          "まで",
+          "から",
+          "を"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "この本はあの本",
+        "answer": "より",
+        "after": "安いです。",
+        "distractors": [
+          "まで",
+          "から",
+          "を"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "n5-grammar-030",
+    "pattern": "～ほうが",
+    "meaning": "lebih; memilih sisi yang dibandingkan",
+    "jlpt": "N5",
+    "structure": "A + より + B + の + ほうが + Adjective",
+    "explanation": "Untuk membandingkan dua nomina, gunakan AよりBのほうが～. のほうが menandai sisi yang memiliki sifat lebih kuat. Materi ini berfokus pada perbandingan nomina, bukan saran ～たほうがいい.",
+    "examples": [
+      {
+        "japanese": "バスより電車のほうが速いです。",
+        "reading": "ばすよりでんしゃのほうがはやいです。",
+        "meaning": "Kereta lebih cepat daripada bus."
+      },
+      {
+        "japanese": "あの本よりこの本のほうが安いです。",
+        "reading": "あのほんよりこのほんのほうがやすいです。",
+        "meaning": "Buku ini lebih murah daripada buku itu."
+      }
+    ],
+    "relatedGrammarIds": [
+      "n5-grammar-029"
+    ],
+    "completionExercises": [
+      {
+        "id": "example-1",
+        "exampleIndex": 0,
+        "before": "バスより電車の",
+        "answer": "ほうが",
+        "after": "速いです。",
+        "distractors": [
+          "より",
+          "まで",
+          "から"
+        ]
+      },
+      {
+        "id": "example-2",
+        "exampleIndex": 1,
+        "before": "あの本よりこの本の",
+        "answer": "ほうが",
+        "after": "安いです。",
+        "distractors": [
+          "より",
+          "まで",
+          "から"
+        ]
+      }
+    ]
   }
 ]

@@ -22,6 +22,18 @@ export const MIXED_QUIZ_COUNTS = [10, 20, 30]
 
 const unavailableResult = () => ({ questions: [], error: 'Quiz belum tersedia untuk pilihan ini.' })
 
+// Avoid interchangeable location/direction particles and topic/object alternatives.
+const particleDistractors = {
+  '～は': ['を', 'の', 'に'],
+  '～も': ['を', 'の', 'に'],
+  '～の': ['を', 'へ', 'が'],
+  '～を': ['の', 'へ', 'に'],
+  '～に': ['の', 'を', 'と'],
+  '～で': ['の', 'を', 'へ'],
+  '～へ': ['の', 'を', 'と'],
+  '～と': ['の', 'を', 'が'],
+}
+
 function getDefaultSources() {
   return {
     kana: {
@@ -117,16 +129,20 @@ function createGrammarPool(items, rng) {
 
   return validItems.flatMap((item) => {
     const falseTruthItem = selectFalseTruthItem(validItems, item, (candidate) => candidate.meaning, rng)
-    const questions = [createGrammarQuestion({
+    const completionIndexes = Array.isArray(item.completionExercises)
+      ? item.completionExercises.map((_, index) => index)
+      : [0]
+    const questions = completionIndexes.map((completionIndex) => createGrammarQuestion({
       item,
+      completionIndex,
       type: 'sentence_completion',
-      distractors: sampleUnique(
+      distractors: particleDistractors[item.pattern]?.map((token) => ({ pattern: `～${token}` })) ?? sampleUnique(
         validItems.filter((candidate) => candidate.id !== item.id),
         3,
         rng,
       ),
       rng,
-    })]
+    }))
     if (falseTruthItem) {
       questions.push(createGrammarQuestion({ item, type: 'recognition', truthItem: falseTruthItem, rng }))
     }

@@ -28,7 +28,34 @@ function createRecognitionQuestion({ item, truthItem, rng }) {
   }
 }
 
-function createSentenceCompletionQuestion({ item, distractors, rng }) {
+function createCuratedCompletion({ item, completionIndex, rng }) {
+  const exercise = item.completionExercises?.[completionIndex]
+  const example = item.examples?.[exercise?.exampleIndex]
+  if (!exercise?.id || !exercise.before || !exercise.after || !exercise.answer
+    || !example?.meaning || exercise.before + exercise.answer + exercise.after !== example.japanese
+    || !Array.isArray(exercise.distractors) || exercise.distractors.length !== 3
+    || exercise.distractors.some((value) => typeof value !== 'string' || !value.trim())
+    || new Set([exercise.answer, ...exercise.distractors]).size !== 4) return null
+
+  return {
+    id: `grammar:${item.id}:sentence_completion:${exercise.id}`,
+    type: 'sentence_completion',
+    source: { module: 'grammar', itemId: item.id },
+    instruction: `Lengkapi kalimat sesuai arti: ${example.meaning}`,
+    content: { kind: 'sentence', before: exercise.before, after: exercise.after, lang: 'ja' },
+    answer: { value: exercise.answer, acceptedValues: [exercise.answer] },
+    options: buildOptions(
+      { value: exercise.answer, label: exercise.answer, lang: 'ja' },
+      exercise.distractors.map((value) => ({ value, label: value, lang: 'ja' })),
+      rng,
+    ),
+  }
+}
+
+function createSentenceCompletionQuestion({ item, distractors, completionIndex, rng }) {
+  if (Array.isArray(item.completionExercises)) {
+    return createCuratedCompletion({ item, completionIndex, rng })
+  }
   const token = getParticleToken(item)
   if (!token) return null
 
@@ -48,7 +75,9 @@ function createSentenceCompletionQuestion({ item, distractors, rng }) {
     id: `grammar:${item.id}:sentence_completion`,
     type: 'sentence_completion',
     source: { module: 'grammar', itemId: item.id },
-    instruction: 'Pilih partikel yang tepat.',
+    instruction: example.meaning
+      ? `Pilih partikel sesuai arti: ${example.meaning}`
+      : 'Pilih partikel yang tepat.',
     content: {
       kind: 'sentence',
       before: example.japanese.slice(0, tokenIndex),
@@ -69,10 +98,11 @@ export function createGrammarQuestion({
   type,
   truthItem,
   distractors = [],
+  completionIndex = 0,
   rng = Math.random,
 } = {}) {
   if (!item || !supportedTypes.has(type)) return null
 
   if (type === 'recognition') return createRecognitionQuestion({ item, truthItem, rng })
-  return createSentenceCompletionQuestion({ item, distractors, rng })
+  return createSentenceCompletionQuestion({ item, distractors, completionIndex, rng })
 }

@@ -1091,4 +1091,6 @@ The Kanji stage provides 60 curated beginner characters, preserves the original 
 
 Added Kanji readings and stroke counts must be checked against a documented reference and retain its attribution and licence.
 
-Grammar expansion remains a separate subsequent stage.
+The Grammar stage provides 30 curated beginner patterns, preserves the original 12 records, and includes two complete contextual examples for each addition.
+
+Added patterns supply 36 curated sentence-completion variations with explicit gaps, distinct choices, and Indonesian meaning hints. Grammar-only 10, 20, and 30-question completion sessions must work through the shared quiz engine while preserving parent learning-item references.

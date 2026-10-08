@@ -21,11 +21,11 @@ describe('Grammar learning', () => {
     )
   })
 
-  it('shows the 12-pattern Grammar index', () => {
+  it('shows the 30-pattern Grammar index', () => {
     renderRoute('/learn/grammar')
 
     expect(screen.getByRole('heading', { name: 'Grammar', level: 1 })).toBeVisible()
-    expect(screen.getByText('12 patterns')).toBeVisible()
+    expect(screen.getByText('30 patterns')).toBeVisible()
     expect(screen.getByRole('link', { name: 'Study ～です — adalah; menyatakan identitas atau keadaan dengan sopan' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Study ～たいです — ingin melakukan sesuatu' })).toBeVisible()
   })
@@ -37,7 +37,7 @@ describe('Grammar learning', () => {
       target: { value: 'N5' },
     })
 
-    expect(screen.getAllByRole('link', { name: /^Study / })).toHaveLength(12)
+    expect(screen.getAllByRole('link', { name: /^Study / })).toHaveLength(30)
   })
 
   it('shows Grammar details, examples, and related links', () => {
@@ -63,6 +63,16 @@ describe('Grammar learning', () => {
     expect(screen.getByRole('group', { name: 'Noun + ではありません' })).toBeVisible()
     expect(screen.getByText('ではありません')).toHaveAttribute('lang', 'ja')
     expect(screen.getByText('ではありません')).toHaveClass('font-japanese')
+  })
+
+  it('shows an expanded pattern and its complete context', () => {
+    renderRoute('/learn/grammar/n5-grammar-022')
+    expect(screen.getByRole('heading', { name: '～てください', level: 1 })).toBeVisible()
+    expect(screen.getByText('この本を読んでください。')).toBeVisible()
+    expect(screen.getByText('このほんをよんでください。')).toBeVisible()
+    expect(screen.getByText('Tolong baca buku ini.')).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Open grammar ～ないでください' }))
+      .toHaveAttribute('href', '/learn/grammar/n5-grammar-026')
   })
 
   it('shows safe recovery for an invalid Grammar ID', () => {

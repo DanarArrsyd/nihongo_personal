@@ -26,7 +26,7 @@ export default function GrammarPage() {
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span lang="ja" className="study-seal" aria-hidden="true">文法</span>
-            <Badge variant="accent">Curated JLPT N5 seed</Badge>
+            <Badge variant="accent">Curated JLPT N5 collection</Badge>
           </div>
           <h1 className="text-4xl font-semibold tracking-[-0.04em] text-ink sm:text-5xl">Grammar</h1>
           <p className="mt-3 max-w-2xl leading-7 text-ink-muted">

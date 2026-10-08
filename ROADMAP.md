@@ -840,9 +840,15 @@ Resolve vocabulary connections dynamically from the 100-word catalogue and show 
 
 Document KANJIDIC2 attribution and validate catalogue, legacy compatibility, and practice integrations.
 
-Stage 3 — Grammar (not implemented):
+Stage 3 — Grammar (implemented locally):
 
-Expand grammar patterns and sentence-completion variations.
+30 curated beginner patterns, preserving the original 12 records and their IDs.
+
+36 additional curated sentence-completion variations with Indonesian meaning hints, explicit gaps, and reviewed distractors.
+
+Reuse the shared catalogue and quiz engine in Learn, Library, Flashcards, Mixed Quiz, and SRS; support Grammar-only 10, 20, and 30-question completion sessions.
+
+Document editorial conventions and validate schema, legacy compatibility, relationships, examples, and integrations.
 
 ---
 
