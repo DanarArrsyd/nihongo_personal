@@ -10,10 +10,11 @@ Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
 - Dashboard with structured study overview data
 - Complete shared Hiragana and Katakana learning architecture
 - Kana recognition, reverse-recognition, and typing practice
-- JLPT N5 vocabulary seed set with 30 structured entries
+- Curated N5 vocabulary collection with 100 structured entries and Indonesian meanings
 - Vocabulary search, word-type and learning-status filters
 - Vocabulary details, example sentences, pronunciation, favorites, and persisted learning status
-- JLPT N5 Kanji and Grammar reference modules
+- Curated beginner Kanji collection with 60 characters, vocabulary links, and contextual examples
+- Curated beginner Grammar collection with 30 patterns and 36 additional sentence-completion variations
 - Configurable 10, 20, or 30-question Mixed Quiz with module/type filters and smart randomization
 - Vocabulary, Kanji, and Grammar flashcards
 - IndexedDB learning history, favorites, settings, progress, and study sessions
@@ -28,6 +29,12 @@ Production: [nihongopersonal.vercel.app](https://nihongopersonal.vercel.app)
 User progress stays in local IndexedDB on the current browser. Cloud synchronization is outside Version 1 scope.
 
 Kana writing uses locally bundled stroke-order data from KanjiVG. Attribution and licence details are available in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+Vocabulary selection and editorial conventions are documented in [`src/data/vocabulary/CONTENT_NOTES.md`](src/data/vocabulary/CONTENT_NOTES.md). This is a curated beginner collection, not a complete official JLPT syllabus.
+
+Kanji references and editorial conventions are documented in [`src/data/kanji/CONTENT_NOTES.md`](src/data/kanji/CONTENT_NOTES.md). Added Kanji readings and stroke counts use KANJIDIC2; attribution and licence details are in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+Grammar editorial conventions and exercise rules are documented in [`src/data/grammar/CONTENT_NOTES.md`](src/data/grammar/CONTENT_NOTES.md). Existing Grammar item IDs remain unchanged.
 
 ## Technology
 

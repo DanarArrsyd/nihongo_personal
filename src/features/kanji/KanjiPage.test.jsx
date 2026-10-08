@@ -20,13 +20,32 @@ describe('Kanji learning', () => {
     )
   })
 
-  it('shows the 20-character Kanji index', () => {
+  it('shows the 60-character Kanji index', () => {
     renderRoute('/learn/kanji')
 
     expect(screen.getByRole('heading', { name: 'Kanji', level: 1 })).toBeVisible()
-    expect(screen.getByText('20 characters')).toBeVisible()
+    expect(screen.getByText('60 characters')).toBeVisible()
     expect(screen.getByRole('link', { name: 'Study 食 — makan' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Study 日 — hari' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Study 八 — delapan' })).toBeVisible()
+  })
+
+  it('shows added Kanji with linked vocabulary and contextual examples', () => {
+    renderRoute('/learn/kanji/n5-kanji-027')
+    expect(screen.getByRole('heading', { name: '車', level: 1 })).toBeVisible()
+    expect(screen.getByText('7 strokes')).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Open vocabulary 自転車' }))
+      .toHaveAttribute('href', '/learn/vocabulary/n5-vocab-072')
+    expect(screen.getByRole('heading', { name: 'Kanji in context' })).toBeVisible()
+    expect(screen.getByText('電車で学校へ行きます。')).toBeVisible()
+  })
+
+  it('shows standalone examples when no vocabulary entry contains the Kanji', () => {
+    renderRoute('/learn/kanji/n5-kanji-060')
+    expect(screen.getByRole('heading', { name: '八', level: 1 })).toBeVisible()
+    expect(screen.getByText('八時に学校へ行きます。')).toBeVisible()
+    expect(screen.getByText('はちじにがっこうへいきます。')).toBeVisible()
+    expect(screen.getByText('Saya pergi ke sekolah pukul delapan.')).toBeVisible()
   })
 
   it('shows Kanji details and related vocabulary links', () => {

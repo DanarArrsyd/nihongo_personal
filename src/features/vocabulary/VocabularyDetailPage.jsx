@@ -19,7 +19,7 @@ export default function VocabularyDetailPage() {
       <div className="page-frame">
         <p className="text-sm font-semibold tracking-[0.14em] text-accent uppercase">404 / Vocabulary</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-[-0.04em]">Vocabulary not found</h1>
-        <p className="mt-4 text-ink-muted">This word is not part of the current N5 seed set.</p>
+        <p className="mt-4 text-ink-muted">This word is not part of the current N5 collection.</p>
         <Link to="/learn/vocabulary" className="mt-7 inline-flex min-h-11 items-center gap-2 rounded-xl bg-ink px-4 py-3 text-sm font-semibold text-white">
           <ArrowLeft size={17} aria-hidden="true" /> Back to Vocabulary
         </Link>

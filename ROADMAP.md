@@ -814,6 +814,44 @@ This milestone does not add new curriculum records or future practice modules.
 
 ---
 
+# V1.4 — N5 CONTENT EXPANSION
+
+Goal:
+
+Expand the beginner curriculum in small, validated batches without changing existing learning-item identities.
+
+Stage 1 — Vocabulary (implemented locally):
+
+100 curated N5 vocabulary entries with readings, romaji, Indonesian meanings, and example sentences.
+
+Preserve the original 30 entries and their IDs.
+
+Reuse the shared catalogue in Learn, Library, Flashcards, Mixed Quiz, and SRS review cards.
+
+Document content references and validate schema, uniqueness, legacy compatibility, and integrations.
+
+Stage 2 — Kanji (implemented locally):
+
+60 curated beginner Kanji with verified readings and stroke counts.
+
+Preserve all original 20 records and their IDs.
+
+Resolve vocabulary connections dynamically from the 100-word catalogue and show contextual example sentences.
+
+Document KANJIDIC2 attribution and validate catalogue, legacy compatibility, and practice integrations.
+
+Stage 3 — Grammar (implemented locally):
+
+30 curated beginner patterns, preserving the original 12 records and their IDs.
+
+36 additional curated sentence-completion variations with Indonesian meaning hints, explicit gaps, and reviewed distractors.
+
+Reuse the shared catalogue and quiz engine in Learn, Library, Flashcards, Mixed Quiz, and SRS; support Grammar-only 10, 20, and 30-question completion sessions.
+
+Document editorial conventions and validate schema, legacy compatibility, relationships, examples, and integrations.
+
+---
+
 # FUTURE V2
 
 Sentence Builder

@@ -3,7 +3,9 @@ import { Link, useParams } from 'react-router-dom'
 import Badge from '../../components/ui/Badge'
 import Card from '../../components/ui/Card'
 import RelatedVocabulary from './components/RelatedVocabulary'
-import { getKanjiById, getRelatedVocabulary } from './services/kanjiData'
+import KanjiExamples from './components/KanjiExamples'
+import KanjiDataNotice from './components/KanjiDataNotice'
+import { getKanjiById, getKanjiExamples, getRelatedVocabulary } from './services/kanjiData'
 
 function ReadingList({ items }) {
   if (items.length === 0) return <span aria-label="No reading">—</span>
@@ -27,7 +29,7 @@ export default function KanjiDetailPage() {
           Kanji not found
         </h1>
         <p className="mt-4 max-w-md leading-7 text-ink-muted">
-          This character is not part of the current beginner seed set.
+          This character is not part of the current beginner collection.
         </p>
         <Link
           to="/learn/kanji"
@@ -40,6 +42,7 @@ export default function KanjiDetailPage() {
   }
 
   const relatedVocabulary = getRelatedVocabulary(item)
+  const examples = getKanjiExamples(item)
 
   return (
     <div className="page-frame max-w-7xl">
@@ -54,7 +57,7 @@ export default function KanjiDetailPage() {
         <Card className="overflow-hidden p-0 sm:p-0">
           <div className="kanji-specimen-grid relative grid min-h-80 place-items-center sm:min-h-[30rem]">
             <div className="absolute top-5 left-5">
-              <Badge variant="accent">{item.jlpt} seed</Badge>
+              <Badge variant="accent">{item.jlpt}</Badge>
             </div>
             <h1
               lang="ja"
@@ -74,7 +77,7 @@ export default function KanjiDetailPage() {
               Character record
             </p>
             <p className="mt-2 text-sm leading-6 text-ink-muted">
-              Readings shown here prioritize this beginner seed set.
+              Readings shown here prioritize this beginner collection.
             </p>
 
             <dl className="mt-7 divide-y divide-border border-y border-border">
@@ -98,7 +101,7 @@ export default function KanjiDetailPage() {
               </div>
               <div className="grid gap-2 py-5 sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-baseline">
                 <dt className="text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">Level</dt>
-                <dd className="font-semibold text-ink">JLPT {item.jlpt} curated seed</dd>
+                <dd className="font-semibold text-ink">JLPT {item.jlpt} curated collection</dd>
               </div>
             </dl>
           </Card>
@@ -119,8 +122,14 @@ export default function KanjiDetailPage() {
             </div>
             <RelatedVocabulary items={relatedVocabulary} />
           </Card>
+          {examples.length > 0 && (
+            <Card className="p-6 sm:p-8">
+              <KanjiExamples examples={examples} />
+            </Card>
+          )}
         </div>
       </div>
+      <KanjiDataNotice />
     </div>
   )
 }

@@ -5,7 +5,7 @@ export default function RelatedVocabulary({ items }) {
   if (items.length === 0) {
     return (
       <p className="rounded-2xl border border-dashed border-border bg-paper p-5 text-sm leading-6 text-ink-muted">
-        No related vocabulary in this seed set yet.
+        Related words will appear here as the vocabulary collection grows.
       </p>
     )
   }

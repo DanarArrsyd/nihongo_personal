@@ -19,11 +19,13 @@ export default function RelatedGrammar({ items }) {
             aria-label={`Open grammar ${item.pattern}`}
             className="group flex min-h-24 items-center gap-4 rounded-2xl border border-border bg-paper p-4 transition hover:border-gold hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
-            <span lang="ja" className="font-japanese shrink-0 text-2xl font-semibold text-ink">
-              {item.pattern}
-            </span>
-            <span className="min-w-0 flex-1 break-words text-sm font-semibold leading-6 text-ink [overflow-wrap:anywhere]">
-              {item.meaning}
+            <span className="min-w-0 flex-1">
+              <span lang="ja" className="font-japanese block break-words text-xl font-semibold leading-relaxed text-ink [overflow-wrap:anywhere]">
+                {item.pattern}
+              </span>
+              <span className="mt-2 block break-words text-sm font-semibold leading-6 text-ink-muted [overflow-wrap:anywhere]">
+                {item.meaning}
+              </span>
             </span>
             <ArrowUpRight
               size={17}

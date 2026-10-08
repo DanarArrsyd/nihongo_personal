@@ -7,9 +7,9 @@ import {
 } from './grammarData'
 
 describe('grammarData', () => {
-  it('returns the 12-pattern curriculum in order', () => {
+  it('returns the 30-pattern curriculum in order', () => {
     const grammar = getGrammar()
-    expect(grammar).toHaveLength(12)
+    expect(grammar).toHaveLength(30)
     expect(grammar[0].id).toBe('n5-grammar-001')
     expect(grammar[11].id).toBe('n5-grammar-012')
     expect(grammar.every((item) => item.examples.length >= 2)).toBe(true)
@@ -18,8 +18,8 @@ describe('grammarData', () => {
   it('derives levels and filters records', () => {
     const grammar = getGrammar()
     expect(getGrammarLevels()).toEqual(['N5'])
-    expect(filterGrammarByLevel(grammar, 'all')).toHaveLength(12)
-    expect(filterGrammarByLevel(grammar, 'N5')).toHaveLength(12)
+    expect(filterGrammarByLevel(grammar, 'all')).toHaveLength(30)
+    expect(filterGrammarByLevel(grammar, 'N5')).toHaveLength(30)
     expect(filterGrammarByLevel(grammar, 'N4')).toEqual([])
   })
 

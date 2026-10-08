@@ -44,7 +44,7 @@ export default function GrammarDetailPage() {
       <div className="mt-7 grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_19rem]">
         <div className="min-w-0 space-y-6">
           <Card className="p-6 sm:p-8">
-            <Badge variant="accent">{item.jlpt} curated seed</Badge>
+            <Badge variant="accent">{item.jlpt} curated collection</Badge>
             <h1 lang="ja" className="font-japanese mt-5 break-words text-4xl font-semibold tracking-[-0.04em] text-ink [overflow-wrap:anywhere] sm:text-6xl">
               {item.pattern}
             </h1>

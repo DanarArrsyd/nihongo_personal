@@ -43,9 +43,10 @@ describe('Vocabulary learning', () => {
     await renderRoute('/learn/vocabulary')
 
     expect(screen.getByRole('heading', { name: 'Vocabulary', level: 1 })).toBeVisible()
-    expect(screen.getByText('30 words')).toBeVisible()
+    expect(screen.getByText('100 words')).toBeVisible()
     expect(screen.getByRole('link', { name: 'Study 食べる' })).toBeVisible()
     expect(screen.getByRole('link', { name: 'Study 元気' })).toBeVisible()
+    expect(screen.getByRole('link', { name: 'Study 便利' })).toBeVisible()
   })
 
   it.each(['食べ', 'たべ', 'TABERU', 'makan'])(
@@ -69,7 +70,7 @@ describe('Vocabulary learning', () => {
       target: { value: 'adjective' },
     })
 
-    expect(screen.getByText('4 words')).toBeVisible()
+    expect(screen.getByText('16 words')).toBeVisible()
     expect(screen.getByRole('link', { name: 'Study 大きい' })).toBeVisible()
     expect(screen.queryByRole('link', { name: 'Study 食べる' })).not.toBeInTheDocument()
   })
@@ -83,7 +84,7 @@ describe('Vocabulary learning', () => {
 
     expect(screen.getByRole('heading', { name: 'No vocabulary found' })).toBeVisible()
     fireEvent.click(screen.getByRole('button', { name: 'Clear filters' }))
-    expect(screen.getByText('30 words')).toBeVisible()
+    expect(screen.getByText('100 words')).toBeVisible()
   })
 
   it('shows vocabulary detail and example sentence', async () => {
@@ -95,6 +96,16 @@ describe('Vocabulary learning', () => {
     expect(screen.getByText('makan')).toBeVisible()
     expect(screen.getByText('私はパンを食べます。')).toBeVisible()
     expect(screen.getByText('Saya makan roti.')).toBeVisible()
+  })
+
+  it('opens an added word with its reading, meaning, and example', async () => {
+    await renderRoute('/learn/vocabulary/n5-vocab-100')
+    expect(screen.getByRole('heading', { name: '便利', level: 1 })).toBeVisible()
+    expect(screen.getByText('べんり')).toBeVisible()
+    expect(screen.getByText('benri')).toBeVisible()
+    expect(screen.getByText('praktis; mudah digunakan')).toBeVisible()
+    expect(screen.getByText('このかばんは便利です。')).toBeVisible()
+    expect(screen.getByRole('combobox', { name: 'Learning status' })).toHaveValue('new')
   })
 
   it('keeps favorite and learning status during route navigation', async () => {

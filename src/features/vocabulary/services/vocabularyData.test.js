@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { createHash } from 'node:crypto'
 import {
   filterVocabulary,
   getVocabulary,
@@ -7,10 +8,29 @@ import {
 } from './vocabularyData'
 
 describe('vocabulary data service', () => {
-  it('provides 30 structured N5 entries', () => {
+  it('preserves all original 30 entries for existing progress and backups', () => {
+    const originalEntries = getVocabulary().slice(0, 30)
+    expect(createHash('sha256').update(JSON.stringify(originalEntries)).digest('hex'))
+      .toBe('5631cd7e572ba68b5f2e22554439a72c91b630a65921d2fb44d1f356cf2c9d8c')
+  })
+
+  it('provides 100 complete, uniquely identified N5 entries', () => {
     const items = getVocabulary()
 
-    expect(items).toHaveLength(30)
+    expect(items).toHaveLength(100)
+    expect(new Set(items.map((item) => item.id)).size).toBe(100)
+    expect(new Set(items.map((item) => item.word)).size).toBe(100)
+    for (const item of items) {
+      for (const field of ['word', 'reading', 'romaji', 'meaning', 'type']) {
+        expect(item[field].trim().length).toBeGreaterThan(0)
+      }
+      expect(item.jlpt).toBe('N5')
+      expect(item.reading).toMatch(/^[ぁ-ゖァ-ヺー]+$/u)
+      expect(item.examples[0].japanese).toMatch(/[ぁ-ゖァ-ヺ一-龯]/u)
+      for (const value of Object.values(item.examples[0])) {
+        expect(value.trim().length).toBeGreaterThan(0)
+      }
+    }
     expect(items[0]).toMatchObject({
       id: 'n5-vocab-001',
       word: '食べる',
@@ -48,7 +68,7 @@ describe('vocabulary data service', () => {
       () => 'new',
     )
 
-    expect(results).toHaveLength(4)
+    expect(results).toHaveLength(16)
     expect(results.every((item) => item.type === 'adjective')).toBe(true)
   })
 

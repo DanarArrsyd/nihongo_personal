@@ -33,7 +33,7 @@ export default function VocabularyPage() {
         <div>
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span className="study-seal" aria-hidden="true">言葉</span>
-            <Badge variant="accent">JLPT N5 seed set</Badge>
+            <Badge variant="accent">JLPT N5 collection</Badge>
           </div>
           <h1 className="text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Vocabulary</h1>
           <p className="mt-3 max-w-2xl leading-7 text-ink-muted">Find a word, study its reading and meaning, then mark where it sits in your learning session.</p>
